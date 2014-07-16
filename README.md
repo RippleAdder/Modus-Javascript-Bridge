@@ -33,6 +33,26 @@ Simply include the adrJSBridge.js file and call any of the public methods.  See 
   * (function) function to be called on success
 * errorCallback
   * (function) function to be called on error
+  
+###sendEmailWithPDFAttachmentFromHTML
+  Sends an email via the platform's native mail application with a PDF attachment that is generated from the supplied HTML markup, also using base 64 encoding for the parameters
+  Support: iOS v1.7.9+
+
+#####Parameters
+* to
+  * (string) destination email address
+* cc
+  * (string) carbon copy email address
+* subject
+  * (string) subject of email
+* body
+  * (string) body of email
+* attachmentHTML
+  * (string) HTML to save as PDF and attach to email NOTE: this supports SVG
+* successCallback
+  * (function) function to be called on success
+* errorCallback
+  * (function) function to be called on error
 
 ###sendEmail  **_Deprecated in v1.7.9, use sendEmailEncoded instead_**
   Sends an email via the platform's native mail application

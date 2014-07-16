@@ -144,6 +144,12 @@ var adr = function() {
             else
                 API.sendEmail(to, cc, subject, body, successCallback, errorCallback);
         },
+        sendEmailWithPDFAttachmentFromHTML : function(to, cc, subject, body, attachmentHTML, successCallback, errorCallback) {
+            if(typeof useAPI === 'undefined')
+                _callNativeFunctionEncoded("sendEmailWithPDFAttachmentFromHTML", [to, cc, subject, _esc_quote(body), _esc_quote(attachmentHTML)], successCallback, errorCallback);
+            else
+                API.sendEmail(to, cc, subject, body, successCallback, errorCallback);
+        },
         getItem : function(key, successCallback, errorCallback) {
             if(typeof useAPI === 'undefined')
                 _callNativeFunction("getValue", [key], successCallback, errorCallback);
