@@ -180,6 +180,12 @@ var adr = function() {
             else
                 API.getCurrentUserName();
         }
+        getCurrentUserEmail : function(successCallback, errorCallback) {
+            if(typeof useAPI === 'undefined')
+                _callNativeFunction("getCurrentUserEmail", null, successCallback, errorCallback);
+            else
+                API.getCurrentUserEmail();
+        }
     };
 }();
 
