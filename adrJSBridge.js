@@ -174,6 +174,12 @@ var adr = function() {
             else
                 API.scanPDF417Barcode();
         },
+        captureLead : function(successCallback, errorCallback) {
+            if(typeof useAPI === 'undefined')
+                _callNativeFunction("captureLead", null, successCallback, errorCallback);
+            else
+                API.captureLead();
+        },
         getCurrentUserName : function(successCallback, errorCallback) {
             if(typeof useAPI === 'undefined')
                 _callNativeFunction("getCurrentUserName", null, successCallback, errorCallback);
