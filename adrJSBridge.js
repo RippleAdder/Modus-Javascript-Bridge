@@ -185,7 +185,7 @@ var adr = function() {
                 _callNativeFunction("getCurrentUserName", null, successCallback, errorCallback);
             else
                 API.getCurrentUserName();
-        }
+        },
         getCurrentUserEmail : function(successCallback, errorCallback) {
             if(typeof useAPI === 'undefined')
                 _callNativeFunction("getCurrentUserEmail", null, successCallback, errorCallback);
