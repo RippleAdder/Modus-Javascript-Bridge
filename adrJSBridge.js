@@ -191,6 +191,12 @@ var adr = function() {
                 _callNativeFunction("getCurrentUserEmail", null, successCallback, errorCallback);
             else
                 API.getCurrentUserEmail();
+        },
+        getCurrentUserRegions : function(successCallback, errorCallback) {
+            if(typeof useAPI === 'undefined')
+                _callNativeFunction("getCurrentUserRegions", null, successCallback, errorCallback);
+            else
+                API.getCurrentUserRegions();
         }
     };
 }();

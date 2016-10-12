@@ -62,6 +62,11 @@
             adr.getCurrentUserEmail(onSuccessBase64, onError);
         }
         
+        function getCurrentUserRegions()
+        {
+            adr.getCurrentUserRegions(onSuccessBase64, onError);
+        }
+        
         
 
         
@@ -111,7 +116,8 @@
 <button type="button" onclick="logAnalytics()">Log Event</button><br/>
 <button type="button" onclick="scanPDF417Barcode()">Scan PDF 417 barcode</button><br/>
 <button type="button" onclick="getCurrentUserName()">Get Current User Name</button><br/>
-    <button type="button" onclick="getCurrentUserEmail()">Get Current User Email</button><br/>
+<button type="button" onclick="getCurrentUserEmail()">Get Current User Email</button><br/>
+<button type="button" onclick="getCurrentUserRegions()">Get Current User Regions</button><br/>
 <a href="x-appdataroom:///media?mediaId=101814">Deep Link Test</a>
 <script src="adrJSBridge.js"></script>
 </body>
