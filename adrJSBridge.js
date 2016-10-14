@@ -45,9 +45,14 @@ var adr = function() {
         url += JSON.stringify(callInfo)
 
 
-        var iFrame = _createIFrame(url);
-        //remove the frame now
-        iFrame.parentNode.removeChild(iFrame);
+        if (typeof AndroidCall=='undefined'){
+             var iFrame = _createIFrame(url);
+            //remove the frame now
+            iFrame.parentNode.removeChild(iFrame);
+        }
+        else {
+            AndroidCall.callFromJS(url);
+        }
     };
     var _callNativeFunctionEncoded = function(functionName, args, successCallback, errorCallback) {
         var url = "adrJSBridge://";
@@ -87,9 +92,14 @@ var adr = function() {
         url += JSON.stringify(callInfo)
 
 
-        var iFrame = _createIFrame(url);
-        //remove the frame now
-        iFrame.parentNode.removeChild(iFrame);
+        if (typeof AndroidCall=='undefined'){
+             var iFrame = _createIFrame(url);
+            //remove the frame now
+            iFrame.parentNode.removeChild(iFrame);
+        }
+        else {
+            AndroidCall.callFromJS(url);
+        }
     };
     var _createCallbackFunction = function(funcName, callbackFunc) {
         if (callbackFunc && callbackFunc.name != null && callbackFunc.name.length > 0)
