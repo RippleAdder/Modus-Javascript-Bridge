@@ -10,7 +10,7 @@ var adr = function() {
         return ret;
     };
     var _callNativeFunction = function(functionName, args, successCallback, errorCallback) {
-        var url = "adrJSBridge://";
+        var url = "adrJSBridge://jsonbridge.com/";
 
         var callInfo = {};
         callInfo.functionname = functionName;
@@ -42,13 +42,15 @@ var adr = function() {
             callInfo.args = args;
         }
 
-        url += JSON.stringify(callInfo)
-
-
+        url += JSON.stringify(callInfo);
+        
         if (typeof AndroidCall=='undefined'){
-             var iFrame = _createIFrame(url);
+            var iFrame = _createIFrame(url);
+            console.log(iFrame);
             //remove the frame now
             iFrame.parentNode.removeChild(iFrame);
+            //console.log('https://'+url);
+            //window.location.href = 'www.google.com';//url;
         }
         else {
             AndroidCall.callFromJS(url);
@@ -93,9 +95,16 @@ var adr = function() {
 
 
         if (typeof AndroidCall=='undefined'){
-             var iFrame = _createIFrame(url);
+             //var iFrame = _createIFrame(url);
             //remove the frame now
-            iFrame.parentNode.removeChild(iFrame);
+            //iFrame.parentNode.removeChild(iFrame);
+            $.ajax({
+                url: "test.html",
+                context: document.body,
+                success: function(){
+                    $(this).addClass("done");
+                }
+            });
         }
         else {
             AndroidCall.callFromJS(url);
