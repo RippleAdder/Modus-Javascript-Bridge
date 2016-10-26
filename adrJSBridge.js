@@ -57,7 +57,7 @@ var adr = function() {
         }
     };
     var _callNativeFunctionEncoded = function(functionName, args, successCallback, errorCallback) {
-        var url = "adrJSBridge://";
+        var url = "adrJSBridge://jsonbridge.com/";
 
         var callInfo = {};
         callInfo.functionname = functionName;
@@ -95,16 +95,12 @@ var adr = function() {
 
 
         if (typeof AndroidCall=='undefined'){
-             //var iFrame = _createIFrame(url);
+            var iFrame = _createIFrame(url);
+            console.log(iFrame);
             //remove the frame now
-            //iFrame.parentNode.removeChild(iFrame);
-            $.ajax({
-                url: "test.html",
-                context: document.body,
-                success: function(){
-                    $(this).addClass("done");
-                }
-            });
+            iFrame.parentNode.removeChild(iFrame);
+            //console.log('https://'+url);
+            //window.location.href = 'www.google.com';//url;
         }
         else {
             AndroidCall.callFromJS(url);

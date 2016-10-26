@@ -9,6 +9,11 @@
         {
             adr.sendEmail("test@gmail.com", "", "test subject", "test body", onSuccess, onError);
         }
+        
+        function sendMailEncoded()
+        {
+            adr.sendEmailEncoded("test@gmail.com", "", "test subject", "test body", onSuccess, onError);
+        }
        
         function sendHTMLMail()
         {
