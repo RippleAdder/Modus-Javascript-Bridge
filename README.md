@@ -18,8 +18,12 @@ Simply include the adrJSBridge.js file and call any of the public methods.  See 
   
 ###sendEmailEncoded
   Sends an email via the platform's native mail application using base 64 encoding for the parameters
-  Support: iOS v1.7.9+
-
+  
+| Platforms     | Available     |
+| ------------- |:-------------:|
+| iOS           | 1.7.9+        |
+| Android       | 2.1.6+        |
+| Windows       | N/A           |
 #####Parameters
 * to
   * (string) destination email address
@@ -36,7 +40,12 @@ Simply include the adrJSBridge.js file and call any of the public methods.  See 
   
 ###sendEmailWithPDFAttachmentFromHTML
   Sends an email via the platform's native mail application with a PDF attachment that is generated from the supplied HTML markup, also using base 64 encoding for the parameters
-  Support: iOS v1.7.9+
+
+| Platforms     | Available     |
+| ------------- |:-------------:|
+| iOS           | 1.7.9+        |
+| Android       | N/A           |
+| Windows       | N/A           |
 
 #####Parameters
 * to
@@ -56,8 +65,12 @@ Simply include the adrJSBridge.js file and call any of the public methods.  See 
 
 ###sendEmail  **_Deprecated in v1.7.9, use sendEmailEncoded instead_**
   Sends an email via the platform's native mail application
-  Support: iOS v1.7.0+, Windows v1.1+
-
+  
+| Platforms     | Available     |
+| ------------- |:-------------:|
+| iOS           | 1.7.0+        |
+| Android       | 2.1.6+        |
+| Windows       | 1.1+          |
 #####Parameters
 * to
   * (string) destination email address
@@ -74,8 +87,12 @@ Simply include the adrJSBridge.js file and call any of the public methods.  See 
 
 ###getItem
   Gets a value for a specified key from the native local database
-  Support: iOS v1.7.0+
 
+| Platforms     | Available     |
+| ------------- |:-------------:|
+| iOS           | 1.7.0+        |
+| Android       | N/A           |
+| Windows       | N/A           |
 #####Parameters
 * key
   * (string) key to retrieve
@@ -87,8 +104,12 @@ Simply include the adrJSBridge.js file and call any of the public methods.  See 
 
 ###setItem
   Sets a value for a specified key to the native local database
-  Support: iOS v1.7.0+
 
+| Platforms     | Available     |
+| ------------- |:-------------:|
+| iOS           | 1.7.0+        |
+| Android       | N/A           |
+| Windows       | N/A           |
 #####Parameters
 * key
   * (string) key to store
@@ -102,8 +123,12 @@ Simply include the adrJSBridge.js file and call any of the public methods.  See 
 
 ###logEvent
   Logs an event to the App Data Room analytics engine, which will then be queued to be sent up to Media Manager when a connection is available
-  Support: iOS v1.7.0+
 
+| Platforms     | Available     |
+| ------------- |:-------------:|
+| iOS           | 1.7.0+        |
+| Android       | N/A           |
+| Windows       | N/A           |
 #####Parameters
 * object
   * (string) object parameter of event
@@ -119,8 +144,13 @@ Simply include the adrJSBridge.js file and call any of the public methods.  See 
 
 ###scanPDF417Barcode
   Scans a PDF 417 barcode and returns the text encoded in the barcode (encoded in base64)
-  Support: iOS v1.7.2+, Cat Sales 2.1 +
+  Support: Cat Sales 2.1 +
 
+| Platforms     | Available     |
+| ------------- |:-------------:|
+| iOS           | 1.7.2+        |
+| Android       | N/A           |
+| Windows       | N/A           |
 #####Parameters
 * successCallback
   * (function) function to be called on success
@@ -129,8 +159,13 @@ Simply include the adrJSBridge.js file and call any of the public methods.  See 
   
 ###captureLead
   Captures a lead and returns the scan string (encoded in base64)
-  Support: iOS v1.7.2+, Cat Sales 2.1 +
+  Support: Cat Sales 2.1 +
 
+| Platforms     | Available     |
+| ------------- |:-------------:|
+| iOS           | 1.7.2+        |
+| Android       | N/A           |
+| Windows       | N/A           |
 #####Parameters
 * successCallback
   * (function) function to be called on success
@@ -139,8 +174,13 @@ Simply include the adrJSBridge.js file and call any of the public methods.  See 
 
 ###getCurrentUserName
   Returns the currently logged in user's name (first and last) (encoded in base64)
-  Support: iOS v1.7.8+, Cat Sales 2.2 +
+  Support: Cat Sales 2.2 +
 
+| Platforms     | Available     |
+| ------------- |:-------------:|
+| iOS           | 1.7.8+        |
+| Android       | 2.1.6+        |
+| Windows       | N/A           |
 #####Parameters
 * successCallback
   * (function) function to be called on success
@@ -149,8 +189,13 @@ Simply include the adrJSBridge.js file and call any of the public methods.  See 
   
 ###getCurrentUserEmail
   Returns the currently logged in user's email (encoded in base64)
-  Support: iOS v2.6+, Cat Sales 2.3 +
-
+  Support: Cat Sales 2.3 +
+  
+| Platforms     | Available     |
+| ------------- |:-------------:|
+| iOS           | 2.6+          |
+| Android       | 2.1.6+        |
+| Windows       | N/A           |
 #####Parameters
 * successCallback
   * (function) function to be called on success
@@ -159,7 +204,12 @@ Simply include the adrJSBridge.js file and call any of the public methods.  See 
   
 ###getCurrentUserRegions
   Returns the currently logged in user's regions (encoded in base64)
-  Support: iOS v2.6.3+
+
+| Platforms     | Available     |
+| ------------- |:-------------:|
+| iOS           | 2.6.3+        |
+| Android       | 2.1.6+        |
+| Windows       | N/A           |
 
 #####Parameters
 * successCallback
