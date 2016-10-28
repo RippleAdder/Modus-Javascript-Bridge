@@ -123,17 +123,10 @@ var adr = function() {
         } else
         {
             var maxIndex = __functionIndexMap[funcName];
-            var callbackFuncStr = callbackFunc.toString();
-            for (var i = 0; i <= maxIndex; i++)
-            {
-                var tmpName = funcName + i;
-                if (window[tmpName].toString() == callbackFuncStr)
-                    return tmpName;
-            }
-
-            var newIndex = ++__functionIndexMap[funcName];
-            window[funcName+newIndex] = callbackFunc;
-            return funcName+newIndex;
+            var newIndex = maxIndex + 1;
+            var tmpName = funcName+newIndex;
+            window[tmpName] = callbackFunc;
+            return tmpName;
         }
     };
     var _createIFrame = function(src) {
