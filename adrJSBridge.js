@@ -158,6 +158,15 @@ var adr = function() {
             else
                 API.sendEmail(to, cc, subject, body, successCallback, errorCallback);
         },
+        sendEmailWithFileAttachmentFromBase64 : function(to, cc, subject, body, attachmentName, attachmentBase64, successCallback, errorCallback) {
+            var prefix = 'base64:';
+            var postfix = '//';
+            var attachmentString = prefix.concat(attachmentName).concat(postfix).concat(attachmentBase64);
+            if(typeof useAPI === 'undefined')
+                _callNativeFunctionEncoded("sendEmailWithFileAttachmentFromBase64", [to, cc, subject, _esc_quote(body),  _esc_quote(attachmentString)], successCallback, errorCallback);
+            else
+                API.sendEmail(to, cc, subject, body, successCallback, errorCallback);
+        },
         getItem : function(key, successCallback, errorCallback) {
             if(typeof useAPI === 'undefined')
                 _callNativeFunction("getValue", [key], successCallback, errorCallback);

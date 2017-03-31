@@ -62,6 +62,33 @@ Simply include the adrJSBridge.js file and call any of the public methods.  See 
   * (function) function to be called on success
 * errorCallback
   * (function) function to be called on error
+  
+###sendEmailWithFileAttachmentFromBase64
+  Sends an email via the platform's native mail application with a file attachment that is generated from the supplied base64 string representation of the file, also using base 64 encoding for the parameters.  The attached file will be named with the supplied string attachmentName, and this should include the extension (example: quote.pdf)
+
+| Platforms     | Available     |
+| ------------- |:-------------:|
+| iOS           | 3.1.2+        |
+| Android       | N/A           |
+| Windows       | N/A           |
+
+#####Parameters
+* to
+  * (string) destination email address
+* cc
+  * (string) carbon copy email address
+* subject
+  * (string) subject of email
+* body
+  * (string) body of email
+* attachmentName
+  * (string) file name of the attachment (you must include the extension)
+* attachmentBase64
+  * (string) Base 64 representation of the file you would like to attach
+* successCallback
+  * (function) function to be called on success
+* errorCallback
+  * (function) function to be called on error
 
 ###sendEmail  **_Deprecated in v1.7.9, use sendEmailEncoded instead_**
   Sends an email via the platform's native mail application
