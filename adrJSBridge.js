@@ -161,6 +161,10 @@ var adr = function() {
         sendEmailWithFileAttachmentFromBase64 : function(to, cc, subject, body, attachmentName, attachmentBase64, successCallback, errorCallback) {
             var prefix = 'base64:';
             var postfix = '//';
+             if (attachmentBase64.indexOf("/pdf;base64,") > (-1)) { // accommodate for pdfjs base64 files
+                var temp = attachmentBase64.split("/pdf;base64,");
+                attachmentBase64 = temp[1];
+            }
             var attachmentString = prefix.concat(attachmentName).concat(postfix).concat(attachmentBase64);
             if(typeof useAPI === 'undefined')
                 _callNativeFunctionEncoded("sendEmailWithFileAttachmentFromBase64", [to, cc, subject, _esc_quote(body),  _esc_quote(attachmentString)], successCallback, errorCallback);
