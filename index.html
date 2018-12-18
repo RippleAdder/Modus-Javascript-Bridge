@@ -1,8 +1,13 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
+        <link rel="stylesheet" href="css/bootstrap.min.css">
     <title></title>
-
+    <style>
+        .row{
+            margin:15px;
+        }
+    </style>
 
     <script>
         function sendMail()
@@ -115,21 +120,53 @@
     </script>
 </head>
 <body>
-<button type="button" onclick="sendMail()">Send email</button><br/>
-<button type="button" onclick="sendHTMLMail()">Send html email .</button><br/>
-<button type="button" onclick="sendHTMLMailEncoded()">Send html email encoded .</button><br/>
-<button type="button" onclick="sendAdvancedHTMLEmailEncoded()">Send advanced html email encoded .</button><br/>
-<button type="button" onclick="sendEmailWithPDFAttachmentFromHTML()">Send Email with PDF Attachment from HTML.</button><br/>
-<button type="button" onclick="sendEmailWithFileAttachmentFromBase64()">Send Email with Attachment from Base64.</button><br/>
-<button type="button" onclick="getStorageItem()">Get Storage</button><br/>
-<button type="button" onclick="setStorageItem()">Set Storage</button><br/>
-<button type="button" onclick="setComplexStorageItem()">Set Complex Storage</button><br/>
-<button type="button" onclick="logAnalytics()">Log Event</button><br/>
-<button type="button" onclick="scanPDF417Barcode()">Scan PDF 417 barcode</button><br/>
-<button type="button" onclick="getCurrentUserName()">Get Current User Name</button><br/>
-<button type="button" onclick="getCurrentUserEmail()">Get Current User Email</button><br/>
-<button type="button" onclick="getCurrentUserRegions()">Get Current User Regions</button><br/>
-<a href="x-appdataroom:///media?mediaId=101814">Deep Link Test</a>
+    <div class="container">
+        <div class="row">
+            <button class="btn btn-primary" type="button" onclick="sendMail()">Send email</button><br/>
+        </div>
+        <div class="row">
+            <button class="btn btn-primary" type="button" onclick="sendHTMLMail()">Send html email .</button><br/>
+        </div>
+        <div class="row">
+            <button class="btn btn-primary" type="button" onclick="sendHTMLMailEncoded()">Send html email encoded .</button><br/>
+        </div>
+        <div class="row">
+            <button class="btn btn-primary" type="button" onclick="sendAdvancedHTMLEmailEncoded()">Send advanced html email encoded .</button><br/>
+        </div>
+        <div class="row">
+            <button class="btn btn-primary" type="button" onclick="sendEmailWithPDFAttachmentFromHTML()">Send Email with PDF Attachment from HTML.</button><br/>
+        </div>
+        <div class="row">
+            <button class="btn btn-primary" type="button" onclick="sendEmailWithFileAttachmentFromBase64()">Send Email with Attachment from Base64.</button><br/>
+        </div>
+        <div class="row">
+            <button class="btn btn-primary" type="button" onclick="getStorageItem()">Get Storage</button><br/>
+        </div>
+        <div class="row">
+            <button class="btn btn-primary" type="button" onclick="setStorageItem()">Set Storage</button><br/>
+        </div>
+        <div class="row">
+            <button class="btn btn-primary" type="button" onclick="setComplexStorageItem()">Set Complex Storage</button><br/>
+        </div>
+        <div class="row">
+            <button class="btn btn-primary" type="button" onclick="logAnalytics()">Log Event</button><br/>
+        </div>
+        <div class="row">
+            <button class="btn btn-primary" type="button" onclick="scanPDF417Barcode()">Scan PDF 417 barcode</button><br/>
+        </div>
+        <div class="row">
+            <button class="btn btn-primary" type="button" onclick="getCurrentUserName()">Get Current User Name</button><br/>
+        </div>
+        <div class="row">
+            <button class="btn btn-primary" type="button" onclick="getCurrentUserEmail()">Get Current User Email</button><br/>
+        </div>
+        <div class="row">
+            <button class="btn btn-primary" type="button" onclick="getCurrentUserRegions()">Get Current User Regions</button><br/>
+        </div>
+        <div class="row">
+            <a href="x-appdataroom:///media?mediaId=101814">Deep Link Test</a>
+        </div>
+</div>
 <script src="adrJSBridge.js"></script>
 </body>
     
