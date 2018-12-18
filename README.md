@@ -250,3 +250,15 @@ Simply include the adrJSBridge.js file and call any of the public methods.  See 
   * (function) function to be called on success
 * errorCallback
   * (function) function to be called on error
+
+### reloadPage
+  Reloads the page
+
+| Platforms     | Available     |
+| ------------- |:-------------:|
+| iOS           | 4.1.7+        |
+| Android       | N/A           |
+| Windows       | N/A           |
+
+##### Parameters
+This method has no parameters.
