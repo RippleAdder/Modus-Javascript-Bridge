@@ -1,7 +1,7 @@
-AppDataRoom-Javascript-Bridge
+Modus-Javascript-Bridge
 =============================
 
-Javascript bridge that provides native functionality to web bundles running within App Data Room
+Javascript bridge that provides native functionality to web bundles running within Modus Communicate
 
 ##### Usage:
 
@@ -59,6 +59,31 @@ Simply include the adrJSBridge.js file and call any of the public methods.  See 
   * (string) body of email
 * attachmentHTML
   * (string) HTML to save as PDF and attach to email NOTE: this supports SVG
+* successCallback
+  * (function) function to be called on success
+* errorCallback
+  * (function) function to be called on error
+
+  ### sendEmailWithPDFAttachmentFromHTMLMultiPage
+  Sends an email via the platform's native mail application with a PDF attachment that is generated from the supplied array of HTML markup pages, also using base 64 encoding for the parameters
+
+| Platforms     | Available     |
+| ------------- |:-------------:|
+| iOS           | 4.3+          |
+| Android       | N/A           |
+| Windows       | N/A           |
+
+##### Parameters
+* to
+  * (string) destination email address
+* cc
+  * (string) carbon copy email address
+* subject
+  * (string) subject of email
+* body
+  * (string) body of email
+* attachmentHTMLPages
+  * (array) Array of HTML pages to save as PDF and attach to email NOTE: this supports SVG
 * successCallback
   * (function) function to be called on success
 * errorCallback

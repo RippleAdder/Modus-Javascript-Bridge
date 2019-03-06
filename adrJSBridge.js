@@ -5,7 +5,16 @@ var adr = function() {
         }
         var ret = [];
         args.forEach(function(arg, i) {
-           ret.push(Base64.encode(arg)); 
+            var parameter;
+            if(Array.isArray(arg)){
+                parameter = [];
+                arg.forEach(function(subArg, i){
+                    parameter.push( Base64.encode(subArg));
+                });
+            }else{
+                parameter = Base64.encode(arg);
+            }
+           ret.push(parameter); 
         });
         return ret;
     };
@@ -157,6 +166,10 @@ var adr = function() {
                 _callNativeFunctionEncoded("sendEmailWithPDFAttachmentFromHTML", [to, cc, subject, _esc_quote(body), _esc_quote(attachmentHTML)], successCallback, errorCallback);
             else
                 API.sendEmail(to, cc, subject, body, successCallback, errorCallback);
+        },
+        sendEmailWithPDFAttachmentFromHTMLMultiPage : function(to, cc, subject, body, attachmentHTML, successCallback, errorCallback) {
+            if(typeof useAPI === 'undefined')
+                _callNativeFunctionEncoded("sendEmailWithPDFAttachmentFromHTMLMultiPage", [to, cc, subject, body, attachmentHTML], successCallback, errorCallback);
         },
         sendEmailWithFileAttachmentFromBase64 : function(to, cc, subject, body, attachmentName, attachmentBase64, successCallback, errorCallback) {
             var prefix = 'base64:';
