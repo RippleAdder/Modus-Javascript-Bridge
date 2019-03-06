@@ -64,7 +64,7 @@ Simply include the adrJSBridge.js file and call any of the public methods.  See 
 * errorCallback
   * (function) function to be called on error
 
-  ### sendEmailWithPDFAttachmentFromHTMLMultiPage
+### sendEmailWithPDFAttachmentFromHTMLMultiPage
   Sends an email via the platform's native mail application with a PDF attachment that is generated from the supplied array of HTML markup pages, also using base 64 encoding for the parameters
 
 | Platforms     | Available     |
