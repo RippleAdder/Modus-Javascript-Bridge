@@ -196,6 +196,14 @@ var adr = function() {
             else
                 API.setItem(key, value, successCallback, errorCallback);
         },
+        getGlobalItem : function(key, successCallback, errorCallback) {
+            if(typeof useAPI === 'undefined')
+                _callNativeFunction("getValueGlobal", [key], successCallback, errorCallback);
+        },
+        setGlobalItem : function(key, value, successCallback, errorCallback) {
+            if(typeof useAPI === 'undefined')
+                _callNativeFunction("setValueGlobal", [key, value], successCallback, errorCallback);
+        },
         logEvent : function(object, action, additionalParams, successCallback, errorCallback) {
             if(typeof useAPI === 'undefined')
                 _callNativeFunction("logEvent", [object, action, additionalParams], successCallback, errorCallback);
