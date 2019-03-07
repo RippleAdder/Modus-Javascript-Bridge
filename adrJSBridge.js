@@ -231,6 +231,10 @@ var adr = function() {
                 _callNativeFunction("getCurrentUserRegions", null, successCallback, errorCallback);
             else
                 API.getCurrentUserRegions();
+        },
+        asyncHttpRequest : function(url, verb, headers, body, successCallback, errorCallback) {
+            if(typeof useAPI === 'undefined')
+                _callNativeFunctionEncoded("asyncHttpRequest", [url, verb, headers, body], successCallback, errorCallback);
         }
     };
 }();

@@ -287,3 +287,26 @@ Simply include the adrJSBridge.js file and call any of the public methods.  See 
 
 ##### Parameters
 This method has no parameters.
+
+### asyncHttpRequest
+  Queues an http request in the mobile app's local database to be run when the app next has an available network connection.  The app will retry a number of times and / or for a period of time in the event of a failure.  You can provide a success and error callback function, but these functions only indicate the success or error of the request being parsed by the mobile app and placed into the database for future processing.  The success or error callback functions do not indicate success or error of the actual HTTP request.  Note:  The request may end up firing at a much later date in the future (when the device is next online).  In essence, you are firing off this request "blind" and your application must not depend on the outcome of this request.  Example use cases include posting results of a quiz, or posting custom analytics data to a third party provider.
+
+| Platforms     | Available     |
+| ------------- |:-------------:|
+| iOS           | 4.3+          |
+| Android       | N/A           |
+| Windows       | N/A           |
+
+##### Parameters
+* url
+  * (string) url to send the http request to
+* verb
+  * (string) http verb to use in this request.  Acceptable values:  POST, GET, PUT, DELETE
+* headers
+  * (dictionary) key value pairs of additional headers.  example: { name: "John", time: "2pm" }
+* body
+  * (dictionary) body to post.  example: { color: "Red", fruit: "Apple" }
+* successCallback
+  * (function) function to be called on success
+* errorCallback
+  * (function) function to be called on error
