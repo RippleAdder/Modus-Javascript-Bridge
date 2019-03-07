@@ -234,7 +234,7 @@ var adr = function() {
         },
         asyncHttpRequest : function(url, verb, headers, body, successCallback, errorCallback) {
             if(typeof useAPI === 'undefined')
-                _callNativeFunctionEncoded("asyncHttpRequest", [url, verb, headers, body], successCallback, errorCallback);
+                _callNativeFunction("asyncHttpRequest", [url, verb, headers, body], successCallback, errorCallback);
         }
     };
 }();

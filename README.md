@@ -303,9 +303,9 @@ This method has no parameters.
 * verb
   * (string) http verb to use in this request.  Acceptable values:  POST, GET, PUT, DELETE
 * headers
-  * (dictionary) key value pairs of additional headers.  example: { name: "John", time: "2pm" }
+  * (dictionary) key value pairs of additional headers.  example: { name: 'John', time: '2pm' }
 * body
-  * (dictionary) body to post.  example: { color: "Red", fruit: "Apple" }
+  * (dictionary) body to post.  example: { color: 'Red', fruit: 'Apple' }
 * successCallback
   * (function) function to be called on success
 * errorCallback
