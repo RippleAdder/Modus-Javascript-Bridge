@@ -176,7 +176,42 @@ Simply include the adrJSBridge.js file and call any of the public methods.  See 
 * errorCallback
   * (function) function to be called on error
 
+### getGlobalItem
+  Gets a value for a specified key from the native local database
 
+| Platforms     | Available     |
+| ------------- |:-------------:|
+| iOS           | 1.7.0+        |
+| Android       | N/A           |
+| Windows       | N/A       |
+
+##### Parameters
+* key
+  * (string) key to retrieve
+* successCallback
+  * (function) function to be called on success
+* errorCallback
+  * (function) function to be called on error
+
+### setGlobalItem
+  Sets a value for a specified key to the native local database
+
+| Platforms     | Available     |
+| ------------- |:-------------:|
+| iOS           | 1.7.0+        |
+| Android       | N/A           |
+| Windows       | N/A       |
+
+##### Parameters
+* key
+  * (string) key to store
+* value
+  * (string) value to store
+* successCallback
+  * (function) function to be called on success
+* errorCallback
+  * (function) function to be called on error
+  
 ### logEvent
   Logs an event to the App Data Room analytics engine, which will then be queued to be sent up to Media Manager when a connection is available
 
