@@ -182,6 +182,9 @@ var adr = function() {
         getCurrentUserRegions: function(successCallback, errorCallback) {
             _callNativeFunction("getCurrentUserRegions", null, successCallback, errorCallback);
         },
+        getAgendas: function(successCallback, errorCallback) {
+            _callNativeFunction("getAgendas", null, successCallback, errorCallback);
+        },
         asyncHttpRequest: function(url, verb, headers, body, successCallback, errorCallback) {
             _callNativeFunction("asyncHttpRequest", [url, verb, headers, body], successCallback, errorCallback);
         }

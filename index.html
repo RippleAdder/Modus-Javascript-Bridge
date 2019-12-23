@@ -95,6 +95,11 @@
             adr.getCurrentUserRegions(onSuccessBase64, onError);
         }
 
+        function getAgendas()
+        {
+            adr.getAgendas(onSuccessBase64, onError);
+        }
+
         function asyncHttpRequest()
         {
 
@@ -190,6 +195,9 @@
         </div>
         <div class="row">
             <button class="btn btn-primary" type="button" onclick="getCurrentUserRegions()">Get Current User Regions</button><br/>
+        </div>
+        <div class="row">
+            <button class="btn btn-primary" type="button" onclick="getAgendas()">Get Agendas</button><br/>
         </div>
         <div class="row">
             <button class="btn btn-primary" type="button" onclick="asyncHttpRequest()">Asynchronous Request</button><br/>

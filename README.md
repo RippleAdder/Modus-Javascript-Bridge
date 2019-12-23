@@ -311,6 +311,21 @@ Simply include the adrJSBridge.js file and call any of the public methods.  See 
 * errorCallback
   * (function) function to be called on error
 
+### getAgendas
+  Returns the list of agendas (both local and shared) present in the app for this user.  Json response will contain an array of agenda objects, each agenda object will have a property titled "agendaId" with an integer id and a property titled "agendaTitle" with a string name.
+
+| Platforms     | Available     |
+| ------------- |:-------------:|
+| iOS           | 5.0+          |
+| Android       | N/A           |
+| Windows       | N/A           |
+
+##### Parameters
+* successCallback
+  * (function) function to be called on success
+* errorCallback
+  * (function) function to be called on error
+
 ### reloadPage
   Reloads the page
 
