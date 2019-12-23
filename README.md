@@ -326,6 +326,25 @@ Simply include the adrJSBridge.js file and call any of the public methods.  See 
 * errorCallback
   * (function) function to be called on error
 
+### sendAgenda
+  Send the media contents of an agenda to a specified email address
+
+| Platforms     | Available     |
+| ------------- |:-------------:|
+| iOS           | 5.0.0+        |
+| Android       | N/A           |
+| Windows       | N/A           |
+
+##### Parameters
+* agendaId
+  * (int) id of the agenda to send (typically sourced from the getAgendas call above)
+* destinationEmail
+  * (string) email address to send the content to (optional)
+* successCallback
+  * (function) function to be called on success
+* errorCallback
+  * (function) function to be called on error
+
 ### reloadPage
   Reloads the page
 

@@ -185,6 +185,9 @@ var adr = function() {
         getAgendas: function(successCallback, errorCallback) {
             _callNativeFunction("getAgendas", null, successCallback, errorCallback);
         },
+        sendAgenda: function(agendaId, emailAddress, successCallback, errorCallback) {
+            _callNativeFunction("sendAgenda", [agendaId, emailAddress], successCallback, errorCallback);
+        },
         asyncHttpRequest: function(url, verb, headers, body, successCallback, errorCallback) {
             _callNativeFunction("asyncHttpRequest", [url, verb, headers, body], successCallback, errorCallback);
         }

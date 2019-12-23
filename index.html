@@ -106,7 +106,12 @@
             adr.asyncHttpRequest("https://ptsv2.com/t/7xh2y-1551975478/post", "POST", null, {"firstName":"John", "lastName":"Doe"}, onSuccessBase64, onError);
         }
         
-        
+        function sendAgenda()
+        {
+            var agendaId = document.getElementById("txtAgendaId").value;
+            var emailAddress = document.getElementById("txtEmailAddress").value;
+            adr.sendAgenda(agendaId, emailAddress, onSuccessBase64, onError);
+        }
 
         
         
@@ -198,6 +203,11 @@
         </div>
         <div class="row">
             <button class="btn btn-primary" type="button" onclick="getAgendas()">Get Agendas</button><br/>
+        </div>
+        <div class="row">
+            <input type="text" name="txtAgendaId" id="txtAgendaId"><br/>
+            <input type="text" name="txtEmailAddress" id="txtEmailAddress"><br/>
+            <button class="btn btn-primary" type="button" onclick="sendAgenda()">Send Agenda</button><br/>
         </div>
         <div class="row">
             <button class="btn btn-primary" type="button" onclick="asyncHttpRequest()">Asynchronous Request</button><br/>
