@@ -1,20 +1,20 @@
 var adr = function() {
     var _massageArgsJsToNative = function(args) {
-        if (!args) {
+        if (!args){
             return args;
         }
         var ret = [];
         args.forEach(function(arg, i) {
             var parameter;
-            if (Array.isArray(arg)) {
+            if(Array.isArray(arg)){
                 parameter = [];
-                arg.forEach(function(subArg, i) {
-                    parameter.push(Base64.encode(subArg));
+                arg.forEach(function(subArg, i){
+                    parameter.push( Base64.encode(subArg));
                 });
-            } else {
+            }else{
                 parameter = Base64.encode(arg);
             }
-            ret.push(parameter);
+           ret.push(parameter); 
         });
         return ret;
     };
@@ -24,36 +24,44 @@ var adr = function() {
         var callInfo = {};
         callInfo.functionname = functionName;
 
-        if (successCallback) {
-            if (typeof successCallback == 'function') {
+        if (successCallback)
+        {
+            if (typeof successCallback == 'function')
+            {
                 var callbackFuncName = _createCallbackFunction(functionName + "_" + "successCallback", successCallback);
                 callInfo.success = callbackFuncName;
-            } else
+            }
+            else
                 callInfo.success = successCallback;
         }
 
-        if (errorCallback) {
-            if (typeof errorCallback == 'function') {
+        if (errorCallback)
+        {
+            if (typeof errorCallback == 'function')
+            {
                 var callbackFuncName = _createCallbackFunction(functionName + "_" + "errorCallback", errorCallback);
                 callInfo.error = callbackFuncName;
-            } else
+            }
+            else
                 callInfo.error = errorCallback;
         }
 
-        if (args) {
+        if (args)
+        {
             callInfo.args = args;
         }
 
         url += JSON.stringify(callInfo);
-
-        if (typeof AndroidCall == 'undefined') {
+        
+        if (typeof AndroidCall=='undefined'){
             var iFrame = _createIFrame(url);
             console.log(iFrame);
             //remove the frame now
             iFrame.parentNode.removeChild(iFrame);
             //console.log('https://'+url);
             //window.location.href = 'www.google.com';//url;
-        } else {
+        }
+        else {
             AndroidCall.callFromJS(url);
         }
     };
@@ -63,58 +71,69 @@ var adr = function() {
         var callInfo = {};
         callInfo.functionname = functionName;
 
-        if (successCallback) {
-            if (typeof successCallback == 'function') {
+        if (successCallback)
+        {
+            if (typeof successCallback == 'function')
+            {
                 var callbackFuncName = _createCallbackFunction(functionName + "_" + "successCallback", successCallback);
                 callInfo.success = callbackFuncName;
-            } else
+            }
+            else
                 callInfo.success = successCallback;
         }
 
-        if (errorCallback) {
-            if (typeof errorCallback == 'function') {
+        if (errorCallback)
+        {
+            if (typeof errorCallback == 'function')
+            {
                 var callbackFuncName = _createCallbackFunction(functionName + "_" + "errorCallback", errorCallback);
                 callInfo.error = callbackFuncName;
-            } else
+            }
+            else
                 callInfo.error = errorCallback;
         }
-
+        
         callInfo.encoded = true;
 
-        if (args) {
+        if (args)
+        {
             callInfo.args = _massageArgsJsToNative(args);
         }
 
         url += JSON.stringify(callInfo)
 
 
-        if (typeof AndroidCall == 'undefined') {
+        if (typeof AndroidCall=='undefined'){
             var iFrame = _createIFrame(url);
             console.log(iFrame);
             //remove the frame now
             iFrame.parentNode.removeChild(iFrame);
             //console.log('https://'+url);
             //window.location.href = 'www.google.com';//url;
-        } else {
+        }
+        else {
             AndroidCall.callFromJS(url);
         }
     };
     var _createCallbackFunction = function(funcName, callbackFunc) {
-        if (callbackFunc && callbackFunc.name != null && callbackFunc.name.length > 0) {
+        if (callbackFunc && callbackFunc.name != null && callbackFunc.name.length > 0)
+        {
             return callbackFunc.name;
         }
 
-        if (typeof window[funcName + 0] != 'function') {
-            window[funcName + 0] = callbackFunc;
-            if (typeof __functionIndexMap == 'undefined')
+        if (typeof window[funcName+0] != 'function')
+        {
+            window[funcName+0] = callbackFunc;
+            if(typeof __functionIndexMap == 'undefined')
                 __functionIndexMap = [];
             __functionIndexMap[funcName] = 0;
-            return funcName + 0
+            return funcName+0
 
-        } else {
+        } else
+        {
             var maxIndex = __functionIndexMap[funcName];
             var newIndex = maxIndex + 1;
-            var tmpName = funcName + newIndex;
+            var tmpName = funcName+newIndex;
             window[tmpName] = callbackFunc;
             return tmpName;
         }
@@ -122,65 +141,104 @@ var adr = function() {
     var _createIFrame = function(src) {
         var rootElm = document.documentElement;
         var newFrameElm = document.createElement("IFRAME");
-        newFrameElm.setAttribute("src", src);
+        newFrameElm.setAttribute("src",src);
         rootElm.appendChild(newFrameElm);
         return newFrameElm;
     };
-    var _esc_quote = function(text) {
+    var _esc_quote = function(text){
         return text.replace("\"", "\\\"").replace("\'", "\\\'");;
     };
     return {
-        sendEmail: function(to, cc, subject, body, successCallback, errorCallback) {
-            _callNativeFunction("sendEmail", [to, cc, subject, _esc_quote(body)], successCallback, errorCallback);
+        sendEmail : function(to, cc, subject, body, successCallback, errorCallback) {
+            if(typeof useAPI === 'undefined')
+                _callNativeFunction("sendEmail", [to, cc, subject, _esc_quote(body)], successCallback, errorCallback);
+            else
+                API.sendEmail(to, cc, subject, body, successCallback, errorCallback);
         },
-        sendEmailEncoded: function(to, cc, subject, body, successCallback, errorCallback) {
-            _callNativeFunctionEncoded("sendEmail", [to, cc, subject, _esc_quote(body)], successCallback, errorCallback);
+        sendEmailEncoded : function(to, cc, subject, body, successCallback, errorCallback) {
+            if(typeof useAPI === 'undefined')
+                _callNativeFunctionEncoded("sendEmail", [to, cc, subject, _esc_quote(body)], successCallback, errorCallback);
+            else
+                API.sendEmail(to, cc, subject, body, successCallback, errorCallback);
         },
-        sendEmailWithPDFAttachmentFromHTML: function(to, cc, subject, body, attachmentHTML, successCallback, errorCallback) {
-            _callNativeFunctionEncoded("sendEmailWithPDFAttachmentFromHTML", [to, cc, subject, _esc_quote(body), _esc_quote(attachmentHTML)], successCallback, errorCallback);
+        sendEmailWithPDFAttachmentFromHTML : function(to, cc, subject, body, attachmentHTML, successCallback, errorCallback) {
+            if(typeof useAPI === 'undefined')
+                _callNativeFunctionEncoded("sendEmailWithPDFAttachmentFromHTML", [to, cc, subject, _esc_quote(body), _esc_quote(attachmentHTML)], successCallback, errorCallback);
+            else
+                API.sendEmail(to, cc, subject, body, successCallback, errorCallback);
         },
-        sendEmailWithPDFAttachmentFromHTMLMultiPage: function(to, cc, subject, body, attachmentHTML, successCallback, errorCallback) {
-            _callNativeFunctionEncoded("sendEmailWithPDFAttachmentFromHTMLMultiPage", [to, cc, subject, body, attachmentHTML], successCallback, errorCallback);
+        sendEmailWithPDFAttachmentFromHTMLMultiPage : function(to, cc, subject, body, attachmentHTML, successCallback, errorCallback) {
+            if(typeof useAPI === 'undefined')
+                _callNativeFunctionEncoded("sendEmailWithPDFAttachmentFromHTMLMultiPage", [to, cc, subject, body, attachmentHTML], successCallback, errorCallback);
         },
-        sendEmailWithFileAttachmentFromBase64: function(to, cc, subject, body, attachmentName, attachmentBase64, successCallback, errorCallback) {
+        sendEmailWithFileAttachmentFromBase64 : function(to, cc, subject, body, attachmentName, attachmentBase64, successCallback, errorCallback) {
             var prefix = 'base64:';
             var postfix = '//';
-            if (attachmentBase64.indexOf("/pdf;base64,") > (-1)) { // accommodate for pdfjs base64 files
+             if (attachmentBase64.indexOf("/pdf;base64,") > (-1)) { // accommodate for pdfjs base64 files
                 var temp = attachmentBase64.split("/pdf;base64,");
                 attachmentBase64 = temp[1];
             }
             var attachmentString = prefix.concat(attachmentName).concat(postfix).concat(attachmentBase64);
-            _callNativeFunctionEncoded("sendEmailWithFileAttachmentFromBase64", [to, cc, subject, _esc_quote(body), _esc_quote(attachmentString)], successCallback, errorCallback);
+            if(typeof useAPI === 'undefined')
+                _callNativeFunctionEncoded("sendEmailWithFileAttachmentFromBase64", [to, cc, subject, _esc_quote(body),  _esc_quote(attachmentString)], successCallback, errorCallback);
+            else
+                API.sendEmail(to, cc, subject, body, successCallback, errorCallback);
         },
-        getItem: function(key, successCallback, errorCallback) {
-            _callNativeFunction("getValue", [key], successCallback, errorCallback);
+        getItem : function(key, successCallback, errorCallback) {
+            if(typeof useAPI === 'undefined')
+                _callNativeFunction("getValue", [key], successCallback, errorCallback);
+            else
+                API.getItem(key, successCallback, errorCallback);
         },
-        setItem: function(key, value, successCallback, errorCallback) {
-            _callNativeFunction("setValue", [key, value], successCallback, errorCallback);
+        setItem : function(key, value, successCallback, errorCallback) {
+            if(typeof useAPI === 'undefined')
+                _callNativeFunction("setValue", [key, value], successCallback, errorCallback);
+            else
+                API.setItem(key, value, successCallback, errorCallback);
         },
-        getGlobalItem: function(key, successCallback, errorCallback) {
-            _callNativeFunction("getValueGlobal", [key], successCallback, errorCallback);
+        getGlobalItem : function(key, successCallback, errorCallback) {
+            if(typeof useAPI === 'undefined')
+                _callNativeFunction("getValueGlobal", [key], successCallback, errorCallback);
         },
-        setGlobalItem: function(key, value, successCallback, errorCallback) {
-            _callNativeFunction("setValueGlobal", [key, value], successCallback, errorCallback);
+        setGlobalItem : function(key, value, successCallback, errorCallback) {
+            if(typeof useAPI === 'undefined')
+                _callNativeFunction("setValueGlobal", [key, value], successCallback, errorCallback);
         },
-        logEvent: function(object, action, additionalParams, successCallback, errorCallback) {
-            _callNativeFunction("logEvent", [object, action, additionalParams], successCallback, errorCallback);
+        logEvent : function(object, action, additionalParams, successCallback, errorCallback) {
+            if(typeof useAPI === 'undefined')
+                _callNativeFunction("logEvent", [object, action, additionalParams], successCallback, errorCallback);
+            else
+                API.logEvent(object, action, additionalParams, successCallback, errorCallback);
         },
-        scanPDF417Barcode: function(successCallback, errorCallback) {
-            _callNativeFunction("scanPDF417Barcode", null, successCallback, errorCallback);
+        scanPDF417Barcode : function(successCallback, errorCallback) {
+            if(typeof useAPI === 'undefined')
+                _callNativeFunction("scanPDF417Barcode", null, successCallback, errorCallback);
+            else
+                API.scanPDF417Barcode();
         },
-        captureLead: function(successCallback, errorCallback) {
-            _callNativeFunction("captureLead", null, successCallback, errorCallback);
+        captureLead : function(successCallback, errorCallback) {
+            if(typeof useAPI === 'undefined')
+                _callNativeFunction("captureLead", null, successCallback, errorCallback);
+            else
+                API.captureLead();
         },
-        getCurrentUserName: function(successCallback, errorCallback) {
-            _callNativeFunction("getCurrentUserName", null, successCallback, errorCallback);
+        getCurrentUserName : function(successCallback, errorCallback) {
+            if(typeof useAPI === 'undefined')
+                _callNativeFunction("getCurrentUserName", null, successCallback, errorCallback);
+            else
+                API.getCurrentUserName();
         },
-        getCurrentUserEmail: function(successCallback, errorCallback) {
-            _callNativeFunction("getCurrentUserEmail", null, successCallback, errorCallback);
+        getCurrentUserEmail : function(successCallback, errorCallback) {
+            if(typeof useAPI === 'undefined')
+                _callNativeFunction("getCurrentUserEmail", null, successCallback, errorCallback);
+            else
+                API.getCurrentUserEmail();
         },
-        getCurrentUserRegions: function(successCallback, errorCallback) {
-            _callNativeFunction("getCurrentUserRegions", null, successCallback, errorCallback);
+        getCurrentUserRegions : function(successCallback, errorCallback) {
+            if(typeof useAPI === 'undefined')
+                _callNativeFunction("getCurrentUserRegions", null, successCallback, errorCallback);
+            else
+                API.getCurrentUserRegions();
         },
         getAgendas: function(successCallback, errorCallback) {
             _callNativeFunction("getAgendas", null, successCallback, errorCallback);
@@ -205,10 +263,10 @@ var adr = function() {
 var Base64 = {
 
     // private property
-    _keyStr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
+    _keyStr : "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
 
     // public method for encoding
-    encode: function(input) {
+    encode : function (input) {
         var output = "";
         var chr1, chr2, chr3, enc1, enc2, enc3, enc4;
         var i = 0;
@@ -242,7 +300,7 @@ var Base64 = {
     },
 
     // public method for decoding
-    decode: function(input) {
+    decode : function (input) {
         var output = "";
         var chr1, chr2, chr3;
         var enc1, enc2, enc3, enc4;
@@ -279,8 +337,8 @@ var Base64 = {
     },
 
     // private method for UTF-8 encoding
-    _utf8_encode: function(string) {
-        string = string.replace(/\r\n/g, "\n");
+    _utf8_encode : function (string) {
+        string = string.replace(/\r\n/g,"\n");
         var utftext = "";
 
         for (var n = 0; n < string.length; n++) {
@@ -289,10 +347,12 @@ var Base64 = {
 
             if (c < 128) {
                 utftext += String.fromCharCode(c);
-            } else if ((c > 127) && (c < 2048)) {
+            }
+            else if((c > 127) && (c < 2048)) {
                 utftext += String.fromCharCode((c >> 6) | 192);
                 utftext += String.fromCharCode((c & 63) | 128);
-            } else {
+            }
+            else {
                 utftext += String.fromCharCode((c >> 12) | 224);
                 utftext += String.fromCharCode(((c >> 6) & 63) | 128);
                 utftext += String.fromCharCode((c & 63) | 128);
@@ -304,25 +364,27 @@ var Base64 = {
     },
 
     // private method for UTF-8 decoding
-    _utf8_decode: function(utftext) {
+    _utf8_decode : function (utftext) {
         var string = "";
         var i = 0;
         var c = c1 = c2 = 0;
 
-        while (i < utftext.length) {
+        while ( i < utftext.length ) {
 
             c = utftext.charCodeAt(i);
 
             if (c < 128) {
                 string += String.fromCharCode(c);
                 i++;
-            } else if ((c > 191) && (c < 224)) {
-                c2 = utftext.charCodeAt(i + 1);
+            }
+            else if((c > 191) && (c < 224)) {
+                c2 = utftext.charCodeAt(i+1);
                 string += String.fromCharCode(((c & 31) << 6) | (c2 & 63));
                 i += 2;
-            } else {
-                c2 = utftext.charCodeAt(i + 1);
-                c3 = utftext.charCodeAt(i + 2);
+            }
+            else {
+                c2 = utftext.charCodeAt(i+1);
+                c3 = utftext.charCodeAt(i+2);
                 string += String.fromCharCode(((c & 15) << 12) | ((c2 & 63) << 6) | (c3 & 63));
                 i += 3;
             }
