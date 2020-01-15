@@ -4,11 +4,6 @@
 <head>
     <link rel="stylesheet" href="css/styles.css">
     <title></title>
-    <style>
-        .row {
-            margin: 15px;
-        }
-    </style>
 
     <script>
         function sendMail() {
@@ -67,11 +62,11 @@
             adr.scanPDF417Barcode(onSuccessBase64, onError);
         }
         function getCurrentUserName() {
-            adr.getCurrentUserName(onSuccessBase64, onError);
+            modus.getCurrentUserName().then(alertResult);
         }
 
         function getCurrentUserEmail() {
-            adr.getCurrentUserEmail(onSuccessBase64, onError);
+            modus.getCurrentUserEmail().then(alertResult);
         }
 
         function getCurrentUserRegions() {
@@ -93,7 +88,13 @@
             adr.sendAgenda(agendaId, emailAddress, onSuccessBase64, onError);
         }
 
+        function printResult(result) {
+            console.log(result);
+        }
 
+        function alertResult(result) {
+            alert(result);
+        }
 
         function onSuccess(ret) {
             if (ret) {
