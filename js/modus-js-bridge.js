@@ -13,6 +13,7 @@ window.modus = function () {
         return decodeURIComponent(results[2].replace(/\+/g, ' '));
     }
     let _createDefaultResult = function (request) {
+        //TODO: should this be somewhere else?
         var name = request.name;
         var result = null;
 
@@ -22,7 +23,19 @@ window.modus = function () {
                 break;
             case "getCurrentUserEmail":
                 result = "maul_killer@jedicouncil.crst"
-
+                break;
+            case "getCurrentUserRegions":
+                result = ["Tatooine", "Stewjon", "Coruscant"]
+                break;
+            case "getItem":
+                var key = "temp_storage_" + request.data.key;
+                result = window[key] ? "Item: " + window[key] : "No Item Set";
+                break;
+            case "setItem":
+                var key = "temp_storage_" + request.data.key;
+                window[key] = request.data.value; //stringify?
+                result = "Item was set"
+                break;
         }
 
         window[request.successId](result);
@@ -78,7 +91,7 @@ window.modus = function () {
                 return window.appInterface.postMessage(JSON.stringify(request));
             }
 
-            //Defaults and STubs
+            //Defaults and Stubs
             return _createDefaultResult(request);
         });
     }
@@ -88,7 +101,11 @@ window.modus = function () {
         //User
         getCurrentUserName: _callNativeFunction.bind(null, "getCurrentUserName", null),
         getCurrentUserEmail: _callNativeFunction.bind(null, "getCurrentUserEmail", null),
+        getCurrentUserRegions: _callNativeFunction.bind(null, "getCurrentUserRegions", null),
 
+        //Storage
+        getItem: function (key) { return _callNativeFunction("getItem", { key: key }) },
+        setItem: function (key, value) { return _callNativeFunction("setItem", { key: key, value: value }) }
         //Emails
     }
 }();
