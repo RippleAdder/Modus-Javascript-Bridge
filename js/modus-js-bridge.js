@@ -69,10 +69,10 @@ window.modus = function () {
 
             //create request
             let request = {
-                name: methodName,
+                methodName: methodName,
                 data: methodData,
-                successId: successId,
-                errorId: errorId
+                successMethodId: successId,
+                errorMethodId: errorId
             };
 
             let os = _getParameterByName("os");
