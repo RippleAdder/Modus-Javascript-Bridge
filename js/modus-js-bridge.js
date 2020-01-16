@@ -14,7 +14,7 @@ window.modus = function() {
     }
     let _createDefaultResult = function(request) {
         //TODO: should this be somewhere else?
-        var name = request.name;
+        var name = request.methodName;
         var result = null;
 
         switch (name) {
@@ -38,7 +38,7 @@ window.modus = function() {
                 break;
         }
 
-        window[request.successId](result);
+        window[request.successMethodId](result);
     }
 
 
