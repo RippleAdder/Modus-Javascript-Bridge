@@ -12,7 +12,7 @@ window.modus = function() {
         if (!results[2]) return '';
         return decodeURIComponent(results[2].replace(/\+/g, ' '));
     }
-    let _createDefaultResult = function (request) {
+    let _createExampleResult = function (request) {
         //TODO: should this be somewhere else?
         var name = request.methodName;
         var result = null;
