@@ -1,4 +1,6 @@
-window.modus = function() {
+//implement weback or something in this so we can build a dist file based on multiple src files.
+
+window.modus = function () {
     //Variables
     let _os = _getParameterByName("os");
 
@@ -12,6 +14,8 @@ window.modus = function() {
         if (!results[2]) return '';
         return decodeURIComponent(results[2].replace(/\+/g, ' '));
     }
+
+    //Break this in to a different file
     let _createExampleResult = function (request) {
         //TODO: should this be somewhere else?
         var name = request.methodName;
@@ -27,12 +31,20 @@ window.modus = function() {
             case "getCurrentUserRegions":
                 result = ["Tatooine", "Stewjon", "Coruscant"]
                 break;
+
+            //Storage
             case "getItem":
-                result = window[request.data.key] ? "Item: " + window[request.data.key] : "No Item Set";
+                result = window[request.data.key] ? window[request.data.key] : null;
                 break;
             case "setItem":
                 window[request.data.key] = request.data.value;
-                result = "Item was set"
+                break;
+
+            //Email
+            case "sendEmail":
+                var e = request.data;
+                var mailto = "mailto:" + e.to + "?subject=" + e.subject + "&body=" + e.body + "&cc=" + e.cc;
+                window.open(mailto);
                 break;
         }
 
@@ -41,14 +53,14 @@ window.modus = function() {
 
 
     //Marshall
-    let _callNativeFunction = function(methodName, methodData) {
+    let _callNativeFunction = function (methodName, methodData) {
         var id = Math.floor(Math.random() * 10000000);
         var successId = methodName + "_success_" + id;
         var errorId = methodName + "_error_" + id;
 
-        return new Promise(function(resolve, reject) {
+        return new Promise(function (resolve, reject) {
             //build success function
-            window[successId] = function(data) {
+            window[successId] = function (data) {
                 resolve(data);
                 window[successId] = null;
                 window[errorId] = null;
@@ -57,7 +69,7 @@ window.modus = function() {
             };
 
             //build error function
-            window[errorId] = function(data) {
+            window[errorId] = function (data) {
                 reject(data);
                 window[successId] = null;
                 window[errorId] = null;
@@ -105,11 +117,12 @@ window.modus = function() {
         getCurrentUserRegions: _callNativeFunction.bind(null, "getCurrentUserRegions", null),
 
         //Storage
-        getItem: function(key) { return _callNativeFunction("getItem", { key: key }) },
-        setItem: function(key, value) { return _callNativeFunction("setItem", { key: key, value: value }) },
+        getItem: function (key) { return _callNativeFunction("getItem", { key: key }) },
+        setItem: function (key, value) { return _callNativeFunction("setItem", { key: key, value: value }) },
 
         //Emails
-        sendEmailWithFileAttachmentFromBase64: function(data) { return _callNativeFunction("sendEmailWithFileAttachmentFromBase64", { data: data }) }
+        sendEmail: function (to, cc, subject, body) { return _callNativeFunction("sendEmail", { to: to, cc: cc, subject: subject, body: body }) },
+        sendEmailWithFileAttachmentFromBase64: function (data) { return _callNativeFunction("sendEmailWithFileAttachmentFromBase64", { data: data }) }
 
     }
 }();

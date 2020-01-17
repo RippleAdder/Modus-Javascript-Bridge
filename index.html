@@ -25,16 +25,24 @@
 
         //Storage
         function getStorageItem() {
-            modus.getItem("test").then(printResult);
+            modus.getItem("test").then(function (val) {
+                var msg = val ? 'Storage Item: "' + val + '"' : "No Storage Item Set";
+
+                printResult(msg);
+            });
         }
         function setStorageItem() {
-            modus.setItem("test", "testValue").then(printResult);
+            var val = "Test Value " + Math.floor(Math.random() * 100000);
+            modus.setItem("test", val).then(function () {
+                printResult('Storage test item was set as: "' + val + '"');
+            });
         }
         function getGlobalStorageItem() {
             adr.getGlobalItem("test", onSuccess, onError);
         }
         function setGlobalStorageItem() {
-            adr.setGlobalItem("test", "testValue", onSuccess, onError);
+            var val = "Test Value " + Math.floor(Math.random() * 100000);
+            adr.setGlobalItem("test", val, onSuccess, onError);
         }
         function setComplexStorageItem() {
             adr.setItem("test", "[{'id':0,'room_name':'first room','system':'Wi-Box Solution','r_system':'Philips(Witt Series IV)','ao_source':'','mounting':'','using_pw':'','using_ecg':'','ffr':'','cable_data':{'name':'Philips(Witt Series IV)','adapter_ao_in':'C12648','monitor_ao_out':'C12948','aux_in_ecg_in':'C12504','aux_in_ao_in':'C12504','monitor_pw_out':'C12948','note':''},'active':true,'done':true},{'id':1,'room_name':'2nd room','system':'PressureWire Receiver','r_system':'Siemens/Draeger Sensis 10 pin','ao_source':'','mounting':'','using_pw':'','using_ecg':'','ffr':'','cable_data':{'name':'Siemens/Draeger Sensis 10 pin','adapter_ao_in':'C12601','monitor_ao_out':'C12901','aux_in_ecg_in':'C12502','aux_in_ao_in':'C12502','monitor_pw_out':'C12901','note':'AO/ECG is one cable'},'active':true,'done':true},{'id':2,'room_name':'third area','system':'QUANTIEN Platform','r_system':'Camtronics PhysioLog PDM Monitor (Schiller V1)','ao_source':'Aux-In AO (Cabled)','mounting':'Available on-site','using_pw':'Yes','using_ecg':'Yes','ffr':'','cable_data':{'name':'Camtronics PhysioLog PDM Monitor (Schiller V1)','adapter_ao_in':'C12651','monitor_ao_out':'C12951','aux_in_ecg_in':'C12503','aux_in_ao_in':'C12503','monitor_pw_out':'C12951','note':''},'active':true,'done':true},{'id':3,'room_name':'Newest room','system':'ILUMIEN System','r_system':'Gould 13-4615-50','ao_source':'','mounting':'','using_pw':'','using_ecg':'','ffr':'Yes','cable_data':{'name':'Gould 13-4615-50','adapter_ao_in':'C12614','monitor_ao_out':'C12914','aux_in_ecg_in':'','aux_in_ao_in':'','monitor_pw_out':'C12914','note':''},'active':true,'done':true}]", onSuccess, onError);
@@ -42,9 +50,14 @@
 
         //Email
         function sendMail() {
-            adr.sendEmail("test@gmail.com", "", "test subject", "test body", onSuccess, onError);
+            adr.sendEmail("test@gmail.com", "", "Test Subject Line", "Test body");
+            modus.sendEmail("test@gmail.com", "", "Test Subject Line", "Test body").then(function () {
+                printResult("Email client initiated successfully, it may take a few seconds to load");
+            });
+
         }
 
+        // -- Depreciated
         function sendMailEncoded() {
             adr.sendEmailEncoded("test@gmail.com", "", "test subject", "test body", onSuccess, onError);
         }
@@ -159,7 +172,6 @@
             <button class="btn btn-primary" type="button" onclick="setStorageItem()">Set Storage Item</button><br />
         </div>
 
-        <!--
         <div class="row">
             <button class="btn btn-primary" type="button" onclick="getGlobalStorageItem()">Get Global
                 Storage</button><br />
@@ -173,8 +185,6 @@
                 Storage</button><br />
         </div>
 
-        -->
-
         <h2>Email</h2>
         <div class="row">
             <button class="btn btn-primary" type="button" onclick="sendMail()">Send email</button><br />
@@ -185,6 +195,7 @@
         <div class="row">
             <button class="btn btn-primary" type="button" onclick="sendHTMLMailEncoded()">Send html email encoded
                 .</button><br />
+            <i>depreciated</i>
         </div>
         <div class="row">
             <button class="btn btn-primary" type="button" onclick="sendAdvancedHTMLEmailEncoded()">Send advanced html
