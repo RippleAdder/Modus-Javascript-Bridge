@@ -161,7 +161,7 @@
 
         -->
 
-        <h2>Other</h2>
+        <h2>Email</h2>
         <div class="row">
             <button class="btn btn-primary" type="button" onclick="sendMail()">Send email</button><br />
         </div>
@@ -189,13 +189,7 @@
                 with Attachment from Base64.</button><br />
         </div>
 
-        <div class="row">
-            <button class="btn btn-primary" type="button" onclick="logAnalytics()">Log Event</button><br />
-        </div>
-        <div class="row">
-            <button class="btn btn-primary" type="button" onclick="scanPDF417Barcode()">Scan PDF 417
-                barcode</button><br />
-        </div>
+        <h2>Agendas</h2>
         <div class="row">
             <button class="btn btn-primary" type="button" onclick="getAgendas()">Get Agendas</button><br />
         </div>
@@ -204,14 +198,24 @@
             <input type="text" placeholder="Email Address" name="txtEmailAddress" id="txtEmailAddress"><br />
             <button class="btn btn-primary" type="button" onclick="sendAgenda()">Send Agenda</button><br />
         </div>
+
+        <h2>Other</h2>
         <div class="row">
-            <button class="btn btn-primary" type="button" onclick="asyncHttpRequest()">Asynchronous
+            <button class="btn btn-primary" type="button" onclick="logAnalytics()">Log Event</button><br />
+        </div>
+        <div class="row">
+            <button class="btn btn-primary" type="button" onclick="scanPDF417Barcode()">Scan PDF 417
+                barcode</button><br />
+        </div>
+        <div class="row">
+            <button class="btn btn-primary" type="button" onclick="asyncHttpRequest()">Create Asynchronous
                 Request</button><br />
         </div>
         <div class="row">
             <a href="x-appdataroom:///media?mediaId=101814">Deep Link Test</a>
         </div>
     </div>
+
     <script src="js/depricated/adrJSBridge.js"></script>
     <script src="js/modus-js-bridge.js"></script>
 </body>

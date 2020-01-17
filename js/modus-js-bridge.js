@@ -12,7 +12,7 @@ window.modus = function () {
         if (!results[2]) return '';
         return decodeURIComponent(results[2].replace(/\+/g, ' '));
     }
-    let _createDefaultResult = function (request) {
+    let _createExampleResult = function (request) {
         //TODO: should this be somewhere else?
         var name = request.name;
         var result = null;
@@ -28,12 +28,10 @@ window.modus = function () {
                 result = ["Tatooine", "Stewjon", "Coruscant"]
                 break;
             case "getItem":
-                var key = "temp_storage_" + request.data.key;
-                result = window[key] ? "Item: " + window[key] : "No Item Set";
+                result = window[request.data.key] ? "Item: " + window[request.data.key] : "No Item Set";
                 break;
             case "setItem":
-                var key = "temp_storage_" + request.data.key;
-                window[key] = request.data.value; //stringify?
+                window[request.data.key] = request.data.value;
                 result = "Item was set"
                 break;
         }
@@ -92,7 +90,7 @@ window.modus = function () {
             }
 
             //Defaults and Stubs
-            return _createDefaultResult(request);
+            return _createExampleResult(request);
         });
     }
 
@@ -106,6 +104,7 @@ window.modus = function () {
         //Storage
         getItem: function (key) { return _callNativeFunction("getItem", { key: key }) },
         setItem: function (key, value) { return _callNativeFunction("setItem", { key: key, value: value }) }
+
         //Emails
     }
 }();
