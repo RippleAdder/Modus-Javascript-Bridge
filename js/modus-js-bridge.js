@@ -42,8 +42,10 @@ window.modus = function () {
 
             //Email
             case "sendEmail":
+            case "sendEmailHtml":
                 var e = request.data;
-                var mailto = "mailto:" + e.to + "?subject=" + e.subject + "&body=" + e.body + "&cc=" + e.cc;
+                var body = e.body ? e.body : e.html ? e.html : "";
+                var mailto = "mailto:" + e.to + "?subject=" + e.subject + "&body=" + body + "&cc=" + e.cc;
                 window.open(mailto);
                 break;
         }
@@ -122,7 +124,7 @@ window.modus = function () {
 
         //Emails
         sendEmail: function (to, cc, subject, body) { return _callNativeFunction("sendEmail", { to: to, cc: cc, subject: subject, body: body }) },
+        sendEmailHtml: function (to, cc, subject, html) { return _callNativeFunction("sendEmailHtml", { to: to, cc: cc, subject: subject, html: html }) },
         sendEmailWithFileAttachmentFromBase64: function (data) { return _callNativeFunction("sendEmailWithFileAttachmentFromBase64", { data: data }) }
-
     }
 }();

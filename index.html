@@ -5,6 +5,11 @@
     <link rel="stylesheet" href="css/styles.css">
     <title>Modus Bridge Tester</title>
 
+    <!-- Using https://github.com/visionmedia/superagent for async request help-->
+    <script
+        src="https://polyfill.io/v3/polyfill.min.js?features=Array.from,Promise,Symbol,Object.setPrototypeOf,Object.getOwnPropertySymbols"></script>
+    <script src="js/vendor/superagent.js"></script>
+
     <script>
         function clearLog() {
             document.getElementById('log').innerHTML = "";
@@ -50,24 +55,19 @@
 
         //Email
         function sendMail() {
-            adr.sendEmail("test@gmail.com", "", "Test Subject Line", "Test body");
             modus.sendEmail("test@gmail.com", "", "Test Subject Line", "Test body").then(function () {
                 printResult("Email client initiated successfully, it may take a few seconds to load");
             });
-
-        }
-
-        // -- Depreciated
-        function sendMailEncoded() {
-            adr.sendEmailEncoded("test@gmail.com", "", "test subject", "test body", onSuccess, onError);
         }
 
         function sendHTMLMail() {
-            adr.sendEmail("test@gmail.com", "", "test subject", "<body style='padding: 0;margin: 0;font-family: Arial, sans-serif;font-size: 14px;'> <div id='wrapper' style='padding: 0;margin: 10px;'> <h1 style='padding: 0;margin: 0;color: #444;font-size: 2.2em;line-height: 1.6em;'>St. Jude Medical</h1> <span class='tagline' style='padding: 0;margin: 0;color: #888;font-size: 1.3em;line-height: 0;font-weight: bold;'>Room Configurator</span> <hr style='padding: 0;margin: 14px 0;height: 1px;color: #efefef;background: #efefef;border: 1px;'> <h2 style='padding: 0;margin: 0;color: #111;font-size: 1.3em;line-height: 1.3em;'>Full Installation Summary</h2> <table class='summary_table' style='padding: 0;margin: 0;border-collapse: separate;border-spacing: 0;'><table><h3 style='padding: 0;margin: 18px 0 8px 0;color: #017262;text-transform: uppercase;font-size: 1.8em;line-height: 1em;font-weight: normal;'>Test Room</h3><tr id='sums_system' style='padding: 0;margin: 0;'><td class='row_title' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 170px;background: #ccc;font-weight: bold;'>System</td><td class='row_value' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 490px;background: #f2f2f2;'>QUANTIEN Platform <strong>C12787</strong></td></tr><tr id='sums_system' style='padding: 0;margin: 0;'><td class='row_title' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 170px;background: #ccc;font-weight: bold;'>Recording System</td><td class='row_value' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 490px;background: #f2f2f2;'>Camtronics PhysioLog PDM Monitor (Schiller V1)<br>Adapter Cable <strong>C12651</strong><br>Monitor Cable <strong>C12951</strong></td></tr><tr id='sums_system' style='padding: 0;margin: 0;'><td class='row_title' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 170px;background: #ccc;font-weight: bold;'>AO Source</td><td class='row_value' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 490px;background: #f2f2f2;'>Wi-Box&#153; Solution <strong>C12783</strong></td></td></tr><tr id='sums_system' style='padding: 0;margin: 0;'><td class='row_title' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 170px;background: #ccc;font-weight: bold;'>PW Out</td><td class='row_value' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 490px;background: #f2f2f2;'>Monitor Cable <strong>C12951</strong></td></tr><tr id='sums_system' style='padding: 0;margin: 0;'><td class='row_title' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 170px;background: #ccc;font-weight: bold;'>ECG</td><td class='row_value' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 490px;background: #f2f2f2;'>AUX IN Cable <strong>C12503</strong></td></tr><tr id='sums_system' style='padding: 0;margin: 0;'><td class='row_title' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 170px;background: #ccc;font-weight: bold;'>Mounting</td><td class='row_value' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 490px;background: #f2f2f2;'>Bedside<br>Pole Bracket <strong>C12798</strong> and Multipurpose Bracket <strong>12777</strong></td></tr></table></div></body>", onSuccess, onError);
-        }
-
-        function sendHTMLMailEncoded() {
-            adr.sendEmailEncoded("test@gmail.com", "", "test subject", "<body style='padding: 0;margin: 0;font-family: Arial, sans-serif;font-size: 14px;'> <div id='wrapper' style='padding: 0;margin: 10px;'> <h1 style='padding: 0;margin: 0;color: #444;font-size: 2.2em;line-height: 1.6em;'>St. Jude Medical</h1> <span class='tagline' style='padding: 0;margin: 0;color: #888;font-size: 1.3em;line-height: 0;font-weight: bold;'>Room Configurator</span> <hr style='padding: 0;margin: 14px 0;height: 1px;color: #efefef;background: #efefef;border: 1px;'> <h2 style='padding: 0;margin: 0;color: #111;font-size: 1.3em;line-height: 1.3em;'>Full Installation Summary</h2> <table class='summary_table' style='padding: 0;margin: 0;border-collapse: separate;border-spacing: 0;'><table><h3 style='padding: 0;margin: 18px 0 8px 0;color: #017262;text-transform: uppercase;font-size: 1.8em;line-height: 1em;font-weight: normal;'>Test Room</h3><tr id='sums_system' style='padding: 0;margin: 0;'><td class='row_title' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 170px;background: #ccc;font-weight: bold;'>System</td><td class='row_value' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 490px;background: #f2f2f2;'>QUANTIEN Platform <strong>C12787</strong></td></tr><tr id='sums_system' style='padding: 0;margin: 0;'><td class='row_title' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 170px;background: #ccc;font-weight: bold;'>Recording System</td><td class='row_value' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 490px;background: #f2f2f2;'>Camtronics PhysioLog PDM Monitor (Schiller V1)<br>Adapter Cable <strong>C12651</strong><br>Monitor Cable <strong>C12951</strong></td></tr><tr id='sums_system' style='padding: 0;margin: 0;'><td class='row_title' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 170px;background: #ccc;font-weight: bold;'>AO Source</td><td class='row_value' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 490px;background: #f2f2f2;'>Wi-Box&#153; Solution <strong>C12783</strong></td></td></tr><tr id='sums_system' style='padding: 0;margin: 0;'><td class='row_title' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 170px;background: #ccc;font-weight: bold;'>PW Out</td><td class='row_value' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 490px;background: #f2f2f2;'>Monitor Cable <strong>C12951</strong></td></tr><tr id='sums_system' style='padding: 0;margin: 0;'><td class='row_title' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 170px;background: #ccc;font-weight: bold;'>ECG</td><td class='row_value' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 490px;background: #f2f2f2;'>AUX IN Cable <strong>C12503</strong></td></tr><tr id='sums_system' style='padding: 0;margin: 0;'><td class='row_title' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 170px;background: #ccc;font-weight: bold;'>Mounting</td><td class='row_value' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 490px;background: #f2f2f2;'>Bedside<br>Pole Bracket <strong>C12798</strong> and Multipurpose Bracket <strong>12777</strong></td></tr></table></div></body>", onSuccess, onError);
+            getExampleHtml().then(function (html) {
+                return modus.sendEmailHtml("test@gmail.com", "example@cc.com", "Html Test Subject Line", html);
+            }).then(function () {
+                var msg = "Email client initiated successfully (with html), it may take a few seconds to load." +
+                    "This may not show as raw html when debugging but will be formatted as html when used inside of the app";
+                printResult(msg);
+            });
         }
 
         function sendEmailWithPDFAttachmentFromHTML() {
@@ -99,7 +99,6 @@
         }
 
         function asyncHttpRequest() {
-
             adr.asyncHttpRequest("https://ptsv2.com/t/7xh2y-1551975478/post", "POST", null, { "firstName": "John", "lastName": "Doe" }, onSuccessBase64, onError);
         }
 
@@ -109,10 +108,36 @@
             adr.sendAgenda(agendaId, emailAddress, onSuccessBase64, onError);
         }
 
+        // -- Depreciated
+        function sendMailEncoded() {
+            adr.sendEmailEncoded("test@gmail.com", "", "test subject", "test body", onSuccess, onError);
+        }
+        function sendHTMLMailEncoded() {
+            adr.sendEmailEncoded("test@gmail.com", "", "test subject", "<body style='padding: 0;margin: 0;font-family: Arial, sans-serif;font-size: 14px;'> <div id='wrapper' style='padding: 0;margin: 10px;'> <h1 style='padding: 0;margin: 0;color: #444;font-size: 2.2em;line-height: 1.6em;'>St. Jude Medical</h1> <span class='tagline' style='padding: 0;margin: 0;color: #888;font-size: 1.3em;line-height: 0;font-weight: bold;'>Room Configurator</span> <hr style='padding: 0;margin: 14px 0;height: 1px;color: #efefef;background: #efefef;border: 1px;'> <h2 style='padding: 0;margin: 0;color: #111;font-size: 1.3em;line-height: 1.3em;'>Full Installation Summary</h2> <table class='summary_table' style='padding: 0;margin: 0;border-collapse: separate;border-spacing: 0;'><table><h3 style='padding: 0;margin: 18px 0 8px 0;color: #017262;text-transform: uppercase;font-size: 1.8em;line-height: 1em;font-weight: normal;'>Test Room</h3><tr id='sums_system' style='padding: 0;margin: 0;'><td class='row_title' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 170px;background: #ccc;font-weight: bold;'>System</td><td class='row_value' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 490px;background: #f2f2f2;'>QUANTIEN Platform <strong>C12787</strong></td></tr><tr id='sums_system' style='padding: 0;margin: 0;'><td class='row_title' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 170px;background: #ccc;font-weight: bold;'>Recording System</td><td class='row_value' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 490px;background: #f2f2f2;'>Camtronics PhysioLog PDM Monitor (Schiller V1)<br>Adapter Cable <strong>C12651</strong><br>Monitor Cable <strong>C12951</strong></td></tr><tr id='sums_system' style='padding: 0;margin: 0;'><td class='row_title' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 170px;background: #ccc;font-weight: bold;'>AO Source</td><td class='row_value' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 490px;background: #f2f2f2;'>Wi-Box&#153; Solution <strong>C12783</strong></td></td></tr><tr id='sums_system' style='padding: 0;margin: 0;'><td class='row_title' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 170px;background: #ccc;font-weight: bold;'>PW Out</td><td class='row_value' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 490px;background: #f2f2f2;'>Monitor Cable <strong>C12951</strong></td></tr><tr id='sums_system' style='padding: 0;margin: 0;'><td class='row_title' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 170px;background: #ccc;font-weight: bold;'>ECG</td><td class='row_value' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 490px;background: #f2f2f2;'>AUX IN Cable <strong>C12503</strong></td></tr><tr id='sums_system' style='padding: 0;margin: 0;'><td class='row_title' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 170px;background: #ccc;font-weight: bold;'>Mounting</td><td class='row_value' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 490px;background: #f2f2f2;'>Bedside<br>Pole Bracket <strong>C12798</strong> and Multipurpose Bracket <strong>12777</strong></td></tr></table></div></body>", onSuccess, onError);
+        }
+
         //Helpers
         function printResult(result) {
             document.getElementById('log').innerHTML += result;
             document.getElementById('log').innerHTML += "<br/>";
+        }
+
+        function getExampleHtml() {
+            return new Promise(function (resolve, reject) {
+                var fallback = "<body><H1>Hello, Html Email World!</H1></body>";
+
+                if (superagent) {
+                    superagent.get('/assets/email.html')
+                        .then(function (result) {
+                            var html = result.text;
+                            resolve(html);
+                        }).catch(function (e) {
+                            resolve(fallback);
+                        })
+                } else {
+                    resolve(fallback);
+                }
+            });
         }
 
         function onSuccess(ret) {
@@ -172,6 +197,7 @@
             <button class="btn btn-primary" type="button" onclick="setStorageItem()">Set Storage Item</button><br />
         </div>
 
+        <h4>not implemented yet in new bridge</h4>
         <div class="row">
             <button class="btn btn-primary" type="button" onclick="getGlobalStorageItem()">Get Global
                 Storage</button><br />
@@ -190,17 +216,10 @@
             <button class="btn btn-primary" type="button" onclick="sendMail()">Send email</button><br />
         </div>
         <div class="row">
-            <button class="btn btn-primary" type="button" onclick="sendHTMLMail()">Send html email .</button><br />
+            <button class="btn btn-primary" type="button" onclick="sendHTMLMail()">Send html email</button><br />
         </div>
-        <div class="row">
-            <button class="btn btn-primary" type="button" onclick="sendHTMLMailEncoded()">Send html email encoded
-                .</button><br />
-            <i>depreciated</i>
-        </div>
-        <div class="row">
-            <button class="btn btn-primary" type="button" onclick="sendAdvancedHTMLEmailEncoded()">Send advanced html
-                email encoded .</button><br />
-        </div>
+        <h4>not implemented yet in new bridge</h4>
+
         <div class="row">
             <button class="btn btn-primary" type="button" onclick="sendEmailWithPDFAttachmentFromHTML()">Send Email with
                 PDF Attachment from HTML.</button><br />
@@ -214,7 +233,21 @@
                 with Attachment from Base64.</button><br />
         </div>
 
+        <!-- Depricated -->
+        <div class="row">
+            <button class="btn btn-primary" type="button" onclick="sendHTMLMailEncoded()">Send html email encoded
+                .</button>
+            <i>depreciated</i>
+        </div>
+        <div class="row">
+            <button class="btn btn-primary" type="button" onclick="sendAdvancedHTMLEmailEncoded()">Send advanced html
+                email encoded .</button>
+            <i>depreciated</i>
+        </div>
+
         <h2>Agendas</h2>
+        <h4>not implemented yet in new bridge</h4>
+
         <div class="row">
             <button class="btn btn-primary" type="button" onclick="getAgendas()">Get Agendas</button><br />
         </div>
@@ -225,6 +258,8 @@
         </div>
 
         <h2>Other</h2>
+        <h4>not implemented yet in new bridge</h4>
+
         <div class="row">
             <button class="btn btn-primary" type="button" onclick="logAnalytics()">Log Event</button><br />
         </div>
