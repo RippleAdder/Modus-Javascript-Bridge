@@ -1,4 +1,4 @@
-window.modus = function () {
+window.modus = function() {
     //Variables
     let _os = _getParameterByName("os");
 
@@ -12,9 +12,9 @@ window.modus = function () {
         if (!results[2]) return '';
         return decodeURIComponent(results[2].replace(/\+/g, ' '));
     }
-    let _createExampleResult = function (request) {
+    let _createDefaultResult = function (request) {
         //TODO: should this be somewhere else?
-        var name = request.name;
+        var name = request.methodName;
         var result = null;
 
         switch (name) {
@@ -36,19 +36,19 @@ window.modus = function () {
                 break;
         }
 
-        window[request.successId](result);
+        window[request.successMethodId](result);
     }
 
 
     //Marshall
-    let _callNativeFunction = function (methodName, methodData) {
+    let _callNativeFunction = function(methodName, methodData) {
         var id = Math.floor(Math.random() * 10000000);
         var successId = methodName + "_success_" + id;
         var errorId = methodName + "_error_" + id;
 
-        return new Promise(function (resolve, reject) {
+        return new Promise(function(resolve, reject) {
             //build success function
-            window[successId] = function (data) {
+            window[successId] = function(data) {
                 resolve(data);
                 window[successId] = null;
                 window[errorId] = null;
@@ -57,7 +57,7 @@ window.modus = function () {
             };
 
             //build error function
-            window[errorId] = function (data) {
+            window[errorId] = function(data) {
                 reject(data);
                 window[successId] = null;
                 window[errorId] = null;
@@ -67,16 +67,19 @@ window.modus = function () {
 
             //create request
             let request = {
-                name: methodName,
+                methodName: methodName,
                 data: methodData,
-                successId: successId,
-                errorId: errorId
+                successMethodId: successId,
+                errorMethodId: errorId
             };
 
             let os = _getParameterByName("os");
 
+            //For Windows builds that don't pass in the os param
+            let userAgent = navigator.userAgent;
+
             //  Windows
-            if (os === "windows") {
+            if (os === "windows" || userAgent.includes("Modus")) {
                 return window.external.notify(JSON.stringify(request));
             }
 
@@ -102,9 +105,11 @@ window.modus = function () {
         getCurrentUserRegions: _callNativeFunction.bind(null, "getCurrentUserRegions", null),
 
         //Storage
-        getItem: function (key) { return _callNativeFunction("getItem", { key: key }) },
-        setItem: function (key, value) { return _callNativeFunction("setItem", { key: key, value: value }) }
+        getItem: function(key) { return _callNativeFunction("getItem", { key: key }) },
+        setItem: function(key, value) { return _callNativeFunction("setItem", { key: key, value: value }) },
 
         //Emails
+        sendEmailWithFileAttachmentFromBase64: function(data) { return _callNativeFunction("sendEmailWithFileAttachmentFromBase64", { data: data }) }
+
     }
 }();
