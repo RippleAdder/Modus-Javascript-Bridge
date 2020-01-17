@@ -3,9 +3,13 @@
 
 <head>
     <link rel="stylesheet" href="css/styles.css">
-    <title></title>
+    <title>Modus Bridge Tester</title>
 
     <script>
+        function clearLog() {
+            document.getElementById('log').innerHTML = "";
+        }
+
         //User
         function getCurrentUserName() {
             modus.getCurrentUserName().then(printResult);
@@ -125,6 +129,11 @@
 <body>
     <div class="container">
         <h2>Output</h2>
+        <div class='row'>
+            <button class='btn btn-danger' style='padding:5px 10px' onclick="clearLog()">
+                Clear Log
+            </button>
+        </div>
         <div class="row">
             <div id="log"></div>
         </div>

@@ -44,6 +44,18 @@
   box-shadow: 0 0 0 .2rem rgba(0, 123, 255, 0.5);
 }
 
+.btn-danger {
+  color: #fff;
+  background-color: #da4f49;
+  border-color: none;
+}
+
+.btn-danger:hover {
+  color: #fff;
+  background-color: #bd362f;
+  border-color: none;
+}
+
 .row {
   display: flex;
   flex-direction: row;
