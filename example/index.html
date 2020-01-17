@@ -5,7 +5,6 @@
     <link rel="stylesheet" href="css/styles.css">
     <title>Modus Bridge Tester</title>
 
-    <!-- Using https://github.com/visionmedia/superagent for async request help-->
     <script
         src="https://polyfill.io/v3/polyfill.min.js?features=Array.from,Promise,Symbol,Object.setPrototypeOf,Object.getOwnPropertySymbols"></script>
     <script src="js/vendor/superagent.js"></script>
@@ -31,9 +30,7 @@
         //Storage
         function getStorageItem() {
             modus.getItem("test").then(function (val) {
-                var msg = val ? 'Storage Item: "' + val + '"' : "No Storage Item Set";
-
-                printResult(msg);
+                printResult(val ? 'Storage Item: "' + val + '"' : "No Storage Item Set");
             });
         }
         function setStorageItem() {
@@ -43,11 +40,15 @@
             });
         }
         function getGlobalStorageItem() {
-            adr.getGlobalItem("test", onSuccess, onError);
+            modus.getGlobalItem("globaltest").then(function (val) {
+                printResult(val ? 'Global Storage Item: "' + val + '"' : "No Global Storage Item Set");
+            });
         }
         function setGlobalStorageItem() {
-            var val = "Test Value " + Math.floor(Math.random() * 100000);
-            adr.setGlobalItem("test", val, onSuccess, onError);
+            var val = "Global Test Value " + Math.floor(Math.random() * 100000);
+            modus.setGlobalItem("globaltest", val).then(function () {
+                printResult('Global Storage test item was set as: "' + val + '"');
+            });
         }
         function setComplexStorageItem() {
             adr.setItem("test", "[{'id':0,'room_name':'first room','system':'Wi-Box Solution','r_system':'Philips(Witt Series IV)','ao_source':'','mounting':'','using_pw':'','using_ecg':'','ffr':'','cable_data':{'name':'Philips(Witt Series IV)','adapter_ao_in':'C12648','monitor_ao_out':'C12948','aux_in_ecg_in':'C12504','aux_in_ao_in':'C12504','monitor_pw_out':'C12948','note':''},'active':true,'done':true},{'id':1,'room_name':'2nd room','system':'PressureWire Receiver','r_system':'Siemens/Draeger Sensis 10 pin','ao_source':'','mounting':'','using_pw':'','using_ecg':'','ffr':'','cable_data':{'name':'Siemens/Draeger Sensis 10 pin','adapter_ao_in':'C12601','monitor_ao_out':'C12901','aux_in_ecg_in':'C12502','aux_in_ao_in':'C12502','monitor_pw_out':'C12901','note':'AO/ECG is one cable'},'active':true,'done':true},{'id':2,'room_name':'third area','system':'QUANTIEN Platform','r_system':'Camtronics PhysioLog PDM Monitor (Schiller V1)','ao_source':'Aux-In AO (Cabled)','mounting':'Available on-site','using_pw':'Yes','using_ecg':'Yes','ffr':'','cable_data':{'name':'Camtronics PhysioLog PDM Monitor (Schiller V1)','adapter_ao_in':'C12651','monitor_ao_out':'C12951','aux_in_ecg_in':'C12503','aux_in_ao_in':'C12503','monitor_pw_out':'C12951','note':''},'active':true,'done':true},{'id':3,'room_name':'Newest room','system':'ILUMIEN System','r_system':'Gould 13-4615-50','ao_source':'','mounting':'','using_pw':'','using_ecg':'','ffr':'Yes','cable_data':{'name':'Gould 13-4615-50','adapter_ao_in':'C12614','monitor_ao_out':'C12914','aux_in_ecg_in':'','aux_in_ao_in':'','monitor_pw_out':'C12914','note':''},'active':true,'done':true}]", onSuccess, onError);
@@ -120,6 +121,7 @@
         function printResult(result) {
             document.getElementById('log').innerHTML += result;
             document.getElementById('log').innerHTML += "<br/>";
+            console.log(result);
         }
 
         function getExampleHtml() {
@@ -197,7 +199,6 @@
             <button class="btn btn-primary" type="button" onclick="setStorageItem()">Set Storage Item</button><br />
         </div>
 
-        <h4>not implemented yet in new bridge</h4>
         <div class="row">
             <button class="btn btn-primary" type="button" onclick="getGlobalStorageItem()">Get Global
                 Storage</button><br />
@@ -206,6 +207,8 @@
             <button class="btn btn-primary" type="button" onclick="setGlobalStorageItem()">Set Global
                 Storage</button><br />
         </div>
+
+        <h4>not implemented yet in new bridge</h4>
         <div class="row">
             <button class="btn btn-primary" type="button" onclick="setComplexStorageItem()">Set Complex
                 Storage</button><br />

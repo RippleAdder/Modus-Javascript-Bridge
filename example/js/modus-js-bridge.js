@@ -34,9 +34,11 @@ window.modus = function () {
 
             //Storage
             case "getItem":
+            case "getGlobalItem":
                 result = window[request.data.key] ? window[request.data.key] : null;
                 break;
             case "setItem":
+            case "setGlobalItem":
                 window[request.data.key] = request.data.value;
                 break;
 
@@ -59,6 +61,8 @@ window.modus = function () {
         var id = Math.floor(Math.random() * 10000000);
         var successId = methodName + "_success_" + id;
         var errorId = methodName + "_error_" + id;
+
+        console.log(successId);
 
         return new Promise(function (resolve, reject) {
             //build success function
@@ -91,9 +95,10 @@ window.modus = function () {
 
             //For Windows builds that don't pass in the os param
             let userAgent = navigator.userAgent;
+            console.log(userAgent);
 
             //  Windows
-            if (os === "windows" || userAgent.includes("Modus")) {
+            if (os === "windows" || userAgent.includes("Windows.Desktop")) {
                 return window.external.notify(JSON.stringify(request));
             }
 
@@ -121,10 +126,14 @@ window.modus = function () {
         //Storage
         getItem: function (key) { return _callNativeFunction("getItem", { key: key }) },
         setItem: function (key, value) { return _callNativeFunction("setItem", { key: key, value: value }) },
+        getGlobalItem: function (key) { return _callNativeFunction("getGlobalItem", { key: key }) },
+        setGlobalItem: function (key, value) { return _callNativeFunction("setGlobalItem", { key: key, value: value }) },
 
         //Emails
         sendEmail: function (to, cc, subject, body) { return _callNativeFunction("sendEmail", { to: to, cc: cc, subject: subject, body: body }) },
         sendEmailHtml: function (to, cc, subject, html) { return _callNativeFunction("sendEmailHtml", { to: to, cc: cc, subject: subject, html: html }) },
         sendEmailWithFileAttachmentFromBase64: function (data) { return _callNativeFunction("sendEmailWithFileAttachmentFromBase64", { data: data }) }
+
+        //Other
     }
 }();
