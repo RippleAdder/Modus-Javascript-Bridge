@@ -52,8 +52,9 @@ window.modus = function () {
                 var mailto = "mailto:" + to + "?subject=" + e.subject + "&body=" + body + "&cc=" + e.cc;
                 window.open(mailto);
                 break;
+            //Agendas
             case "getAgendas":
-                result = [{agendaId: "1", agendaTitle: "Bespin Meeting"}, {agendaId: "2", agendaTitle: "Endor Visit"}, {agendaId: "3", agendaTitle: "Hoth Beach Vacation"}]
+                result = {result:[{agendaId: "1", agendaTitle: "Bespin Meeting"}, {agendaId: "2", agendaTitle: "Endor Visit"}, {agendaId: "3", agendaTitle: "Hoth Beach Vacation"}]}
                 break;
         }
 
