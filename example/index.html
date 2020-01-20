@@ -96,7 +96,9 @@
         }
 
         function getAgendas() {
-            adr.getAgendas(onSuccessBase64, onError);
+            modus.getAgendas().then(function (val) {
+                printResult(val ? 'Agenda List: "' + JSON.stringify(val) + '"' : "No Agendas");
+            });
         }
 
         function asyncHttpRequest() {
@@ -106,7 +108,9 @@
         function sendAgenda() {
             var agendaId = document.getElementById("txtAgendaId").value;
             var emailAddress = document.getElementById("txtEmailAddress").value;
-            adr.sendAgenda(agendaId, emailAddress, onSuccessBase64, onError);
+            modus.sendAgenda(agendaId, emailAddress).then(function () {
+                printResult("Email client initiated successfully, it may take a few seconds to load");
+            });
         }
 
         // -- Depreciated
