@@ -43,12 +43,17 @@ window.modus = function () {
                 break;
 
             //Email
+            case "sendAgenda":
             case "sendEmail":
             case "sendEmailHtml":
                 var e = request.data;
                 var body = e.body ? e.body : e.html ? e.html : "";
-                var mailto = "mailto:" + e.to + "?subject=" + e.subject + "&body=" + body + "&cc=" + e.cc;
+                var to = e.to ? e.to : e.emailAddress;
+                var mailto = "mailto:" + to + "?subject=" + e.subject + "&body=" + body + "&cc=" + e.cc;
                 window.open(mailto);
+                break;
+            case "getAgendas":
+                result = [{agendaId: "1", agendaTitle: "Bespin Meeting"}, {agendaId: "2", agendaTitle: "Endor Visit"}, {agendaId: "3", agendaTitle: "Hoth Beach Vacation"}]
                 break;
         }
 
@@ -132,8 +137,10 @@ window.modus = function () {
         //Emails
         sendEmail: function (to, cc, subject, body) { return _callNativeFunction("sendEmail", { to: to, cc: cc, subject: subject, body: body }) },
         sendEmailHtml: function (to, cc, subject, html) { return _callNativeFunction("sendEmailHtml", { to: to, cc: cc, subject: subject, html: html }) },
-        sendEmailWithFileAttachmentFromBase64: function (data) { return _callNativeFunction("sendEmailWithFileAttachmentFromBase64", { data: data }) }
+        sendEmailWithFileAttachmentFromBase64: function (data) { return _callNativeFunction("sendEmailWithFileAttachmentFromBase64", { data: data }) },
 
-        //Other
+        //Agendas
+        getAgendas: _callNativeFunction.bind(null, "getAgendas", null),
+        sendAgenda: function (agendaId, emailAddress) { return _callNativeFunction("sendAgenda", { agendaId: agendaId, emailAddress: emailAddress }) }
     }
 }();
