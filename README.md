@@ -234,8 +234,8 @@ Simply include the adrJSBridge.js file and call any of the public methods.  See 
   * (function) function to be called on error
 
 
-### scanPDF417Barcode
-  Scans a PDF 417 barcode and returns the text encoded in the barcode (encoded in base64)
+### scanBarcode
+  Scans a barcode and returns the text encoded in the barcode (encoded in base64)
   
 
 | Platforms     | Available     |
