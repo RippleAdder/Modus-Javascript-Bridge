@@ -303,7 +303,8 @@ Logs an event to the App Data Room analytics engine, which will then be queued t
 - errorCallback
   - (function) function to be called on error
 
-### scanPDF417Barcode
+### scanBarcode
+  Scans a barcode and returns the text encoded in the barcode (encoded in base64)
 
 Scans a PDF 417 barcode and returns the text encoded in the barcode (encoded in base64)
 

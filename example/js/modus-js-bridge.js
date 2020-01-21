@@ -142,6 +142,8 @@ window.modus = function () {
 
         //Agendas
         getAgendas: _callNativeFunction.bind(null, "getAgendas", null),
-        sendAgenda: function (agendaId, emailAddress) { return _callNativeFunction("sendAgenda", { agendaId: agendaId, emailAddress: emailAddress }) }
+        sendAgenda: function (agendaId, emailAddress) { return _callNativeFunction("sendAgenda", { agendaId: agendaId, emailAddress: emailAddress }) },
+        //Other
+        scanBarcode: _callNativeFunction.bind(null, "scanPDF417Barcode", null)
     }
 }();
