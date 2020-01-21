@@ -42,6 +42,9 @@ Returns the currently logged in user's name (first and last) (encoded in base64)
 | Android   |  2.1.6+   |
 | Windows   |  4.3.0.0+ |
 
+##### Parameters
+This method has no parameters.
+
 ### getCurrentUserEmail
 
 Returns the currently logged in user's email (encoded in base64)
@@ -51,6 +54,9 @@ Returns the currently logged in user's email (encoded in base64)
 | iOS       |   2.6+    |
 | Android   |  2.1.6+   |
 | Windows   |    N/A    |
+
+##### Parameters
+This method has no parameters.
 
 ### getCurrentUserRegions
 
@@ -62,17 +68,20 @@ Returns the currently logged in user's regions (encoded in base64)
 | Android   |  2.1.6+   |
 | Windows   |    N/A    |
 
+##### Parameters
+This method has no parameters.
+
 ## Email Methods: 
 
-### sendEmailEncoded
+### sendEmail 
 
-Sends an email via the platform's native mail application using base 64 encoding for the parameters
+Sends an email via the platform's native mail application
 
 | Platforms | Available |
 | --------- | :-------: |
-| iOS       |  1.7.9+   |
+| iOS       |  1.7.0+   |
 | Android   |  2.1.6+   |
-| Windows   |  1.21.0+  |
+| Windows   |    N/A    |
 
 ##### Parameters
 
@@ -84,11 +93,27 @@ Sends an email via the platform's native mail application using base 64 encoding
   - (string) subject of email
 - body
   - (string) body of email
-- successCallback
-  - (function) function to be called on success
-- errorCallback
 
-  - (function) function to be called on error
+### sendEmailHtml 
+
+Sends an html formatted email via the platform's native mail application
+
+| Platforms | Available |
+| --------- | :-------: |
+| iOS       |  1.7.0+   |
+| Android   |  2.1.6+   |
+| Windows   |   N/A     |
+
+##### Parameters
+
+- to
+  - (string) destination email address
+- cc
+  - (string) carbon copy email address
+- subject
+  - (string) subject of email
+- html
+  - (string) html body of email
 
 ### sendEmailWithPDFAttachmentFromHTML
 
@@ -98,7 +123,7 @@ Sends an email via the platform's native mail application with a PDF attachment 
 | --------- | :-------: |
 | iOS       |  1.7.9+   |
 | Android   |    N/A    |
-| Windows   |  1.21.0+  |
+| Windows   |    N/A    |
 
 ##### Parameters
 
@@ -112,10 +137,6 @@ Sends an email via the platform's native mail application with a PDF attachment 
   - (string) body of email
 - attachmentHTML
   - (string) HTML to save as PDF and attach to email NOTE: this supports SVG
-- successCallback
-  - (function) function to be called on success
-- errorCallback
-  - (function) function to be called on error
 
 ### sendEmailWithPDFAttachmentFromHTMLMultiPage
 
@@ -139,11 +160,6 @@ Sends an email via the platform's native mail application with a PDF attachment 
   - (string) body of email
 - attachmentHTMLPages
   - (array) Array of HTML pages to save as PDF and attach to email NOTE: this supports SVG
-- successCallback
-  - (function) function to be called on success
-- errorCallback
-
-  - (function) function to be called on error
 
 ### sendEmailWithFileAttachmentFromBase64
 
@@ -169,20 +185,16 @@ Sends an email via the platform's native mail application with a file attachment
   - (string) file name of the attachment (you must include the extension)
 - attachmentBase64
   - (string) Base 64 representation of the file you would like to attach
-- successCallback
-  - (function) function to be called on success
-- errorCallback
-  - (function) function to be called on error
 
-### sendEmail **_Deprecated in v1.7.9, use sendEmailEncoded instead_**
+### sendEmailEncoded **_Deprecated in v1.7.9, use sendEmailEncoded instead_**
 
-Sends an email via the platform's native mail application
+Sends an email via the platform's native mail application using base 64 encoding for the parameters
 
 | Platforms | Available |
 | --------- | :-------: |
-| iOS       |  1.7.0+   |
+| iOS       |  1.7.9+   |
 | Android   |  2.1.6+   |
-| Windows   |  1.21.0+  |
+| Windows   |    N/A    |
 
 ##### Parameters
 
@@ -194,10 +206,6 @@ Sends an email via the platform's native mail application
   - (string) subject of email
 - body
   - (string) body of email
-- successCallback
-  - (function) function to be called on success
-- errorCallback
-  - (function) function to be called on error
 
 ### getItem
 
@@ -207,16 +215,12 @@ Gets a value for a specified key from the native local database
 | --------- | :-------: |
 | iOS       |  1.7.0+   |
 | Android   |    N/A    |
-| Windows   |  1.21.0+  |
+| Windows   |    N/A    |
 
 ##### Parameters
 
 - key
   - (string) key to retrieve
-- successCallback
-  - (function) function to be called on success
-- errorCallback
-  - (function) function to be called on error
 
 ### setItem
 
@@ -226,7 +230,7 @@ Sets a value for a specified key to the native local database
 | --------- | :-------: |
 | iOS       |  1.7.0+   |
 | Android   |    N/A    |
-| Windows   |  1.21.0+  |
+| Windows   |    N/A    |
 
 ##### Parameters
 
@@ -234,10 +238,6 @@ Sets a value for a specified key to the native local database
   - (string) key to store
 - value
   - (string) value to store
-- successCallback
-  - (function) function to be called on success
-- errorCallback
-  - (function) function to be called on error
 
 ### getGlobalItem
 
@@ -253,10 +253,6 @@ Gets a value for a specified key from the native local database
 
 - key
   - (string) key to retrieve
-- successCallback
-  - (function) function to be called on success
-- errorCallback
-  - (function) function to be called on error
 
 ### setGlobalItem
 
@@ -274,11 +270,6 @@ Sets a value for a specified key to the native local database
   - (string) key to store
 - value
   - (string) value to store
-- successCallback
-  - (function) function to be called on success
-- errorCallback
-
-  - (function) function to be called on error
 
 ### logEvent
 
@@ -298,15 +289,9 @@ Logs an event to the App Data Room analytics engine, which will then be queued t
   - (string) action parameter of event
 - additionalParams
   - (string) key value pair listing of additional parameters (example: "email:test@gmail.com")
-- successCallback
-  - (function) function to be called on success
-- errorCallback
-  - (function) function to be called on error
 
 ### scanBarcode
-  Scans a barcode and returns the text encoded in the barcode (encoded in base64)
-
-Scans a PDF 417 barcode and returns the text encoded in the barcode (encoded in base64)
+  Scans a barcode and returns the text encoded in the barcode
 
 | Platforms | Available |
 | --------- | :-------: |
@@ -315,12 +300,7 @@ Scans a PDF 417 barcode and returns the text encoded in the barcode (encoded in 
 | Windows   |    N/A    |
 
 ##### Parameters
-
-- successCallback
-  - (function) function to be called on success
-- errorCallback
-
-  - (function) function to be called on error
+This method has no parameters.
 
 ### captureLead
 
@@ -333,11 +313,7 @@ Captures a lead and returns the scan string (encoded in base64)
 | Windows   |    N/A    |
 
 ##### Parameters
-
-- successCallback
-  - (function) function to be called on success
-- errorCallback
-  - (function) function to be called on error
+This method has no parameters.
 
 ### getAgendas
 
@@ -350,11 +326,7 @@ Returns the list of agendas (both local and shared) present in the app for this 
 | Windows   |    N/A    |
 
 ##### Parameters
-
-- successCallback
-  - (function) function to be called on success
-- errorCallback
-  - (function) function to be called on error
+This method has no parameters.
 
 ### sendAgenda
 
@@ -372,10 +344,6 @@ Send the media contents of an agenda to a specified email address
   - (int) id of the agenda to send (typically sourced from the getAgendas call above)
 - destinationEmail
   - (string) email address to send the content to (optional)
-- successCallback
-  - (function) function to be called on success
-- errorCallback
-  - (function) function to be called on error
 
 ### reloadPage
 
@@ -388,7 +356,6 @@ Reloads the page
 | Windows   |    N/A    |
 
 ##### Parameters
-
 This method has no parameters.
 
 ### asyncHttpRequest
@@ -411,7 +378,3 @@ Queues an http request in the mobile app's local database to be run when the app
   - (dictionary) key value pairs of additional headers. example: { name: 'John', time: '2pm' }
 - body
   - (dictionary) body to post. example: { color: 'Red', fruit: 'Apple' }
-- successCallback
-  - (function) function to be called on success
-- errorCallback
-  - (function) function to be called on error
