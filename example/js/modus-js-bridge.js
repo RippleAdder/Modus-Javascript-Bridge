@@ -1,6 +1,6 @@
 //implement weback or something in this so we can build a dist file based on multiple src files.
 
-window.modus = function () {
+window.modus = function() {
     //Variables
     let _os = _getParameterByName("os");
 
@@ -16,7 +16,7 @@ window.modus = function () {
     }
 
     //Break this in to a different file
-    let _createExampleResult = function (request) {
+    let _createExampleResult = function(request) {
         //TODO: should this be somewhere else?
         var name = request.methodName;
         var result = null;
@@ -32,7 +32,7 @@ window.modus = function () {
                 result = ["Tatooine", "Stewjon", "Coruscant"]
                 break;
 
-            //Storage
+                //Storage
             case "getItem":
             case "getGlobalItem":
                 result = window[request.data.key] ? window[request.data.key] : null;
@@ -42,7 +42,7 @@ window.modus = function () {
                 window[request.data.key] = request.data.value;
                 break;
 
-            //Email
+                //Email
             case "sendAgenda":
             case "sendEmail":
             case "sendEmailHtml":
@@ -52,9 +52,9 @@ window.modus = function () {
                 var mailto = "mailto:" + to + "?subject=" + e.subject + "&body=" + body + "&cc=" + e.cc;
                 window.open(mailto);
                 break;
-            //Agendas
+                //Agendas
             case "getAgendas":
-                result = {result:[{agendaId: "1", agendaTitle: "Bespin Meeting"}, {agendaId: "2", agendaTitle: "Endor Visit"}, {agendaId: "3", agendaTitle: "Hoth Beach Vacation"}]}
+                result = { result: [{ agendaId: "1", agendaTitle: "Bespin Meeting" }, { agendaId: "2", agendaTitle: "Endor Visit" }, { agendaId: "3", agendaTitle: "Hoth Beach Vacation" }] }
                 break;
         }
 
@@ -63,16 +63,16 @@ window.modus = function () {
 
 
     //Marshall
-    let _callNativeFunction = function (methodName, methodData) {
+    let _callNativeFunction = function(methodName, methodData) {
         var id = Math.floor(Math.random() * 10000000);
         var successId = methodName + "_success_" + id;
         var errorId = methodName + "_error_" + id;
 
         console.log(successId);
 
-        return new Promise(function (resolve, reject) {
+        return new Promise(function(resolve, reject) {
             //build success function
-            window[successId] = function (data) {
+            window[successId] = function(data) {
                 resolve(data);
                 window[successId] = null;
                 window[errorId] = null;
@@ -81,7 +81,7 @@ window.modus = function () {
             };
 
             //build error function
-            window[errorId] = function (data) {
+            window[errorId] = function(data) {
                 reject(data);
                 window[successId] = null;
                 window[errorId] = null;
@@ -110,7 +110,7 @@ window.modus = function () {
 
             //  iOS
             if (os === "ios" || (window.webkit && window.webkit.messageHandlers.modus != undefined)) {
-                return window.webkit.messageHandlers.modus.postMessage(request);
+                return window.webkit.messageHandlers.modus.postMessage(JSON.stringify(request));
             }
             //  Android
             if (os === "android" || window.appInterface != undefined) {
@@ -130,19 +130,19 @@ window.modus = function () {
         getCurrentUserRegions: _callNativeFunction.bind(null, "getCurrentUserRegions", null),
 
         //Storage
-        getItem: function (key) { return _callNativeFunction("getItem", { key: key }) },
-        setItem: function (key, value) { return _callNativeFunction("setItem", { key: key, value: value }) },
-        getGlobalItem: function (key) { return _callNativeFunction("getGlobalItem", { key: key }) },
-        setGlobalItem: function (key, value) { return _callNativeFunction("setGlobalItem", { key: key, value: value }) },
+        getItem: function(key) { return _callNativeFunction("getItem", { key: key }) },
+        setItem: function(key, value) { return _callNativeFunction("setItem", { key: key, value: value }) },
+        getGlobalItem: function(key) { return _callNativeFunction("getGlobalItem", { key: key }) },
+        setGlobalItem: function(key, value) { return _callNativeFunction("setGlobalItem", { key: key, value: value }) },
 
         //Emails
-        sendEmail: function (to, cc, subject, body) { return _callNativeFunction("sendEmail", { to: to, cc: cc, subject: subject, body: body }) },
-        sendEmailHtml: function (to, cc, subject, html) { return _callNativeFunction("sendEmailHtml", { to: to, cc: cc, subject: subject, html: html }) },
-        sendEmailWithFileAttachmentFromBase64: function (data) { return _callNativeFunction("sendEmailWithFileAttachmentFromBase64", { data: data }) },
+        sendEmail: function(to, cc, subject, body) { return _callNativeFunction("sendEmail", { to: to, cc: cc, subject: subject, body: body }) },
+        sendEmailHtml: function(to, cc, subject, html) { return _callNativeFunction("sendEmailHtml", { to: to, cc: cc, subject: subject, html: html }) },
+        sendEmailWithFileAttachmentFromBase64: function(data) { return _callNativeFunction("sendEmailWithFileAttachmentFromBase64", { data: data }) },
 
         //Agendas
         getAgendas: _callNativeFunction.bind(null, "getAgendas", null),
-        sendAgenda: function (agendaId, emailAddress) { return _callNativeFunction("sendAgenda", { agendaId: agendaId, emailAddress: emailAddress }) },
+        sendAgenda: function(agendaId, emailAddress) { return _callNativeFunction("sendAgenda", { agendaId: agendaId, emailAddress: emailAddress }) },
         //Other
         scanBarcode: _callNativeFunction.bind(null, "scanPDF417Barcode", null)
     }
