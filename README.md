@@ -186,26 +186,39 @@ Sends an email via the platform's native mail application with a file attachment
 - attachmentBase64
   - (string) Base 64 representation of the file you would like to attach
 
-### sendEmailEncoded **_Deprecated in v1.7.9, use sendEmailEncoded instead_**
+## Agenda Methods: 
 
-Sends an email via the platform's native mail application using base 64 encoding for the parameters
+### getAgendas
+
+Returns the list of agendas (both local and shared) present in the app for this user. Json response will contain an array of agenda objects, each agenda object will have a property titled "agendaId" with an integer id and a property titled "agendaTitle" with a string name.
 
 | Platforms | Available |
 | --------- | :-------: |
-| iOS       |  1.7.9+   |
-| Android   |  2.1.6+   |
+| iOS       |   5.0+    |
+| Android   |    N/A    |
+| Windows   |    N/A    |
+
+##### Parameters
+This method has no parameters.
+
+### sendAgenda
+
+Send the media contents of an agenda to a specified email address
+
+| Platforms | Available |
+| --------- | :-------: |
+| iOS       |  5.0.0+   |
+| Android   |    N/A    |
 | Windows   |    N/A    |
 
 ##### Parameters
 
-- to
-  - (string) destination email address
-- cc
-  - (string) carbon copy email address
-- subject
-  - (string) subject of email
-- body
-  - (string) body of email
+- agendaId
+  - (int) id of the agenda to send (typically sourced from the getAgendas call above)
+- destinationEmail
+  - (string) email address to send the content to (optional)
+
+## Storage Methods:
 
 ### getItem
 
@@ -271,6 +284,8 @@ Sets a value for a specified key to the native local database
 - value
   - (string) value to store
 
+## Other Methods:
+
 ### logEvent
 
 Logs an event to the App Data Room analytics engine, which will then be queued to be sent up to Media Manager when a connection is available
@@ -314,36 +329,6 @@ Captures a lead and returns the scan string (encoded in base64)
 
 ##### Parameters
 This method has no parameters.
-
-### getAgendas
-
-Returns the list of agendas (both local and shared) present in the app for this user. Json response will contain an array of agenda objects, each agenda object will have a property titled "agendaId" with an integer id and a property titled "agendaTitle" with a string name.
-
-| Platforms | Available |
-| --------- | :-------: |
-| iOS       |   5.0+    |
-| Android   |    N/A    |
-| Windows   |    N/A    |
-
-##### Parameters
-This method has no parameters.
-
-### sendAgenda
-
-Send the media contents of an agenda to a specified email address
-
-| Platforms | Available |
-| --------- | :-------: |
-| iOS       |  5.0.0+   |
-| Android   |    N/A    |
-| Windows   |    N/A    |
-
-##### Parameters
-
-- agendaId
-  - (int) id of the agenda to send (typically sourced from the getAgendas call above)
-- destinationEmail
-  - (string) email address to send the content to (optional)
 
 ### reloadPage
 
