@@ -190,7 +190,7 @@ Sends an email via the platform's native mail application with a file attachment
 
 ### getAgendas
 
-Returns the list of agendas (both local and shared) present in the app for this user. Json response will contain an array of agenda objects, each agenda object will have a property titled "agendaId" with an integer id and a property titled "agendaTitle" with a string name.
+Returns a stringified json list of agendas (both local and shared) present in the app for this user. Json response will contain an array of agenda objects, each agenda object will have a property titled "agendaId" with an integer id and a property titled "agendaTitle" with a string name.
 
 | Platforms | Available |
 | --------- | :-------: |
