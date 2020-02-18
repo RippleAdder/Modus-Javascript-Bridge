@@ -23,6 +23,10 @@
             modus.getCurrentUserEmail().then(printResult);
         }
 
+        function getAccessToken() {
+            modus.getAccessToken().then(printResult);
+        }
+
         function getCurrentUserRegions() {
             modus.getCurrentUserRegions().then(printResult);
         }
@@ -193,6 +197,9 @@
         <div class="row">
             <button class="btn btn-primary" type="button" onclick="getCurrentUserRegions()">Get Current User
                 Regions</button><br />
+        </div>
+        <div class="row">
+            <button class="btn btn-primary" type="button" onclick="getAccessToken()">Get Access Token</button><br />
         </div>
 
         <h2>Storage</h2>
