@@ -64,6 +64,19 @@ Returns the currently logged in user's email (encoded in base64)
 ##### Parameters
 This method has no parameters.
 
+### getAccessToken
+
+Returns the currently logged in user's access token
+
+| Platforms | Available |
+| --------- | :-------: |
+| iOS       |   5.0.8+    |
+| Android   |    N/A   |
+| Windows   |    N/A    |
+
+##### Parameters
+This method has no parameters.
+
 ### getCurrentUserRegions
 
 Returns the currently logged in user's regions (encoded in base64)

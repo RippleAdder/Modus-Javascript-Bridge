@@ -24,6 +24,9 @@ window.modus = function() {
             case "getCurrentUserEmail":
                 result = "maul_killer@jedicouncil.crst"
                 break;
+            case "getAccessToken":
+                    result = "exampleToken"
+                    break;
             case "getCurrentUserRegions":
                 result = ["Tatooine", "Stewjon", "Coruscant"]
                 break;
@@ -124,6 +127,7 @@ window.modus = function() {
         getCurrentUserName: _callNativeFunction.bind(null, "getCurrentUserName", null),
         getCurrentUserEmail: _callNativeFunction.bind(null, "getCurrentUserEmail", null),
         getCurrentUserRegions: _callNativeFunction.bind(null, "getCurrentUserRegions", null),
+        getAccessToken: _callNativeFunction.bind(null, "getAccessToken", null),
 
         //Storage
         getItem: function(key) { return _callNativeFunction("getItem", { key: key }) },
