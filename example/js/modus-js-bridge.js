@@ -1,9 +1,6 @@
 //implement weback or something in this so we can build a dist file based on multiple src files.
 
 window.modus = function() {
-    //Variables
-    let _os = _getParameterByName("os");
-
     //Helpers
     function _getParameterByName(name, url) {
         if (!url) url = window.location.href;
@@ -15,9 +12,8 @@ window.modus = function() {
         return decodeURIComponent(results[2].replace(/\+/g, ' '));
     }
 
-    //Break this in to a different file
+    //TODO: Break this in to a different file
     let _createExampleResult = function(request) {
-        //TODO: should this be somewhere else?
         var name = request.methodName;
         var result = null;
 
@@ -52,6 +48,7 @@ window.modus = function() {
                 var mailto = "mailto:" + to + "?subject=" + e.subject + "&body=" + body + "&cc=" + e.cc;
                 window.open(mailto);
                 break;
+                
                 //Agendas
             case "getAgendas":
                 result = JSON.stringify([{ agendaId: "1", agendaTitle: "Bespin Meeting" }, { agendaId: "2", agendaTitle: "Endor Visit" }, { agendaId: "3", agendaTitle: "Hoth Beach Vacation" }])
@@ -101,7 +98,6 @@ window.modus = function() {
 
             //For Windows builds that don't pass in the os param
             let userAgent = navigator.userAgent;
-            console.log(userAgent);
 
             //  Windows
             if (os === "windows" || userAgent.includes("Windows.Desktop")) {

@@ -4,7 +4,9 @@ Javascript bridge that provides native functionality to web bundles running with
 
 ### Plain Old Javascript
 
-Include the modus-js-bridge.js file (located in the "dist" folder) in your application
+Include the modus-js-bridge.js file in your application
+
+_TEMPORARY NOTE: the modus-js-bridge.js file is located in 'example/js/modus-js-bridge'_
 
 ```javascript
 <script src="js/modus-js-bridge.js"></script>
@@ -17,24 +19,20 @@ This library heavily relies on native JavaScript promises. This may require a po
 ### General Usage Example
 
 ```javascript
-modus.sendEmail("test@gmail.com", "", "test subject", "test body").then(() =>{
-  console.log("email sent successfully!");
-}).catch(() =>{
-  console.error("email failed to send");
-}):
-```
-
-```javascript
 modus.getCurrentUserName().then(username => {
   console.log("Hello, " + username);
 });
 ```
+            modus.getCurrentUserEmail().then(printResult);
+
 
 ## User Methods:
 
-### getCurrentUserName
+### --- getCurrentUserName ---
 
 Returns the currently logged in user's name (first and last) (encoded in base64)
+
+##### Implementation 
 
 | Platforms | Available |
 | --------- | :-------: |
@@ -45,10 +43,18 @@ Returns the currently logged in user's name (first and last) (encoded in base64)
 ##### Parameters
 This method has no parameters.
 
-### getCurrentUserEmail
+##### Usage
+```javascript
+modus.getCurrentUserName().then(username => {
+  console.log("Hello, " + username);
+});
+```
+
+### --- getCurrentUserEmail ---
 
 Returns the currently logged in user's email (encoded in base64)
 
+##### Implementation 
 | Platforms | Available |
 | --------- | :-------: |
 | iOS       |   2.6+    |
