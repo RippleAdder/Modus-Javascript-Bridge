@@ -26,7 +26,7 @@ modus.getCurrentUserName().then(username => {
             modus.getCurrentUserEmail().then(printResult);
 
 
-## User Methods:
+## Methods:
 
 ### --- getCurrentUserName ---
 
@@ -92,10 +92,11 @@ modus.getAccessToken().then(token => {
 });
 ```
 
-### getCurrentUserRegions
+### --- getCurrentUserRegions --- 
 
-Returns the currently logged in user's regions (encoded in base64)
+Returns the currently logged in user's regions
 
+##### Implementation 
 | Platforms | Available |
 | --------- | :-------: |
 | iOS       |  2.6.3+   |
@@ -104,6 +105,14 @@ Returns the currently logged in user's regions (encoded in base64)
 
 ##### Parameters
 This method has no parameters.
+
+##### Usage
+```javascript
+modus.getCurrentUserRegions().then(regions => {
+  //array of strings.["hello", "world]
+  console.log(regions);
+});
+```
 
 ## Email Methods: 
 

@@ -68,8 +68,6 @@ window.modus = function() {
         var successId = methodName + "_success_" + id;
         var errorId = methodName + "_error_" + id;
 
-        console.log(successId);
-
         return new Promise(function(resolve, reject) {
             //build success function
             window[successId] = function(data) {
