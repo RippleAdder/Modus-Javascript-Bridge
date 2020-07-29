@@ -64,10 +64,18 @@ Returns the currently logged in user's email (encoded in base64)
 ##### Parameters
 This method has no parameters.
 
-### getAccessToken
+##### Usage
+```javascript
+modus.getCurrentUserEmail().then(email => {
+  console.log("Hello, " + email);
+});
+```
+
+### --- getAccessToken ---
 
 Returns the currently logged in user's access token
 
+##### Implementation 
 | Platforms | Available |
 | --------- | :-------: |
 | iOS       |   5.0.8+    |
@@ -76,6 +84,13 @@ Returns the currently logged in user's access token
 
 ##### Parameters
 This method has no parameters.
+
+##### Usage
+```javascript
+modus.getAccessToken().then(token => {
+  console.log(token);
+});
+```
 
 ### getCurrentUserRegions
 
