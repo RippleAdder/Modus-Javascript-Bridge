@@ -28,7 +28,7 @@ modus.getCurrentUserName().then(username => {
 
 ### --- getCurrentUserName ---
 
-Returns the currently logged in user's name (first and last) (encoded in base64)
+Returns the currently logged in user's name (first and last)
 
 ##### Implementation 
 
@@ -50,7 +50,7 @@ modus.getCurrentUserName().then(username => {
 
 ### --- getCurrentUserEmail ---
 
-Returns the currently logged in user's email (encoded in base64)
+Returns the currently logged in user's email
 
 ##### Implementation 
 | Platforms | Available |
