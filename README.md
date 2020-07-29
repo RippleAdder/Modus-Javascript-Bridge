@@ -23,8 +23,6 @@ modus.getCurrentUserName().then(username => {
   console.log("Hello, " + username);
 });
 ```
-            modus.getCurrentUserEmail().then(printResult);
-
 
 ## Methods:
 
