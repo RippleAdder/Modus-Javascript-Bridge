@@ -116,10 +116,11 @@ modus.getCurrentUserRegions().then(regions => {
 
 ## Email Methods: 
 
-### sendEmail 
+### --- sendEmail --- 
 
 Sends an email via the platform's native mail application
 
+##### Implementation 
 | Platforms | Available |
 | --------- | :-------: |
 | iOS       |  1.7.0+   |
@@ -137,10 +138,20 @@ Sends an email via the platform's native mail application
 - body
   - (string) body of email
 
-### sendEmailHtml 
+##### Usage
+```javascript
+modus.sendEmail("test@gmail.com", "", "Test Subject Line", "Test body").then(() =>
+  console.log("email sent successfully!");
+}).catch((ex) =>{
+  console.log("email failed to send");F
+});
+```
+
+### --- sendEmailHtml ---
 
 Sends an html formatted email via the platform's native mail application
 
+##### Implementation 
 | Platforms | Available |
 | --------- | :-------: |
 | iOS       |  1.7.0+   |
@@ -148,7 +159,6 @@ Sends an html formatted email via the platform's native mail application
 | Windows   |   N/A     |
 
 ##### Parameters
-
 - to
   - (string) destination email address
 - cc
@@ -158,10 +168,20 @@ Sends an html formatted email via the platform's native mail application
 - html
   - (string) html body of email
 
-### sendEmailWithPDFAttachmentFromHTML
+##### Usage
+```javascript
+modus.sendEmailHtml("test@gmail.com", "", "Test Subject Line", "<h1>Hi</h1>").then(() =>
+  console.log("email sent successfully!");
+}).catch((ex) =>{
+  console.log("email failed to send");F
+});
+```
+
+### --- sendEmailWithPDFAttachmentFromHTML ---
 
 Sends an email via the platform's native mail application with a PDF attachment that is generated from the supplied HTML markup, also using base 64 encoding for the parameters
 
+##### Implementation 
 | Platforms | Available |
 | --------- | :-------: |
 | iOS       |  1.7.9+   |
@@ -181,10 +201,11 @@ Sends an email via the platform's native mail application with a PDF attachment 
 - attachmentHTML
   - (string) HTML to save as PDF and attach to email NOTE: this supports SVG
 
-### sendEmailWithPDFAttachmentFromHTMLMultiPage
+### --- sendEmailWithPDFAttachmentFromHTMLMultiPage ---
 
 Sends an email via the platform's native mail application with a PDF attachment that is generated from the supplied array of HTML markup pages, also using base 64 encoding for the parameters
 
+##### Implementation 
 | Platforms | Available |
 | --------- | :-------: |
 | iOS       |   4.3+    |
@@ -204,10 +225,11 @@ Sends an email via the platform's native mail application with a PDF attachment 
 - attachmentHTMLPages
   - (array) Array of HTML pages to save as PDF and attach to email NOTE: this supports SVG
 
-### sendEmailWithFileAttachmentFromBase64
+### --- sendEmailWithFileAttachmentFromBase64 ---
 
 Sends an email via the platform's native mail application with a file attachment that is generated from the supplied base64 string representation of the file, also using base 64 encoding for the parameters. The attached file will be named with the supplied string attachmentName, and this should include the extension (example: quote.pdf)
 
+##### Implementation 
 | Platforms | Available |
 | --------- | :-------: |
 | iOS       |  3.1.2+   |
@@ -235,6 +257,7 @@ Sends an email via the platform's native mail application with a file attachment
 
 Returns a stringified json list of agendas (both local and shared) present in the app for this user. Json response will contain an array of agenda objects, each agenda object will have a property titled "agendaId" with an integer id and a property titled "agendaTitle" with a string name.
 
+##### Implementation 
 | Platforms | Available |
 | --------- | :-------: |
 | iOS       |   5.0+    |
@@ -267,6 +290,7 @@ Send the media contents of an agenda to a specified email address
 
 Gets a value for a specified key from the native local database
 
+##### Implementation 
 | Platforms | Available |
 | --------- | :-------: |
 | iOS       |  1.7.0+   |
@@ -282,6 +306,7 @@ Gets a value for a specified key from the native local database
 
 Sets a value for a specified key to the native local database
 
+##### Implementation 
 | Platforms | Available |
 | --------- | :-------: |
 | iOS       |  1.7.0+   |
