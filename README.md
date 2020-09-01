@@ -94,9 +94,9 @@ Simply include the adrJSBridge.js file and call any of the public methods.  See 
 
 | Platforms     | Available     |
 | ------------- |:-------------:|
-| iOS           | 3.1.2+        |
-| Android       | N/A           |
-| Windows       | N/A           |
+| iOS           | 5.0.8+        |
+| Android       | 4.3.0+        |
+| Windows       | 5.0+          |
 
 ##### Parameters
 * to
