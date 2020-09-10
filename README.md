@@ -57,7 +57,7 @@ Returns the currently logged in user's email
 | --------- | :-------: |
 | iOS       |   2.6+    |
 | Android   |  2.1.6+   |
-| Windows   |    N/A    |
+| Windows   |  5.0.0.0+ |
 
 ##### Parameters
 This method has no parameters.

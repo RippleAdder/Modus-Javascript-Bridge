@@ -1,6 +1,8 @@
 //implement weback or something in this so we can build a dist file based on multiple src files.
 
 window.modus = function () {
+    //TODO: build some way to pass in like a web bridge handler?!
+    
     //Helpers
     function _getParameterByName(name, url) {
         if (!url) url = window.location.href;
@@ -14,6 +16,8 @@ window.modus = function () {
 
     //TODO: Break this in to a different file
     let _createExampleResult = function (request) {
+        console.log("generating example output");
+
         var name = request.methodName;
         var result = null;
 
