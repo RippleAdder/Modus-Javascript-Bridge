@@ -1,6 +1,6 @@
 //implement weback or something in this so we can build a dist file based on multiple src files.
 
-window.modus = function() {
+window.modus = function () {
     //Helpers
     function _getParameterByName(name, url) {
         if (!url) url = window.location.href;
@@ -13,7 +13,7 @@ window.modus = function() {
     }
 
     //TODO: Break this in to a different file
-    let _createExampleResult = function(request) {
+    let _createExampleResult = function (request) {
         var name = request.methodName;
         var result = null;
 
@@ -25,13 +25,13 @@ window.modus = function() {
                 result = "maul_killer@jedicouncil.crst"
                 break;
             case "getAccessToken":
-                    result = "exampleToken"
-                    break;
+                result = "exampleToken"
+                break;
             case "getCurrentUserRegions":
                 result = ["Tatooine", "Stewjon", "Coruscant"]
                 break;
 
-                //Storage
+            //Storage
             case "getItem":
             case "getGlobalItem":
                 result = window[request.data.key] ? window[request.data.key] : null;
@@ -41,7 +41,7 @@ window.modus = function() {
                 window[request.data.key] = request.data.value;
                 break;
 
-                //Email
+            //Email
             case "sendAgenda":
             case "sendEmail":
             case "sendEmailHtml":
@@ -51,10 +51,15 @@ window.modus = function() {
                 var mailto = "mailto:" + to + "?subject=" + e.subject + "&body=" + body + "&cc=" + e.cc;
                 window.open(mailto);
                 break;
-                
-                //Agendas
+
+            //Agendas
             case "getAgendas":
                 result = JSON.stringify([{ agendaId: "1", agendaTitle: "Bespin Meeting" }, { agendaId: "2", agendaTitle: "Endor Visit" }, { agendaId: "3", agendaTitle: "Hoth Beach Vacation" }])
+                break;
+
+            //Other
+            case "asyncHttpRequest":
+                result = JSON.stringify({ 'example': 'hello world' });
                 break;
         }
 
@@ -63,14 +68,14 @@ window.modus = function() {
 
 
     //Marshall
-    let _callNativeFunction = function(methodName, methodData) {
+    let _callNativeFunction = function (methodName, methodData) {
         var id = Math.floor(Math.random() * 10000000);
         var successId = methodName + "_success_" + id;
         var errorId = methodName + "_error_" + id;
 
-        return new Promise(function(resolve, reject) {
+        return new Promise(function (resolve, reject) {
             //build success function
-            window[successId] = function(data) {
+            window[successId] = function (data) {
                 resolve(data);
                 window[successId] = null;
                 window[errorId] = null;
@@ -79,7 +84,7 @@ window.modus = function() {
             };
 
             //build error function
-            window[errorId] = function(data) {
+            window[errorId] = function (data) {
                 reject(data);
                 window[successId] = null;
                 window[errorId] = null;
@@ -128,20 +133,22 @@ window.modus = function() {
         getAccessToken: _callNativeFunction.bind(null, "getAccessToken", null),
 
         //Storage
-        getItem: function(key) { return _callNativeFunction("getItem", { key: key }) },
-        setItem: function(key, value) { return _callNativeFunction("setItem", { key: key, value: value }) },
-        getGlobalItem: function(key) { return _callNativeFunction("getGlobalItem", { key: key }) },
-        setGlobalItem: function(key, value) { return _callNativeFunction("setGlobalItem", { key: key, value: value }) },
+        getItem: function (key) { return _callNativeFunction("getItem", { key: key }) },
+        setItem: function (key, value) { return _callNativeFunction("setItem", { key: key, value: value }) },
+        getGlobalItem: function (key) { return _callNativeFunction("getGlobalItem", { key: key }) },
+        setGlobalItem: function (key, value) { return _callNativeFunction("setGlobalItem", { key: key, value: value }) },
 
         //Emails
-        sendEmail: function(to, cc, subject, body) { return _callNativeFunction("sendEmail", { to: to, cc: cc, subject: subject, body: body }) },
-        sendEmailHtml: function(to, cc, subject, html) { return _callNativeFunction("sendEmailHtml", { to: to, cc: cc, subject: subject, html: html }) },
-        sendEmailWithFileAttachmentFromBase64: function(data) { return _callNativeFunction("sendEmailWithFileAttachmentFromBase64", { data: data }) },
+        sendEmail: function (to, cc, subject, body) { return _callNativeFunction("sendEmail", { to: to, cc: cc, subject: subject, body: body }) },
+        sendEmailHtml: function (to, cc, subject, html) { return _callNativeFunction("sendEmailHtml", { to: to, cc: cc, subject: subject, html: html }) },
+        sendEmailWithFileAttachmentFromBase64: function (data) { return _callNativeFunction("sendEmailWithFileAttachmentFromBase64", { data: data }) },
 
         //Agendas
         getAgendas: _callNativeFunction.bind(null, "getAgendas", null),
-        sendAgenda: function(agendaId, emailAddress) { return _callNativeFunction("sendAgenda", { agendaId: agendaId, emailAddress: emailAddress }) },
+        sendAgenda: function (agendaId, emailAddress) { return _callNativeFunction("sendAgenda", { agendaId: agendaId, emailAddress: emailAddress }) },
+
         //Other
-        scanBarcode: _callNativeFunction.bind(null, "scanPDF417Barcode", null)
+        scanBarcode: _callNativeFunction.bind(null, "scanPDF417Barcode", null),
+        asyncHttpRequest: function (url, verb, headers, body) { return _callNativeFunction("asyncHttpRequest", { url: url, verb: verb, headers: headers, body: body }) }
     }
 }();

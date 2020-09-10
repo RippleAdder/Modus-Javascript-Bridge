@@ -106,7 +106,10 @@
         }
 
         function asyncHttpRequest() {
-            adr.asyncHttpRequest("https://ptsv2.com/t/7xh2y-1551975478/post", "POST", null, { "firstName": "John", "lastName": "Doe" }, onSuccessBase64, onError);
+            modus.asyncHttpRequest("https://ptsv2.com/t/7xh2y-1551975478/post", "POST", null, { "firstName": "John", "lastName": "Doe" }).then(function (data) {
+                printResult(data);
+            })
+            //adr.asyncHttpRequest("https://ptsv2.com/t/7xh2y-1551975478/post", "POST", null, { "firstName": "John", "lastName": "Doe" }, onSuccessBase64, onError);
         }
 
         function sendAgenda() {
@@ -127,9 +130,12 @@
 
         //Helpers
         function printResult(result) {
-            document.getElementById('log').innerHTML += result;
+            let type = typeof(result);
+
+            document.getElementById('log').innerHTML += result + " - ("+type+")";
             document.getElementById('log').innerHTML += "<br/>";
-            console.log(result);
+
+            console.log(result, type);
         }
 
         function getExampleHtml() {
@@ -176,7 +182,7 @@
 
 <body>
     <div class="container">
-        
+
         <h2>Current User Data</h2>
         <div class="row">
             <button class="btn btn-primary" type="button" onclick="getCurrentUserName()">Get Current User
