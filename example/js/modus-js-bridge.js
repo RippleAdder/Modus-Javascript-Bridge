@@ -2,7 +2,7 @@
 
 window.modus = function () {
     //TODO: build some way to pass in like a web bridge handler?!
-    
+
     //Helpers
     function _getParameterByName(name, url) {
         if (!url) url = window.location.href;
@@ -69,7 +69,6 @@ window.modus = function () {
 
         window[request.successMethodId](result);
     }
-
 
     //Marshall
     let _callNativeFunction = function (methodName, methodData) {
