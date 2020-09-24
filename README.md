@@ -429,3 +429,50 @@ Queues an http request in the mobile app's local database to be run when the app
   - (dictionary) key value pairs of additional headers. example: { name: 'John', time: '2pm' }
 - body
   - (dictionary) body to post. example: { color: 'Red', fruit: 'Apple' }
+
+  ### sendFollowup
+
+Triggers a followup to happen within the app.  It allows the user of this function to override the link added to the followup as well by setting the link param to be whatever link you want to send in an email with the appropriate templated email body that is the default behavior of the app. The other two params are optional and can be used in cases where web bundles need to indicate what step to open to in the followup link or indicate what bundle the link is being sent from. 
+
+| Platforms | Available |
+| --------- | :-------: |
+| iOS       |   5.1.1+    |
+| Android   |    N/A    |
+| Windows   |    N/A    |
+
+##### Parameters
+
+- step
+  - (string) this is another item that will get appended to the url of the short link sent. It was used to indicate to the web bundle what "step" to open to when loading the link. Omitting it by setting it to "" or null will cause it to not be appended to the url.
+- bundleName
+  - (string) this is a string that indicates what web bundle is, it then gets added as a url param to the short link.  Omitting it by setting it to "" or null will cause it to not be appended to the url.
+- link
+  - (string) this can be any link you would like to send in the followup, omitting it by setting it to "" or null will result in the app placing in the next followuplink short link for the media item associated with this bundle
+
+### previewNextFollowupLink
+
+Returns the next short link that will be sent in the followup for the corresponding media item associated with the web bundle. This does not increment the short link it just shows what the next one is going to be. 
+
+| Platforms | Available |
+| --------- | :-------: |
+| iOS       |   5.1.1+    |
+| Android   |    N/A    |
+| Windows   |    N/A    |
+
+##### Parameters
+This method has no parameters.
+
+### getFollowupGuid
+
+This method takes an adr.sh short link and returns the associated unique guid used for the Modus Microsite. 
+
+| Platforms | Available |
+| --------- | :-------: |
+| iOS       |   5.1.1+    |
+| Android   |    N/A    |
+| Windows   |    N/A    |
+
+##### Parameters
+- link
+  - (string) this must be an adr.sh short link for this to work.  
+

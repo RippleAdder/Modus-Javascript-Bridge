@@ -65,6 +65,12 @@ window.modus = function () {
             case "asyncHttpRequest":
                 result = JSON.stringify({ 'example': 'hello world' });
                 break;
+            case "getFollowupGuid":
+                result = "0d38ecdb-fe7b-11ea-8e12-22000a0dc04b";
+                break;
+            case "previewNextFollowupLink":
+                result = "http://www.adr.sh/23qg/e29l/30i/3u";
+                break;
         }
 
         window[request.successMethodId](result);
@@ -152,6 +158,10 @@ window.modus = function () {
 
         //Other
         scanBarcode: _callNativeFunction.bind(null, "scanPDF417Barcode", null),
-        asyncHttpRequest: function (url, verb, headers, body) { return _callNativeFunction("asyncHttpRequest", { url: url, verb: verb, headers: headers, body: body }) }
+        asyncHttpRequest: function (url, verb, headers, body) { return _callNativeFunction("asyncHttpRequest", { url: url, verb: verb, headers: headers, body: body }) },
+        sendFollowup: function (step, bundleName, link) { return _callNativeFunction("sendFollowup", {step: step, bundle: bundleName, link : link }) }, 
+        previewNextFollowupLink: _callNativeFunction.bind(null, "previewNextFollowupLink", null),
+        getFollowupGuid: function (followupLink) { return _callNativeFunction("getFollowupGuid", { link: followupLink }) },
+
     }
 }();
