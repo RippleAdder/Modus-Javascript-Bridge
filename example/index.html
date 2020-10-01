@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Modus Bridge Tester</title>
+
+    <script
+        src="https://polyfill.io/v3/polyfill.min.js?features=Array.from,Promise,Symbol,Object.setPrototypeOf,Object.getOwnPropertySymbols"></script>
+    <script src="js/vendor/superagent.js"></script>
+
+    <script>
+        function clearLog() {
+            document.getElementById('log').innerHTML = "";
+        }
+
+        //User
+        function getCurrentUserName() {
+            modus.getCurrentUserName().then(printResult);
+        }
+
+        function getCurrentUserEmail() {
+            modus.getCurrentUserEmail().then(printResult);
+        }
+
+        function getAccessToken() {
+            modus.getAccessToken().then(printResult);
+        }
+
+        function getCurrentUserRegions() {
+            modus.getCurrentUserRegions().then(printResult);
+        }
+
+        //Storage
+        function getStorageItem() {
+            modus.getItem("test").then(function (val) {
+                printResult(val ? 'Storage Item: "' + val + '"' : "No Storage Item Set");
+            });
+        }
+        function setStorageItem() {
+            var val = "Test Value " + Math.floor(Math.random() * 100000);
+            modus.setItem("test", val).then(function () {
+                printResult('Storage test item was set as: "' + val + '"');
+            });
+        }
+        function getGlobalStorageItem() {
+            modus.getGlobalItem("globaltest").then(function (val) {
+                printResult(val ? 'Global Storage Item: "' + val + '"' : "No Global Storage Item Set");
+            });
+        }
+        function setGlobalStorageItem() {
+            var val = "Global Test Value " + Math.floor(Math.random() * 100000);
+            modus.setGlobalItem("globaltest", val).then(function () {
+                printResult('Global Storage test item was set as: "' + val + '"');
+            });
+        }
+        function setComplexStorageItem() {
+            adr.setItem("test", "[{'id':0,'room_name':'first room','system':'Wi-Box Solution','r_system':'Philips(Witt Series IV)','ao_source':'','mounting':'','using_pw':'','using_ecg':'','ffr':'','cable_data':{'name':'Philips(Witt Series IV)','adapter_ao_in':'C12648','monitor_ao_out':'C12948','aux_in_ecg_in':'C12504','aux_in_ao_in':'C12504','monitor_pw_out':'C12948','note':''},'active':true,'done':true},{'id':1,'room_name':'2nd room','system':'PressureWire Receiver','r_system':'Siemens/Draeger Sensis 10 pin','ao_source':'','mounting':'','using_pw':'','using_ecg':'','ffr':'','cable_data':{'name':'Siemens/Draeger Sensis 10 pin','adapter_ao_in':'C12601','monitor_ao_out':'C12901','aux_in_ecg_in':'C12502','aux_in_ao_in':'C12502','monitor_pw_out':'C12901','note':'AO/ECG is one cable'},'active':true,'done':true},{'id':2,'room_name':'third area','system':'QUANTIEN Platform','r_system':'Camtronics PhysioLog PDM Monitor (Schiller V1)','ao_source':'Aux-In AO (Cabled)','mounting':'Available on-site','using_pw':'Yes','using_ecg':'Yes','ffr':'','cable_data':{'name':'Camtronics PhysioLog PDM Monitor (Schiller V1)','adapter_ao_in':'C12651','monitor_ao_out':'C12951','aux_in_ecg_in':'C12503','aux_in_ao_in':'C12503','monitor_pw_out':'C12951','note':''},'active':true,'done':true},{'id':3,'room_name':'Newest room','system':'ILUMIEN System','r_system':'Gould 13-4615-50','ao_source':'','mounting':'','using_pw':'','using_ecg':'','ffr':'Yes','cable_data':{'name':'Gould 13-4615-50','adapter_ao_in':'C12614','monitor_ao_out':'C12914','aux_in_ecg_in':'','aux_in_ao_in':'','monitor_pw_out':'C12914','note':''},'active':true,'done':true}]", onSuccess, onError);
+        }
+
+        //Email
+        function sendMail() {
+            modus.sendEmail("test@gmail.com", "", "Test Subject Line", "Test body").then(function () {
+                printResult("Email client initiated successfully, it may take a few seconds to load");
+            });
+        }
+
+        function sendHTMLMail() {
+            getExampleHtml().then(function (html) {
+                return modus.sendEmailHtml("test@gmail.com", "example@cc.com", "Html Test Subject Line", html);
+            }).then(function () {
+                var msg = "Email client initiated successfully (with html), it may take a few seconds to load." +
+                    "This may not show as raw html when debugging but will be formatted as html when used inside of the app";
+                printResult(msg);
+            });
+        }
+
+        function sendEmailWithPDFAttachmentFromHTML() {
+            adr.sendEmailWithPDFAttachmentFromHTML("test@gmail.com", "", "test subject", "<body style='padding: 0;margin: 0;font-family: Arial, sans-serif;font-size: 14px;'> <div id='wrapper' style='padding: 0;margin: 10px;'> <h1 style='padding: 0;margin: 0;color: #444;font-size: 2.2em;line-height: 1.6em;'>St. Jude Medical</h1> <span class='tagline' style='padding: 0;margin: 0;color: #888;font-size: 1.3em;line-height: 0;font-weight: bold;'>Room Configurator</span> <hr style='padding: 0;margin: 14px 0;height: 1px;color: #efefef;background: #efefef;border: 1px;'> <h2 style='padding: 0;margin: 0;color: #111;font-size: 1.3em;line-height: 1.3em;'>Full Installation Summary</h2> <table class='summary_table' style='padding: 0;margin: 0;border-collapse: separate;border-spacing: 0;'><table><h3 style='padding: 0;margin: 18px 0 8px 0;color: #017262;text-transform: uppercase;font-size: 1.8em;line-height: 1em;font-weight: normal;'>Test Room</h3><tr id='sums_system' style='padding: 0;margin: 0;'><td class='row_title' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 170px;background: #ccc;font-weight: bold;'>System</td><td class='row_value' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 490px;background: #f2f2f2;'>QUANTIEN Platform <strong>C12787</strong></td></tr><tr id='sums_system' style='padding: 0;margin: 0;'><td class='row_title' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 170px;background: #ccc;font-weight: bold;'>Recording System</td><td class='row_value' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 490px;background: #f2f2f2;'>Camtronics PhysioLog PDM Monitor (Schiller V1)<br>Adapter Cable <strong>C12651</strong><br>Monitor Cable <strong>C12951</strong></td></tr><tr id='sums_system' style='padding: 0;margin: 0;'><td class='row_title' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 170px;background: #ccc;font-weight: bold;'>AO Source</td><td class='row_value' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 490px;background: #f2f2f2;'>Wi-Box&#153; Solution <strong>C12783</strong></td></td></tr><tr id='sums_system' style='padding: 0;margin: 0;'><td class='row_title' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 170px;background: #ccc;font-weight: bold;'>PW Out</td><td class='row_value' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 490px;background: #f2f2f2;'>Monitor Cable <strong>C12951</strong></td></tr><tr id='sums_system' style='padding: 0;margin: 0;'><td class='row_title' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 170px;background: #ccc;font-weight: bold;'>ECG</td><td class='row_value' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 490px;background: #f2f2f2;'>AUX IN Cable <strong>C12503</strong></td></tr><tr id='sums_system' style='padding: 0;margin: 0;'><td class='row_title' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 170px;background: #ccc;font-weight: bold;'>Mounting</td><td class='row_value' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 490px;background: #f2f2f2;'>Bedside<br>Pole Bracket <strong>C12798</strong> and Multipurpose Bracket <strong>12777</strong></td></tr></table></div></body>", "<html><body><h1>My first SVG</h1><svg width='100' height='100'><circle cx='50' cy='50' r='40' stroke='green' stroke-width='4' fill='yellow' /></svg></body></html>", onSuccess, onError);
+        }
+
+        function sendEmailWithPDFAttachmentFromHTMLMultiPage() {
+            adr.sendEmailWithPDFAttachmentFromHTMLMultiPage("test@gmail.com", "", "test subject", "Hi", ["<html><body><h1>Page 1</h1></body></html>", "<html><body><h1>Page 2</h1></body></html>"], onSuccess, onError);
+        }
+
+        function sendEmailWithFileAttachmentFromBase64() {
+            adr.sendEmailWithFileAttachmentFromBase64("test@gmail.com", "", "test subject", "<body style='padding: 0;margin: 0;font-family: Arial, sans-serif;font-size: 14px;'> <div id='wrapper' style='padding: 0;margin: 10px;'> <h1 style='padding: 0;margin: 0;color: #444;font-size: 2.2em;line-height: 1.6em;'>St. Jude Medical</h1> <span class='tagline' style='padding: 0;margin: 0;color: #888;font-size: 1.3em;line-height: 0;font-weight: bold;'>Room Configurator</span> <hr style='padding: 0;margin: 14px 0;height: 1px;color: #efefef;background: #efefef;border: 1px;'> <h2 style='padding: 0;margin: 0;color: #111;font-size: 1.3em;line-height: 1.3em;'>Full Installation Summary</h2> <table class='summary_table' style='padding: 0;margin: 0;border-collapse: separate;border-spacing: 0;'><table><h3 style='padding: 0;margin: 18px 0 8px 0;color: #017262;text-transform: uppercase;font-size: 1.8em;line-height: 1em;font-weight: normal;'>Test Room</h3><tr id='sums_system' style='padding: 0;margin: 0;'><td class='row_title' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 170px;background: #ccc;font-weight: bold;'>System</td><td class='row_value' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 490px;background: #f2f2f2;'>QUANTIEN Platform <strong>C12787</strong></td></tr><tr id='sums_system' style='padding: 0;margin: 0;'><td class='row_title' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 170px;background: #ccc;font-weight: bold;'>Recording System</td><td class='row_value' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 490px;background: #f2f2f2;'>Camtronics PhysioLog PDM Monitor (Schiller V1)<br>Adapter Cable <strong>C12651</strong><br>Monitor Cable <strong>C12951</strong></td></tr><tr id='sums_system' style='padding: 0;margin: 0;'><td class='row_title' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 170px;background: #ccc;font-weight: bold;'>AO Source</td><td class='row_value' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 490px;background: #f2f2f2;'>Wi-Box&#153; Solution <strong>C12783</strong></td></td></tr><tr id='sums_system' style='padding: 0;margin: 0;'><td class='row_title' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 170px;background: #ccc;font-weight: bold;'>PW Out</td><td class='row_value' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 490px;background: #f2f2f2;'>Monitor Cable <strong>C12951</strong></td></tr><tr id='sums_system' style='padding: 0;margin: 0;'><td class='row_title' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 170px;background: #ccc;font-weight: bold;'>ECG</td><td class='row_value' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 490px;background: #f2f2f2;'>AUX IN Cable <strong>C12503</strong></td></tr><tr id='sums_system' style='padding: 0;margin: 0;'><td class='row_title' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 170px;background: #ccc;font-weight: bold;'>Mounting</td><td class='row_value' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 490px;background: #f2f2f2;'>Bedside<br>Pole Bracket <strong>C12798</strong> and Multipurpose Bracket <strong>12777</strong></td></tr></table></div></body>", "file.pdf", "JVBERi0xLjEKJcKlwrHDqwoKMSAwIG9iagogIDw8IC9UeXBlIC9DYXRhbG9nCiAgICAgL1BhZ2VzIDIgMCBSCiAgPj4KZW5kb2JqCgoyIDAgb2JqCiAgPDwgL1R5cGUgL1BhZ2VzCiAgICAgL0tpZHMgWzMgMCBSXQogICAgIC9Db3VudCAxCiAgICAgL01lZGlhQm94IFswIDAgMzAwIDE0NF0KICA+PgplbmRvYmoKCjMgMCBvYmoKICA8PCAgL1R5cGUgL1BhZ2UKICAgICAgL1BhcmVudCAyIDAgUgogICAgICAvUmVzb3VyY2VzCiAgICAgICA8PCAvRm9udAogICAgICAgICAgIDw8IC9GMQogICAgICAgICAgICAgICA8PCAvVHlwZSAvRm9udAogICAgICAgICAgICAgICAgICAvU3VidHlwZSAvVHlwZTEKICAgICAgICAgICAgICAgICAgL0Jhc2VGb250IC9UaW1lcy1Sb21hbgogICAgICAgICAgICAgICA+PgogICAgICAgICAgID4+CiAgICAgICA+PgogICAgICAvQ29udGVudHMgNCAwIFIKICA+PgplbmRvYmoKCjQgMCBvYmoKICA8PCAvTGVuZ3RoIDU1ID4+CnN0cmVhbQogIEJUCiAgICAvRjEgMTggVGYKICAgIDAgMCBUZAogICAgKEhlbGxvIFdvcmxkKSBUagogIEVUCmVuZHN0cmVhbQplbmRvYmoKCnhyZWYKMCA1CjAwMDAwMDAwMDAgNjU1MzUgZiAKMDAwMDAwMDAxOCAwMDAwMCBuIAowMDAwMDAwMDc3IDAwMDAwIG4gCjAwMDAwMDAxNzggMDAwMDAgbiAKMDAwMDAwMDQ1NyAwMDAwMCBuIAp0cmFpbGVyCiAgPDwgIC9Sb290IDEgMCBSCiAgICAgIC9TaXplIDUKICA+PgpzdGFydHhyZWYKNTY1CiUlRU9GCg==", onSuccess, onError);
+        }
+
+
+        function sendAdvancedHTMLEmailEncoded() {
+            adr.sendEmailEncoded("test@gmail.com", "", "test subject", "<html><divstyle='font-family:Arial,Helvetica,sans-serif;background:#f8f8f8'><tablestyle='width:100%;'><tbody><tr><tdcolspan='2'style='text-align:center;'><h4style='font-weight:700;color:#292828;'>MoMeEconomics</h4></td></tr><tr><tdstyle='width:50%;color:#0088bb;text-align:center;font-weight:700'>GrossRevenuebyTechnology</td><tdstyle='width:50%;color:#0088bb;text-align:center;font-weight:700'>NetPracticeRevenue</td></tr><tr><tdstyle='width:50%;color:#0088bb;text-align:center;font-weight:700'><divid='grossRevByTechEmail'style='height:150px;border:1pxsolid#4a4949;'><span>REPLACE_ME_1</span></div></td><tdstyle='width:50%;color:#0088bb;text-align:center;font-weight:700'><divid='netPracticeRevEmail'style='height:150px;border:1pxsolid#4a4949;'><span>netPracticeRevEmail</span></div></td></tr><tr><tdcolspan='2'><divdata-bind='with:inputData'><tablestyle='width:100%;'><tbody><tr><tdstyle='width:60%;'><tablestyle='font-size:.85em;width:100%;border:0px;border-spacing:0;'data-bind='with:analysisTab'><tbody><trstyle='background:#00aeef;color:#FFF;font-weight:200;'><thstyle='font-weight:200;border-right:1pxsolid#cbcaca;'>Technology</th><thstyle='font-weight:200;border-right:1pxsolid#cbcaca;'>BillableTests/Yr</th><thstyle='font-weight:200;border-right:1pxsolid#cbcaca;'>Standard</th><thstyle='font-weight:200;'>MoMeModel</th></tr><trstyle='background:#FFF;color:#838586;'><tdstyle='padding-left:5px;font-weight:700;border-right:1pxsolid#cbcaca;'>Holter</td><tddata-bind='numberWithCommas:b28'style='text-align:center;font-weight:700;border-right:1pxsolid#cbcaca;'>1,560</td><tddata-bind='currency:c28'style='text-align:center;font-weight:700;border-right:1pxsolid#cbcaca;'>$-93,600</td><tddata-bind='currency:d28'style='text-align:center;font-weight:700;'>$0</td></tr><trstyle='background:#e4e3e3;color:#838586;'class='greyRow'><tdstyle='padding-left:5px;font-weight:700;border-right:1pxsolid#cbcaca;'>EventMonitor</td><tddata-bind='numberWithCommas:b29'style='text-align:center;font-weight:700;border-right:1pxsolid#cbcaca;'>1,800</td><tddata-bind='currency:c29'style='text-align:center;font-weight:700;border-right:1pxsolid#cbcaca;'>$0</td><tddata-bind='currency:d29'style='text-align:center;font-weight:700;'>$0</td></tr><trstyle='background:#FFF;color:#838586;'><tdstyle='padding-left:5px;font-weight:700;border-right:1pxsolid#cbcaca;'>MCT</td><tddata-bind='numberWithCommas:b30'style='text-align:center;font-weight:700;border-right:1pxsolid#cbcaca;'>1</td><tddata-bind='currency:c30'style='text-align:center;font-weight:700;border-right:1pxsolid#cbcaca;'>$0</td><tddata-bind='currency:d30'style='text-align:center;font-weight:700;'>$0</td></tr><trstyle='background:#e4e3e3;color:#838586;border-bottom:1pxsolid#cbcaca;'class='greyRowbottomBorder'><tdstyle='padding-left:5px;font-weight:700;border-right:1pxsolid#cbcaca;'>Total</td><tddata-bind='numberWithCommas:b31'style='text-align:center;font-weight:700;border-right:1pxsolid#cbcaca;'>3,361</td><tddata-bind='currency:c31'style='text-align:center;font-weight:700;border-right:1pxsolid#cbcaca;'>$-93,600</td><tddata-bind='currency:d31'style='text-align:center;font-weight:700;'>$0</td></tr><trstyle='background:#FFF;color:#838586;font-size:.9em;margin-left:25px;'class='whiteRowsubRow'><tdstyle='background:#f8f8f8;border-right:0pxsolid#cbcaca!important;'class='transparentCellno-border'>&nbsp;</td><tdcolspan='2'style='padding-left:5px;font-weight:700;text-align:center;border-right:1pxsolid#cbcaca;'>MoMeDeviceCost(Yr1Only)</td><tddata-bind='currency:d32'style='text-align:center;font-weight:700;'>$160,071</td></tr><trstyle='background:#e4e3e3;color:#838586;font-size:.9em;margin-left:25px;'class='greyRowsubRow'><tdstyle='background:#f8f8f8;border-right:0pxsolid#cbcaca!important;'class='transparentCellno-border'>&nbsp;</td><tdcolspan='2'style='padding-left:5px;font-weight:700;text-align:center;border-right:1pxsolid#cbcaca;'>MoMeSaaSFee/Yr</td><tddata-bind='currency:d33'style='text-align:center;font-weight:700;'>$1,096,452</td></tr><trstyle='background:#FFF;color:#838586;font-size:.9em;margin-left:25px;'class='whiteRowsubRow'><tdstyle='background:#f8f8f8;border-right:0pxsolid#cbcaca!important;'class='transparentCellno-border'>&nbsp;</td><tdcolspan='2'style='padding-left:5px;font-weight:700;text-align:center;border-right:1pxsolid#cbcaca;'>MoMeModel(Yr1)</td><tddata-bind='currency:d35'style='text-align:center;font-weight:700;'>$-1,256,523</td></tr><trstyle='background:#e4e3e3;color:#838586;font-size:.9em;margin-left:25px;'class='greyRowsubRow'><tdstyle='background:#f8f8f8;border-right:0pxsolid#cbcaca!important;'class='transparentCellno-border'>&nbsp;</td><tdcolspan='2'style='padding-left:5px;font-weight:700;text-align:center;border-right:1pxsolid#cbcaca;'>MoMeModel(Yr2)</td><tddata-bind='currency:d36'style='text-align:center;font-weight:700;'>$-1,096,452</td></tr></tbody></table></td><tdstyle='width:35%;vertical-align:top;'><tablestyle='font-size:.85em;vertical-align:top;'><tbody><tr><tdstyle='font-weight:900;color:#0088bb;font-size:.8em;'>PracticeName</td><tdstyle='font-weight:900;color:#0088bb;font-size:.8em;'>Address</td></tr><tr><tdstyle='font-weight:900;color:#4a4949;'data-bind='text:practiceName'></td><tdstyle='font-weight:900;color:#4a4949;'data-bind='text:adddress'></td></tr><tr><tdstyle='font-weight:900;color:#0088bb;font-size:.8em;'>PracticeState&amp;Location</td><tdstyle='font-weight:900;color:#0088bb;font-size:.8em;'>RepName</td></tr><tr><tdstyle='font-weight:900;color:#4a4949;'data-bind='with:practiceLocation'></td><tdstyle='font-weight:900;color:#4a4949;'data-bind='text:repName'></td></tr></tbody></table></td></tr></tbody></table></div></td></tr></tbody></table></div></html>--cc72240959a34f968cca482fe708d416Mime-Version:1.0Content-Type:image/png;charset='ascii';name='image500.png'Content-Disposition:inline;filename='image500.png'Content-Id:<image500.png>Content-Transfer-Encoding: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--cc72240959a34f968cca482fe708d416--'", onSuccess, onError);
+        }
+
+        function logAnalytics() {
+            adr.logEvent("test object", "test action", "param", onSuccess, onError);
+        }
+        function scanPDF417Barcode() {
+            adr.scanPDF417Barcode(onSuccessBase64, onError);
+        }
+
+        function getAgendas() {
+            modus.getAgendas().then(function (val) {
+                printResult(val ? 'Agenda List: "' + JSON.stringify(val) + '"' : "No Agendas");
+            });
+        }
+
+        function asyncHttpRequest() {
+            modus.asyncHttpRequest("https://ptsv2.com/t/7xh2y-1551975478/post", "POST", null, { "firstName": "John", "lastName": "Doe" }).then(function (data) {
+                printResult(data);
+            })
+            //adr.asyncHttpRequest("https://ptsv2.com/t/7xh2y-1551975478/post", "POST", null, { "firstName": "John", "lastName": "Doe" }, onSuccessBase64, onError);
+        }
+
+        function sendAgenda() {
+            var agendaId = document.getElementById("txtAgendaId").value;
+            var emailAddress = document.getElementById("txtEmailAddress").value;
+            modus.sendAgenda(agendaId, emailAddress).then(function () {
+                printResult("Email client initiated successfully, it may take a few seconds to load");
+            });
+        }
+
+        // -- Deprecated
+        function sendMailEncoded() {
+            adr.sendEmailEncoded("test@gmail.com", "", "test subject", "test body", onSuccess, onError);
+        }
+        function sendHTMLMailEncoded() {
+            adr.sendEmailEncoded("test@gmail.com", "", "test subject", "<body style='padding: 0;margin: 0;font-family: Arial, sans-serif;font-size: 14px;'> <div id='wrapper' style='padding: 0;margin: 10px;'> <h1 style='padding: 0;margin: 0;color: #444;font-size: 2.2em;line-height: 1.6em;'>St. Jude Medical</h1> <span class='tagline' style='padding: 0;margin: 0;color: #888;font-size: 1.3em;line-height: 0;font-weight: bold;'>Room Configurator</span> <hr style='padding: 0;margin: 14px 0;height: 1px;color: #efefef;background: #efefef;border: 1px;'> <h2 style='padding: 0;margin: 0;color: #111;font-size: 1.3em;line-height: 1.3em;'>Full Installation Summary</h2> <table class='summary_table' style='padding: 0;margin: 0;border-collapse: separate;border-spacing: 0;'><table><h3 style='padding: 0;margin: 18px 0 8px 0;color: #017262;text-transform: uppercase;font-size: 1.8em;line-height: 1em;font-weight: normal;'>Test Room</h3><tr id='sums_system' style='padding: 0;margin: 0;'><td class='row_title' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 170px;background: #ccc;font-weight: bold;'>System</td><td class='row_value' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 490px;background: #f2f2f2;'>QUANTIEN Platform <strong>C12787</strong></td></tr><tr id='sums_system' style='padding: 0;margin: 0;'><td class='row_title' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 170px;background: #ccc;font-weight: bold;'>Recording System</td><td class='row_value' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 490px;background: #f2f2f2;'>Camtronics PhysioLog PDM Monitor (Schiller V1)<br>Adapter Cable <strong>C12651</strong><br>Monitor Cable <strong>C12951</strong></td></tr><tr id='sums_system' style='padding: 0;margin: 0;'><td class='row_title' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 170px;background: #ccc;font-weight: bold;'>AO Source</td><td class='row_value' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 490px;background: #f2f2f2;'>Wi-Box&#153; Solution <strong>C12783</strong></td></td></tr><tr id='sums_system' style='padding: 0;margin: 0;'><td class='row_title' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 170px;background: #ccc;font-weight: bold;'>PW Out</td><td class='row_value' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 490px;background: #f2f2f2;'>Monitor Cable <strong>C12951</strong></td></tr><tr id='sums_system' style='padding: 0;margin: 0;'><td class='row_title' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 170px;background: #ccc;font-weight: bold;'>ECG</td><td class='row_value' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 490px;background: #f2f2f2;'>AUX IN Cable <strong>C12503</strong></td></tr><tr id='sums_system' style='padding: 0;margin: 0;'><td class='row_title' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 170px;background: #ccc;font-weight: bold;'>Mounting</td><td class='row_value' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 490px;background: #f2f2f2;'>Bedside<br>Pole Bracket <strong>C12798</strong> and Multipurpose Bracket <strong>12777</strong></td></tr></table></div></body>", onSuccess, onError);
+        }
+
+        //Helpers
+        function printResult(result) {
+            let type = typeof(result);
+
+            document.getElementById('log').innerHTML += result + " - ("+type+")";
+            document.getElementById('log').innerHTML += "<br/>";
+
+            console.log(result, type);
+        }
+
+        function getExampleHtml() {
+            return new Promise(function (resolve, reject) {
+                var fallback = "<body><H1>Hello, Html Email World!</H1></body>";
+
+                if (superagent) {
+                    superagent.get('/assets/email.html')
+                        .then(function (result) {
+                            var html = result.text;
+                            resolve(html);
+                        }).catch(function (e) {
+                            resolve(fallback);
+                        })
+                } else {
+                    resolve(fallback);
+                }
+            });
+        }
+
+        function onSuccess(ret) {
+            if (ret) {
+                var obj = JSON.parse(ret);
+                document.write(obj.result);
+                //alert(obj.result);
+            }
+        }
+        function onSuccessBase64(ret) {
+            if (ret) {
+                var obj = JSON.parse(Base64.decode(ret));
+                document.write(JSON.stringify(obj.result));
+                //alert(JSON.stringify(obj.result);
+            }
+        }
+
+        function onError(ret) {
+            if (ret) {
+                var obj = JSON.parse(ret);
+                document.write(obj.error);
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container">
+
+        <h2>Current User Data</h2>
+        <div class="row">
+            <button class="btn btn-primary" type="button" onclick="getCurrentUserName()">Get Current User
+                Name</button><br />
+        </div>
+        <div class="row">
+            <button class="btn btn-primary" type="button" onclick="getCurrentUserEmail()">Get Current User
+                Email</button><br />
+        </div>
+        <div class="row">
+            <button class="btn btn-primary" type="button" onclick="getCurrentUserRegions()">Get Current User
+                Regions</button><br />
+        </div>
+        <div class="row">
+            <button class="btn btn-primary" type="button" onclick="getAccessToken()">Get Access Token</button><br />
+        </div>
+
+        <h2>Storage</h2>
+        <div class="row">
+            <button class="btn btn-primary" type="button" onclick="getStorageItem()">Get Storage Item</button><br />
+        </div>
+        <div class="row">
+            <button class="btn btn-primary" type="button" onclick="setStorageItem()">Set Storage Item</button><br />
+        </div>
+
+        <div class="row">
+            <button class="btn btn-primary" type="button" onclick="getGlobalStorageItem()">Get Global
+                Storage</button><br />
+        </div>
+        <div class="row">
+            <button class="btn btn-primary" type="button" onclick="setGlobalStorageItem()">Set Global
+                Storage</button><br />
+        </div>
+
+        <h4>not implemented yet in new bridge</h4>
+        <div class="row">
+            <button class="btn btn-primary" type="button" onclick="setComplexStorageItem()">Set Complex
+                Storage</button><br />
+        </div>
+
+        <h2>Email</h2>
+        <div class="row">
+            <button class="btn btn-primary" type="button" onclick="sendMail()">Send email</button><br />
+        </div>
+        <div class="row">
+            <button class="btn btn-primary" type="button" onclick="sendHTMLMail()">Send html email</button><br />
+        </div>
+        <h4>not implemented yet in new bridge</h4>
+
+        <div class="row">
+            <button class="btn btn-primary" type="button" onclick="sendEmailWithPDFAttachmentFromHTML()">Send Email with
+                PDF Attachment from HTML.</button><br />
+        </div>
+        <div class="row">
+            <button class="btn btn-primary" type="button" onclick="sendEmailWithPDFAttachmentFromHTMLMultiPage()">Send
+                Email with PDF Attachment from HTML (Multi Page).</button><br />
+        </div>
+        <div class="row">
+            <button class="btn btn-primary" type="button" onclick="sendEmailWithFileAttachmentFromBase64()">Send Email
+                with Attachment from Base64.</button><br />
+        </div>
+
+        <!-- Deprecated -->
+        <div class="row">
+            <button class="btn btn-primary" type="button" onclick="sendHTMLMailEncoded()">Send html email encoded
+                .</button>
+            <i>deprecated</i>
+        </div>
+        <div class="row">
+            <button class="btn btn-primary" type="button" onclick="sendAdvancedHTMLEmailEncoded()">Send advanced html
+                email encoded .</button>
+            <i>deprecated</i>
+        </div>
+
+        <h2>Agendas</h2>
+
+        <div class="row">
+            <button class="btn btn-primary" type="button" onclick="getAgendas()">Get Agendas</button><br />
+        </div>
+        <div class="row">
+            <input type="text" placeholder="Agenda Id" name="txtAgendaId" id="txtAgendaId"><br />
+            <input type="text" placeholder="Email Address" name="txtEmailAddress" id="txtEmailAddress"><br />
+            <button class="btn btn-primary" type="button" onclick="sendAgenda()">Send Agenda</button><br />
+        </div>
+
+        <h2>Other</h2>
+        <h4>not implemented yet in new bridge</h4>
+
+        <div class="row">
+            <button class="btn btn-primary" type="button" onclick="logAnalytics()">Log Event</button><br />
+        </div>
+        <div class="row">
+            <button class="btn btn-primary" type="button" onclick="scanPDF417Barcode()">Scan barcode</button><br />
+        </div>
+        <div class="row">
+            <button class="btn btn-primary" type="button" onclick="asyncHttpRequest()">Create Asynchronous
+                Request</button><br />
+        </div>
+        <div class="row">
+            <a href="x-appdataroom:///media?mediaId=101814">Deep Link Test</a>
+        </div>
+    </div>
+    <div class="output-container">
+        <h2>Output</h2>
+        <div class='row'>
+            <button class='btn btn-danger' style='padding:5px 10px' onclick="clearLog()">
+                Clear Log
+            </button>
+        </div>
+        <div class="row">
+            <div id="log"></div>
+        </div>
+    </div>
+
+    <script src="js/deprecated/adrJSBridge.js"></script>
+    <script src="js/modus-js-bridge.js"></script>
+</body>
+
+</html>
