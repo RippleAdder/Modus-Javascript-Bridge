@@ -476,3 +476,19 @@ This method takes an adr.sh short link and returns the associated unique guid us
 - link
   - (string) this must be an adr.sh short link for this to work.  
 
+### promptShareMenuWithData
+
+This method allows a base 64 file to be shared via the share dropdown native to the device you are dealing with. For instance you could send a base64 file via an email, or you could save it to the files app on the device. 
+
+| Platforms | Available |
+| --------- | :-------: |
+| iOS       |   5.1.1+  |
+| Android   |   4.4.2+  |
+| Windows   |    N/A    |
+
+##### Parameters
+- fileAsBase64
+  - (string) File represented in base64
+- name
+  -(string) The name of the file
+

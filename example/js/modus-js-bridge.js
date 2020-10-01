@@ -162,6 +162,8 @@ window.modus = function () {
         sendFollowup: function (step, bundleName, link) { return _callNativeFunction("sendFollowup", {step: step, bundle: bundleName, link : link }) }, 
         previewNextFollowupLink: _callNativeFunction.bind(null, "previewNextFollowupLink", null),
         getFollowupGuid: function (followupLink) { return _callNativeFunction("getFollowupGuid", { link: followupLink }) },
+        promptShareMenuWithData: function (fileName, base64) { return _callNativeFunction("promptShareMenuWithData", { nane: fileName, fileAsBase64: base64 }) },
+
 
     }
 }();
