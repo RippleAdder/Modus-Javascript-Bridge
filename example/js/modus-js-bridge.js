@@ -152,7 +152,7 @@ var Modus = (function() {
         getFollowupGuid: function (followupLink) { return _callNativeFunction("getFollowupGuid", { link: followupLink }) },
         promptShareMenuWithData: function (fileName, base64) { return _callNativeFunction("promptShareMenuWithData", { nane: fileName, fileAsBase64: base64 }) },
         getMediaWithPicker: function (currentMedias) { return _callNativeFunction("getMediaWithPicker", {medias: currentMedias }) },
-        getDeviceFilePicker: function (type, guid, user) { return _callNativeFunction("getDeviceFilePicker", {type: type, guid: guid, user: user }) },
+        getDeviceFilePicker: function (uploadParams) { return _callNativeFunction("getDeviceFilePicker", {uploadParams: uploadParams}) },
     }
 })();
 
