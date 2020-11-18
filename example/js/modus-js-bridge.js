@@ -1,7 +1,7 @@
-//implement weback or something in this so we can build a dist file based on multiple src files.
-
-window.modus = function () {
-    //TODO: build some way to pass in like a web bridge handler?!
+/* eslint-disable */
+var Modus = (function() {
+    //Variables
+    let _os = _getParameterByName("os");
 
     //Helpers
     function _getParameterByName(name, url) {
@@ -14,10 +14,9 @@ window.modus = function () {
         return decodeURIComponent(results[2].replace(/\+/g, ' '));
     }
 
-    //TODO: Break this in to a different file
+    //Break this in to a different file
     let _createExampleResult = function (request) {
-        console.log("generating example output");
-
+        //TODO: should this be somewhere else?
         var name = request.methodName;
         var result = null;
 
@@ -38,11 +37,11 @@ window.modus = function () {
             //Storage
             case "getItem":
             case "getGlobalItem":
-                result = window[request.data.key] ? window[request.data.key] : null;
+                result = localStorage.getItem(request.data.key);
                 break;
             case "setItem":
             case "setGlobalItem":
-                window[request.data.key] = request.data.value;
+                localStorage.setItem(request.data.key, request.data.value);
                 break;
 
             //Email
@@ -55,26 +54,15 @@ window.modus = function () {
                 var mailto = "mailto:" + to + "?subject=" + e.subject + "&body=" + body + "&cc=" + e.cc;
                 window.open(mailto);
                 break;
-
             //Agendas
             case "getAgendas":
-                result = JSON.stringify([{ agendaId: "1", agendaTitle: "Bespin Meeting" }, { agendaId: "2", agendaTitle: "Endor Visit" }, { agendaId: "3", agendaTitle: "Hoth Beach Vacation" }])
-                break;
-
-            //Other
-            case "asyncHttpRequest":
-                result = JSON.stringify({ 'example': 'hello world' });
-                break;
-            case "getFollowupGuid":
-                result = "0d38ecdb-fe7b-11ea-8e12-22000a0dc04b";
-                break;
-            case "previewNextFollowupLink":
-                result = "http://www.adr.sh/23qg/e29l/30i/3u";
+                result = JSON.stringify([{agendaId: "1", agendaTitle: "Bespin Meeting"}, {agendaId: "2", agendaTitle: "Endor Visit"}, {agendaId: "3", agendaTitle: "Hoth Beach Vacation"}])
                 break;
         }
 
         window[request.successMethodId](result);
     }
+
 
     //Marshall
     let _callNativeFunction = function (methodName, methodData) {
@@ -121,7 +109,7 @@ window.modus = function () {
 
             //  iOS
             if (os === "ios" || (window.webkit && window.webkit.messageHandlers.modus != undefined)) {
-                return window.webkit.messageHandlers.modus.postMessage(JSON.stringify(request));
+                return window.webkit.messageHandlers.modus.postMessage(request);
             }
             //  Android
             if (os === "android" || window.appInterface != undefined) {
@@ -135,7 +123,7 @@ window.modus = function () {
 
     //Public
     return {
-        //User
+         //User
         getCurrentUserName: _callNativeFunction.bind(null, "getCurrentUserName", null),
         getCurrentUserEmail: _callNativeFunction.bind(null, "getCurrentUserEmail", null),
         getCurrentUserRegions: _callNativeFunction.bind(null, "getCurrentUserRegions", null),
@@ -163,7 +151,9 @@ window.modus = function () {
         previewNextFollowupLink: _callNativeFunction.bind(null, "previewNextFollowupLink", null),
         getFollowupGuid: function (followupLink) { return _callNativeFunction("getFollowupGuid", { link: followupLink }) },
         promptShareMenuWithData: function (fileName, base64) { return _callNativeFunction("promptShareMenuWithData", { nane: fileName, fileAsBase64: base64 }) },
-
-
+        getMediaWithPicker: function (currentMedias) { return _callNativeFunction("getMediaWithPicker", {medias: currentMedias }) },
+        getDeviceFilePicker: function (type, guid, user) { return _callNativeFunction("getDeviceFilePicker", {type: type, guid: guid, user: user }) },
     }
-}();
+})();
+
+export default Modus;
