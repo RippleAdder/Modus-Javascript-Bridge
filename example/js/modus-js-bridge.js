@@ -156,4 +156,6 @@ var Modus = (function() {
     }
 })();
 
+window.Modus = Modus;
+
 export default Modus;
