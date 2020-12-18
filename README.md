@@ -27,7 +27,7 @@ Modus.getCurrentUserName();
 ### General Usage Example
 
 ```javascript
-modus.getCurrentUserName().then((username) => {
+Modus.getCurrentUserName().then((username) => {
   console.log("Hello, " + username);
 });
 ```
@@ -67,7 +67,7 @@ This method has no parameters.
 ##### Usage
 
 ```javascript
-modus.getCurrentUserName().then((username) => {
+Modus.getCurrentUserName().then((username) => {
   console.log("Hello, " + username);
 });
 ```
@@ -91,7 +91,7 @@ This method has no parameters.
 ##### Usage
 
 ```javascript
-modus.getCurrentUserEmail().then((email) => {
+Modus.getCurrentUserEmail().then((email) => {
   console.log("Hello, " + email);
 });
 ```
@@ -115,7 +115,7 @@ This method has no parameters.
 ##### Usage
 
 ```javascript
-modus.getAccessToken().then((token) => {
+Modus.getAccessToken().then((token) => {
   console.log(token);
 });
 ```
@@ -139,7 +139,7 @@ This method has no parameters.
 ##### Usage
 
 ```javascript
-modus.getCurrentUserRegions().then((regions) => {
+Modus.getCurrentUserRegions().then((regions) => {
   //array of strings.["hello", "world]
   console.log(regions);
 });
@@ -173,7 +173,7 @@ Sends an email via the platform's native mail application
 ##### Usage
 
 ```javascript
-modus.sendEmail("test@gmail.com", "", "Test Subject Line", "Test body").then(() =>
+Modus.sendEmail("test@gmail.com", "", "Test Subject Line", "Test body").then(() =>
   console.log("email sent successfully!");
 }).catch((ex) =>{
   console.log("email failed to send");F
@@ -206,7 +206,7 @@ Sends an html formatted email via the platform's native mail application
 ##### Usage
 
 ```javascript
-modus.sendEmailHtml("test@gmail.com", "", "Test Subject Line", "<h1>Hi</h1>").then(() =>
+Modus.sendEmailHtml("test@gmail.com", "", "Test Subject Line", "<h1>Hi</h1>").then(() =>
   console.log("email sent successfully!");
 }).catch((ex) =>{
   console.log("email failed to send");F
