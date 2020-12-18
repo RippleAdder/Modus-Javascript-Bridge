@@ -1,5 +1,5 @@
 /* eslint-disable */
-var Modus = (function() {
+var Modus = (function () {
     //Variables
     let _os = _getParameterByName("os");
 
@@ -28,7 +28,7 @@ var Modus = (function() {
                 result = "maul_killer@jedicouncil.crst"
                 break;
             case "getAccessToken":
-                result = "exampleToken"
+                result = "12x45e783s1234="
                 break;
             case "getCurrentUserRegions":
                 result = ["Tatooine", "Stewjon", "Coruscant"]
@@ -56,7 +56,7 @@ var Modus = (function() {
                 break;
             //Agendas
             case "getAgendas":
-                result = JSON.stringify([{agendaId: "1", agendaTitle: "Bespin Meeting"}, {agendaId: "2", agendaTitle: "Endor Visit"}, {agendaId: "3", agendaTitle: "Hoth Beach Vacation"}])
+                result = JSON.stringify([{ agendaId: "1", agendaTitle: "Bespin Meeting" }, { agendaId: "2", agendaTitle: "Endor Visit" }, { agendaId: "3", agendaTitle: "Hoth Beach Vacation" }])
                 break;
         }
 
@@ -123,7 +123,7 @@ var Modus = (function() {
 
     //Public
     return {
-         //User
+        //User
         getCurrentUserName: _callNativeFunction.bind(null, "getCurrentUserName", null),
         getCurrentUserEmail: _callNativeFunction.bind(null, "getCurrentUserEmail", null),
         getCurrentUserRegions: _callNativeFunction.bind(null, "getCurrentUserRegions", null),
@@ -144,15 +144,22 @@ var Modus = (function() {
         getAgendas: _callNativeFunction.bind(null, "getAgendas", null),
         sendAgenda: function (agendaId, emailAddress) { return _callNativeFunction("sendAgenda", { agendaId: agendaId, emailAddress: emailAddress }) },
 
-        //Other
+        //Lead Capture
         scanBarcode: _callNativeFunction.bind(null, "scanPDF417Barcode", null),
-        asyncHttpRequest: function (url, verb, headers, body) { return _callNativeFunction("asyncHttpRequest", { url: url, verb: verb, headers: headers, body: body }) },
-        sendFollowup: function (step, bundleName, link) { return _callNativeFunction("sendFollowup", {step: step, bundle: bundleName, link : link }) }, 
+        //captureLead?
+
+        //Follow Up Methods
+        sendFollowup: function (step, bundleName, link) { return _callNativeFunction("sendFollowup", { step: step, bundle: bundleName, link: link }) },
         previewNextFollowupLink: _callNativeFunction.bind(null, "previewNextFollowupLink", null),
         getFollowupGuid: function (followupLink) { return _callNativeFunction("getFollowupGuid", { link: followupLink }) },
+
+        //File Pickers
+        getMediaWithPicker: function (excludeMedias) { return _callNativeFunction("getMediaWithPicker", { excludeMedias: excludeMedias }) },
+        getDeviceFilePicker: function (uploadParams) { return _callNativeFunction("getDeviceFilePicker", { uploadParams: uploadParams }) },
+
+        //Other
+        asyncHttpRequest: function (url, verb, headers, body) { return _callNativeFunction("asyncHttpRequest", { url: url, verb: verb, headers: headers, body: body }) },
         promptShareMenuWithData: function (fileName, base64) { return _callNativeFunction("promptShareMenuWithData", { nane: fileName, fileAsBase64: base64 }) },
-        getMediaWithPicker: function (excludeMedias) { return _callNativeFunction("getMediaWithPicker", {excludeMedias: excludeMedias }) },
-        getDeviceFilePicker: function (uploadParams) { return _callNativeFunction("getDeviceFilePicker", {uploadParams: uploadParams}) },
     }
 })();
 

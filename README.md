@@ -4,46 +4,69 @@ Javascript bridge that provides native functionality to web bundles running with
 
 ### Plain Old Javascript
 
-Include the modus-js-bridge.js file in your application
+Include the **modus-js-bridge.js** file in your application
+_TEMPORARY NOTE: the modus-js-bridge.js file is located in 'example/js/modus-js-bridge'_
 
+```html
+<script type="module" src="js/modus-js-bridge.js"></script>
+<script>
+  Modus.getCurrentUserName();
+</script>
+```
+
+### Using as a module
+
+Include the **modus-js-bridge.js** file in your application
 _TEMPORARY NOTE: the modus-js-bridge.js file is located in 'example/js/modus-js-bridge'_
 
 ```javascript
-<script src="js/modus-js-bridge.js"></script>
+import Modus from "./js/modus-js-bridge";
+Modus.getCurrentUserName();
+```
+
+### General Usage Example
+
+```javascript
+modus.getCurrentUserName().then((username) => {
+  console.log("Hello, " + username);
+});
 ```
 
 ### Promises and Polyfills
 
 This library heavily relies on native JavaScript promises. This may require a polyfill in order for the bridge to work in older versions of Modus Communicate and Internet Explorer. We suggest using something like "promise-polyfill". See https://github.com/taylorhakes/promise-polyfill for more details
 
-### General Usage Example
+### Table of Contents
 
-```javascript
-modus.getCurrentUserName().then(username => {
-  console.log("Hello, " + username);
-});
-```
+[User Methods](#User%20Methods)  
+[Email Methods](#Email%20Methods)  
+[Agenda Methods](#Agenda%20Methods)  
+[Lead Capture Methods](#Lead%20Capture%20Methods)  
+[File Picker Methods](#File%20Picker%20Methods)  
+[Other Methods](#Other%20Methods)
 
-## Methods:
+## User Methods:
 
 ### --- getCurrentUserName ---
 
 Returns the currently logged in user's name (first and last)
 
-##### Implementation 
+##### Implementation
 
 | Platforms | Available |
 | --------- | :-------: |
 | iOS       |  1.7.8+   |
 | Android   |  2.1.6+   |
-| Windows   |  4.3.0.0+ |
+| Windows   | 4.3.0.0+  |
 
 ##### Parameters
+
 This method has no parameters.
 
 ##### Usage
+
 ```javascript
-modus.getCurrentUserName().then(username => {
+modus.getCurrentUserName().then((username) => {
   console.log("Hello, " + username);
 });
 ```
@@ -52,19 +75,22 @@ modus.getCurrentUserName().then(username => {
 
 Returns the currently logged in user's email
 
-##### Implementation 
+##### Implementation
+
 | Platforms | Available |
 | --------- | :-------: |
 | iOS       |   2.6+    |
 | Android   |  2.1.6+   |
-| Windows   |  5.0.0.0+ |
+| Windows   | 5.0.0.0+  |
 
 ##### Parameters
+
 This method has no parameters.
 
 ##### Usage
+
 ```javascript
-modus.getCurrentUserEmail().then(email => {
+modus.getCurrentUserEmail().then((email) => {
   console.log("Hello, " + email);
 });
 ```
@@ -73,28 +99,32 @@ modus.getCurrentUserEmail().then(email => {
 
 Returns the currently logged in user's access token
 
-##### Implementation 
+##### Implementation
+
 | Platforms | Available |
 | --------- | :-------: |
-| iOS       |   5.0.8+    |
-| Android   |    N/A   |
+| iOS       |  5.0.8+   |
+| Android   |    N/A    |
 | Windows   |    N/A    |
 
 ##### Parameters
+
 This method has no parameters.
 
 ##### Usage
+
 ```javascript
-modus.getAccessToken().then(token => {
+modus.getAccessToken().then((token) => {
   console.log(token);
 });
 ```
 
-### --- getCurrentUserRegions --- 
+### --- getCurrentUserRegions ---
 
 Returns the currently logged in user's regions
 
-##### Implementation 
+##### Implementation
+
 | Platforms | Available |
 | --------- | :-------: |
 | iOS       |  2.6.3+   |
@@ -102,23 +132,26 @@ Returns the currently logged in user's regions
 | Windows   |    N/A    |
 
 ##### Parameters
+
 This method has no parameters.
 
 ##### Usage
+
 ```javascript
-modus.getCurrentUserRegions().then(regions => {
+modus.getCurrentUserRegions().then((regions) => {
   //array of strings.["hello", "world]
   console.log(regions);
 });
 ```
 
-## Email Methods: 
+## Email Methods:
 
-### --- sendEmail --- 
+### --- sendEmail ---
 
 Sends an email via the platform's native mail application
 
-##### Implementation 
+##### Implementation
+
 | Platforms | Available |
 | --------- | :-------: |
 | iOS       |  1.7.0+   |
@@ -137,6 +170,7 @@ Sends an email via the platform's native mail application
   - (string) body of email
 
 ##### Usage
+
 ```javascript
 modus.sendEmail("test@gmail.com", "", "Test Subject Line", "Test body").then(() =>
   console.log("email sent successfully!");
@@ -149,14 +183,16 @@ modus.sendEmail("test@gmail.com", "", "Test Subject Line", "Test body").then(() 
 
 Sends an html formatted email via the platform's native mail application
 
-##### Implementation 
+##### Implementation
+
 | Platforms | Available |
 | --------- | :-------: |
 | iOS       |  1.7.0+   |
 | Android   |  2.1.6+   |
-| Windows   |   N/A     |
+| Windows   |    N/A    |
 
 ##### Parameters
+
 - to
   - (string) destination email address
 - cc
@@ -167,6 +203,7 @@ Sends an html formatted email via the platform's native mail application
   - (string) html body of email
 
 ##### Usage
+
 ```javascript
 modus.sendEmailHtml("test@gmail.com", "", "Test Subject Line", "<h1>Hi</h1>").then(() =>
   console.log("email sent successfully!");
@@ -179,7 +216,8 @@ modus.sendEmailHtml("test@gmail.com", "", "Test Subject Line", "<h1>Hi</h1>").th
 
 Sends an email via the platform's native mail application with a PDF attachment that is generated from the supplied HTML markup, also using base 64 encoding for the parameters
 
-##### Implementation 
+##### Implementation
+
 | Platforms | Available |
 | --------- | :-------: |
 | iOS       |  1.7.9+   |
@@ -203,7 +241,8 @@ Sends an email via the platform's native mail application with a PDF attachment 
 
 Sends an email via the platform's native mail application with a PDF attachment that is generated from the supplied array of HTML markup pages, also using base 64 encoding for the parameters
 
-##### Implementation 
+##### Implementation
+
 | Platforms | Available |
 | --------- | :-------: |
 | iOS       |   4.3+    |
@@ -227,11 +266,11 @@ Sends an email via the platform's native mail application with a PDF attachment 
 
 Sends an email via the platform's native mail application with a file attachment that is generated from the supplied base64 string representation of the file, also using base 64 encoding for the parameters. The attached file will be named with the supplied string attachmentName, and this should include the extension (example: quote.pdf)
 
-| Platforms     | Available     |
-| ------------- |:-------------:|
-| iOS           | 5.0.8+        |
-| Android       | 4.3.0+        |
-| Windows       | 5.0+          |
+| Platforms | Available |
+| --------- | :-------: |
+| iOS       |  5.0.8+   |
+| Android   |  4.3.0+   |
+| Windows   |   5.0+    |
 
 ##### Parameters
 
@@ -248,13 +287,14 @@ Sends an email via the platform's native mail application with a file attachment
 - attachmentBase64
   - (string) Base 64 representation of the file you would like to attach
 
-## Agenda Methods: 
+## Agenda Methods:
 
-### getAgendas
+### --- getAgendas ---
 
 Returns a stringified json list of agendas (both local and shared) present in the app for this user. Json response will contain an array of agenda objects, each agenda object will have a property titled "agendaId" with an integer id and a property titled "agendaTitle" with a string name.
 
-##### Implementation 
+##### Implementation
+
 | Platforms | Available |
 | --------- | :-------: |
 | iOS       |   5.0+    |
@@ -262,9 +302,10 @@ Returns a stringified json list of agendas (both local and shared) present in th
 | Windows   |    N/A    |
 
 ##### Parameters
+
 This method has no parameters.
 
-### sendAgenda
+### --- sendAgenda ---
 
 Send the media contents of an agenda to a specified email address
 
@@ -283,11 +324,12 @@ Send the media contents of an agenda to a specified email address
 
 ## Storage Methods:
 
-### getItem
+### --- getItem ---
 
 Gets a value for a specified key from the native local database
 
-##### Implementation 
+##### Implementation
+
 | Platforms | Available |
 | --------- | :-------: |
 | iOS       |  1.7.0+   |
@@ -299,11 +341,12 @@ Gets a value for a specified key from the native local database
 - key
   - (string) key to retrieve
 
-### setItem
+### --- setItem ---
 
 Sets a value for a specified key to the native local database
 
-##### Implementation 
+##### Implementation
+
 | Platforms | Available |
 | --------- | :-------: |
 | iOS       |  1.7.0+   |
@@ -317,7 +360,7 @@ Sets a value for a specified key to the native local database
 - value
   - (string) value to store
 
-### getGlobalItem
+### --- getGlobalItem ---
 
 Gets a value for a specified key from the native local database
 
@@ -332,7 +375,7 @@ Gets a value for a specified key from the native local database
 - key
   - (string) key to retrieve
 
-### setGlobalItem
+### --- setGlobalItem ---
 
 Sets a value for a specified key to the native local database
 
@@ -348,6 +391,114 @@ Sets a value for a specified key to the native local database
   - (string) key to store
 - value
   - (string) value to store
+
+## Lead Capture Methods:
+
+### --- scanBarcode ---
+
+Scans a barcode and returns the text encoded in the barcode
+
+| Platforms | Available |
+| --------- | :-------: |
+| iOS       |  1.7.2+   |
+| Android   |    N/A    |
+| Windows   |    N/A    |
+
+##### Parameters
+
+This method has no parameters.
+
+### --- captureLead ---
+
+Captures a lead and returns the scan string (encoded in base64)
+
+| Platforms | Available |
+| --------- | :-------: |
+| iOS       |  1.7.2+   |
+| Android   |    N/A    |
+| Windows   |    N/A    |
+
+##### Parameters
+
+This method has no parameters.
+
+## Follow Up Methods:
+
+### sendFollowup
+
+Triggers a followup to happen within the app. It allows the user of this function to override the link added to the followup as well by setting the link param to be whatever link you want to send in an email with the appropriate templated email body that is the default behavior of the app. The other two params are optional and can be used in cases where web bundles need to indicate what step to open to in the followup link or indicate what bundle the link is being sent from.
+
+| Platforms | Available |
+| --------- | :-------: |
+| iOS       |  5.1.1+   |
+| Android   |    N/A    |
+| Windows   |    N/A    |
+
+##### Parameters
+
+- **step**: (string) this is another item that will get appended to the url of the short link sent. It was used to indicate to the web bundle what "step" to open to when loading the link. Omitting it by setting it to "" or null will cause it to not be appended to the url.
+- **bundleName**: (string) this is a string that indicates what web bundle is, it then gets added as a url param to the short link. Omitting it by setting it to "" or null will cause it to not be appended to the url.
+- **link**: (string) this can be any link you would like to send in the followup, omitting it by setting it to "" or null will result in the app placing in the next followuplink short link for the media item associated with this bundle
+
+### previewNextFollowupLink
+
+Returns the next short link that will be sent in the followup for the corresponding media item associated with the web bundle. This does not increment the short link it just shows what the next one is going to be.
+
+| Platforms | Available |
+| --------- | :-------: |
+| iOS       |  5.1.1+   |
+| Android   |    N/A    |
+| Windows   |    N/A    |
+
+##### Parameters
+
+This method has no parameters.
+
+### getFollowupGuid
+
+This method takes an adr.sh short link and returns the associated unique guid used for the Modus Microsite.
+
+##### Availability
+
+| Platforms | Available |
+| --------- | :-------: |
+| iOS       |  5.1.1+   |
+| Android   |    N/A    |
+| Windows   |    N/A    |
+
+##### Parameters
+
+- **link**: (string) this must be an adr.sh short link for this to work.
+
+## File Picker Methods:
+
+### --- getMediaWithPicker ---
+
+TODO: write a description
+
+| Platforms | Available |
+| --------- | :-------: |
+| iOS       |   5.2+    |
+| Android   |   5.2+    |
+| Windows   |   5.2+    |
+
+##### Parameters
+
+- **parameter**: [string] description
+
+### --- getDeviceFilePicker ---
+
+TODO: write a description
+
+| Platforms | Available |
+| --------- | :-------: |
+| iOS       |   5.2+    |
+| Android   |   5.2+    |
+| Windows   |   5.2+    |
+
+##### Parameters
+
+- **parameter**: [string] description
 
 ## Other Methods:
 
@@ -363,37 +514,11 @@ Logs an event to the App Data Room analytics engine, which will then be queued t
 
 ##### Parameters
 
-- object
-  - (string) object parameter of event
+- **object**: (string) object parameter of event
 - action
   - (string) action parameter of event
 - additionalParams
   - (string) key value pair listing of additional parameters (example: "email:test@gmail.com")
-
-### scanBarcode
-  Scans a barcode and returns the text encoded in the barcode
-
-| Platforms | Available |
-| --------- | :-------: |
-| iOS       |  1.7.2+   |
-| Android   |    N/A    |
-| Windows   |    N/A    |
-
-##### Parameters
-This method has no parameters.
-
-### captureLead
-
-Captures a lead and returns the scan string (encoded in base64)
-
-| Platforms | Available |
-| --------- | :-------: |
-| iOS       |  1.7.2+   |
-| Android   |    N/A    |
-| Windows   |    N/A    |
-
-##### Parameters
-This method has no parameters.
 
 ### reloadPage
 
@@ -406,6 +531,7 @@ Reloads the page
 | Windows   |    N/A    |
 
 ##### Parameters
+
 This method has no parameters.
 
 ### asyncHttpRequest
@@ -427,67 +553,22 @@ Queues an http request in the mobile app's local database to be run when the app
 - headers
   - (dictionary) key value pairs of additional headers. example: { name: 'John', time: '2pm' }
 - body
+
   - (dictionary) body to post. example: { color: 'Red', fruit: 'Apple' }
-
-  ### sendFollowup
-
-Triggers a followup to happen within the app.  It allows the user of this function to override the link added to the followup as well by setting the link param to be whatever link you want to send in an email with the appropriate templated email body that is the default behavior of the app. The other two params are optional and can be used in cases where web bundles need to indicate what step to open to in the followup link or indicate what bundle the link is being sent from. 
-
-| Platforms | Available |
-| --------- | :-------: |
-| iOS       |   5.1.1+    |
-| Android   |    N/A    |
-| Windows   |    N/A    |
-
-##### Parameters
-
-- step
-  - (string) this is another item that will get appended to the url of the short link sent. It was used to indicate to the web bundle what "step" to open to when loading the link. Omitting it by setting it to "" or null will cause it to not be appended to the url.
-- bundleName
-  - (string) this is a string that indicates what web bundle is, it then gets added as a url param to the short link.  Omitting it by setting it to "" or null will cause it to not be appended to the url.
-- link
-  - (string) this can be any link you would like to send in the followup, omitting it by setting it to "" or null will result in the app placing in the next followuplink short link for the media item associated with this bundle
-
-### previewNextFollowupLink
-
-Returns the next short link that will be sent in the followup for the corresponding media item associated with the web bundle. This does not increment the short link it just shows what the next one is going to be. 
-
-| Platforms | Available |
-| --------- | :-------: |
-| iOS       |   5.1.1+    |
-| Android   |    N/A    |
-| Windows   |    N/A    |
-
-##### Parameters
-This method has no parameters.
-
-### getFollowupGuid
-
-This method takes an adr.sh short link and returns the associated unique guid used for the Modus Microsite. 
-
-| Platforms | Available |
-| --------- | :-------: |
-| iOS       |   5.1.1+    |
-| Android   |    N/A    |
-| Windows   |    N/A    |
-
-##### Parameters
-- link
-  - (string) this must be an adr.sh short link for this to work.  
 
 ### promptShareMenuWithData
 
-This method allows a base 64 file to be shared via the share dropdown native to the device you are dealing with. For instance you could send a base64 file via an email, or you could save it to the files app on the device. 
+This method allows a base 64 file to be shared via the share dropdown native to the device you are dealing with. For instance you could send a base64 file via an email, or you could save it to the files app on the device.
 
 | Platforms | Available |
 | --------- | :-------: |
-| iOS       |   5.1.1+  |
-| Android   |   4.4.2+  |
+| iOS       |  5.1.1+   |
+| Android   |  4.4.2+   |
 | Windows   |    N/A    |
 
 ##### Parameters
+
 - fileAsBase64
   - (string) File represented in base64
 - name
   -(string) The name of the file
-

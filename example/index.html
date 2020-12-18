@@ -5,7 +5,8 @@
     <link rel="stylesheet" href="css/styles.css">
     <title>Modus Bridge Tester</title>
 
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=Array.from,Promise,Symbol,Object.setPrototypeOf,Object.getOwnPropertySymbols"></script>
+    <script
+        src="https://polyfill.io/v3/polyfill.min.js?features=Array.from,Promise,Symbol,Object.setPrototypeOf,Object.getOwnPropertySymbols"></script>
 
     <script src="js/vendor/superagent.js"></script>
 
@@ -18,42 +19,46 @@
 
         //User
         function getCurrentUserName() {
-            Modus.getCurrentUserName().then(printResult);
+            Modus.getCurrentUserName().then(printResult.bind(null, "getCurrentUserName"));
         }
 
         function getCurrentUserEmail() {
-            Modus.getCurrentUserEmail().then(printResult);
+            Modus.getCurrentUserEmail().then(printResult.bind(null, "getCurrentUserEmail"));
         }
 
         function getAccessToken() {
-            Modus.getAccessToken().then(printResult);
+            Modus.getAccessToken().then(printResult.bind(null, "getAccessToken"));
         }
 
         function getCurrentUserRegions() {
-            Modus.getCurrentUserRegions().then(printResult);
+            Modus.getCurrentUserRegions().then(printResult.bind(null, "getCurrentUserRegions"));
         }
 
         //Storage
         function getStorageItem() {
             Modus.getItem("test").then(function (val) {
-                printResult(val ? 'Storage Item: "' + val + '"' : "No Storage Item Set");
+                var result = val ? val : "<i>no global storage item set</i>"
+                printResult("getStorageItem", result);
             });
         }
         function setStorageItem() {
-            var val = "Test Value " + Math.floor(Math.random() * 100000);
+            var val = window.prompt("Please enter a message to save: ");
+            if (!val) return;
             Modus.setItem("test", val).then(function () {
-                printResult('Storage test item was set as: "' + val + '"');
+                printResult("setStorageItem");
+            });
+        }
+        function setGlobalStorageItem() {
+            var val = window.prompt("Please enter a message to save: ");
+            if (!val) return;
+            Modus.setGlobalItem("globaltest", val).then(function () {
+                printResult("setGlobalStorageItem");
             });
         }
         function getGlobalStorageItem() {
             Modus.getGlobalItem("globaltest").then(function (val) {
-                printResult(val ? 'Global Storage Item: "' + val + '"' : "No Global Storage Item Set");
-            });
-        }
-        function setGlobalStorageItem() {
-            var val = "Global Test Value " + Math.floor(Math.random() * 100000);
-            Modus.setGlobalItem("globaltest", val).then(function () {
-                printResult('Global Storage test item was set as: "' + val + '"');
+                var result = val ? val : "<i>no global storage item set</i>"
+                printResult("getGlobalStorageItem", result);
             });
         }
         function setComplexStorageItem() {
@@ -63,7 +68,7 @@
         //Email
         function sendMail() {
             Modus.sendEmail("test@gmail.com", "", "Test Subject Line", "Test body").then(function () {
-                printResult("Email client initiated successfully, it may take a few seconds to load");
+                printResult("sendEmail");
             });
         }
 
@@ -71,9 +76,9 @@
             getExampleHtml().then(function (html) {
                 return Modus.sendEmailHtml("test@gmail.com", "example@cc.com", "Html Test Subject Line", html);
             }).then(function () {
-                var msg = "Email client initiated successfully (with html), it may take a few seconds to load." +
-                    "This may not show as raw html when debugging but will be formatted as html when used inside of the app";
-                printResult(msg);
+                var msg = "<i>Email client initiated successfully (with html), it may take a few seconds to load." +
+                    "This may not show as raw html when debugging but will be formatted as html when used inside of the app</i>";
+                    printResult("sendEmailHtml", msg);
             });
         }
 
@@ -103,23 +108,22 @@
 
         function getAgendas() {
             Modus.getAgendas().then(function (val) {
-                printResult(val ? 'Agenda List: "' + JSON.stringify(val) + '"' : "No Agendas");
+                console.log(typeof(val));
+                var result = val || "[]";
+                printResult("getAgendas", result);
             });
         }
 
         function asyncHttpRequest() {
             Modus.asyncHttpRequest("https://ptsv2.com/t/7xh2y-1551975478/post", "POST", null, { "firstName": "John", "lastName": "Doe" }).then(function (data) {
-                printResult(data);
+                printResult("asyncHttpRequest", data);
             })
-            //adr.asyncHttpRequest("https://ptsv2.com/t/7xh2y-1551975478/post", "POST", null, { "firstName": "John", "lastName": "Doe" }, onSuccessBase64, onError);
         }
 
         function sendAgenda() {
             var agendaId = document.getElementById("txtAgendaId").value;
             var emailAddress = document.getElementById("txtEmailAddress").value;
-            Modus.sendAgenda(agendaId, emailAddress).then(function () {
-                printResult("Email client initiated successfully, it may take a few seconds to load");
-            });
+            Modus.sendAgenda(agendaId, emailAddress).then(printResult.bind(null,"sendAgenda"));
         }
 
         // -- Deprecated
@@ -131,13 +135,15 @@
         }
 
         //Helpers
-        function printResult(result) {
-            let type = typeof (result);
+        function printResult(caller, result) {
+            if (!result) result = "<i>function does not return any data but was successful</i>";
 
-            document.getElementById('log').innerHTML += result + " - (" + type + ")";
-            document.getElementById('log').innerHTML += "<br/>";
+            let html = "<strong>" + caller + "</strong>" + "<br />" +
+                "----------------------------------<br />" +
+                "result data: " + result + "<br />" +
+                "result type: " + typeof (result) + "<br /><br />";
 
-            console.log(result, type);
+            document.getElementById('log').innerHTML += html;
         }
 
         function getExampleHtml() {
@@ -204,20 +210,25 @@
 
         <h2>Storage</h2>
         <div class="row">
-            <button class="btn btn-primary" type="button" onclick="getStorageItem()">Get Storage Item</button><br />
+            <button class="btn btn-primary" type="button" onclick="setStorageItem()">Set Storage Item</button><br />
         </div>
         <div class="row">
-            <button class="btn btn-primary" type="button" onclick="setStorageItem()">Set Storage Item</button><br />
+            <button class="btn btn-primary" type="button" onclick="getStorageItem()">Get Storage Item</button><br />
         </div>
 
         <div class="row">
-            <button class="btn btn-primary" type="button" onclick="getGlobalStorageItem()">Get Global
-                Storage</button><br />
+            <button class="btn btn-primary" type="button" onclick="setGlobalStorageItem()">
+                Set Global Storage
+            </button>
+            <br />
         </div>
         <div class="row">
-            <button class="btn btn-primary" type="button" onclick="setGlobalStorageItem()">Set Global
-                Storage</button><br />
+            <button class="btn btn-primary" type="button" onclick="getGlobalStorageItem()">
+                Get Global Storage
+            </button>
+            <br />
         </div>
+
 
         <h4>not implemented yet in new bridge</h4>
         <div class="row">
