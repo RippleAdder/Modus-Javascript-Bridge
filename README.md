@@ -38,12 +38,13 @@ This library heavily relies on native JavaScript promises. This may require a po
 
 ### Table of Contents
 
-[User Methods](#User%20Methods)  
-[Email Methods](#Email%20Methods)  
-[Agenda Methods](#Agenda%20Methods)  
-[Lead Capture Methods](#Lead%20Capture%20Methods)  
-[File Picker Methods](#File%20Picker%20Methods)  
-[Other Methods](#Other%20Methods)
+[User Methods](#user-methods)  
+[Email Methods](#email-methods)  
+[Agenda Methods](#agenda-methods)  
+[Lead Capture Methods](#lead-capture-methods)  
+[Follow Up Methods](#follow-up-methods)  
+[File Picker Methods](#file-picker-methods)  
+[Other Methods](#other-methods)
 
 ## User Methods:
 
