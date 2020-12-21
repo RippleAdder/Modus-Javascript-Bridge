@@ -148,18 +148,20 @@ var Modus = (function () {
         scanBarcode: _callNativeFunction.bind(null, "scanPDF417Barcode", null),
         //captureLead?
 
+        //File Pickers 
+        getMediaWithPicker: function (excludeMedias) { return _callNativeFunction("getMediaWithPicker", { excludeMedias: excludeMedias }) },
+
         //Follow Up Methods
         sendFollowup: function (step, bundleName, link) { return _callNativeFunction("sendFollowup", { step: step, bundle: bundleName, link: link }) },
         previewNextFollowupLink: _callNativeFunction.bind(null, "previewNextFollowupLink", null),
         getFollowupGuid: function (followupLink) { return _callNativeFunction("getFollowupGuid", { link: followupLink }) },
 
-        //File Pickers
-        getMediaWithPicker: function (excludeMedias) { return _callNativeFunction("getMediaWithPicker", { excludeMedias: excludeMedias }) },
-        getDeviceFilePicker: function (uploadParams) { return _callNativeFunction("getDeviceFilePicker", { uploadParams: uploadParams }) },
-
         //Other
         asyncHttpRequest: function (url, verb, headers, body) { return _callNativeFunction("asyncHttpRequest", { url: url, verb: verb, headers: headers, body: body }) },
         promptShareMenuWithData: function (fileName, base64) { return _callNativeFunction("promptShareMenuWithData", { nane: fileName, fileAsBase64: base64 }) },
+        
+        //Digial Sales Room - could this be generalized
+        getDeviceFilePicker: function (uploadParams) { return _callNativeFunction("getDeviceFilePicker", { uploadParams: uploadParams }) },
     }
 })();
 

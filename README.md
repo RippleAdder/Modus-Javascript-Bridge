@@ -501,22 +501,6 @@ TODO: write a description
 
 - **parameter**: [string] description
 
-### --- getDeviceFilePicker ---
-
-TODO: write a description
-
-##### Availability
-
-| Platforms | Available |
-| --------- | :-------: |
-| iOS       |   5.2+    |
-| Android   |   5.2+    |
-| Windows   |   5.2+    |
-
-##### Parameters
-
-- **parameter**: [string] description
-
 ## Other Methods:
 
 ### logEvent
