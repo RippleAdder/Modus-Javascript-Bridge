@@ -134,7 +134,7 @@ var Modus = (function () {
          *      console.log("Hello, " + username);
          *  });
          * @memberof User
-         * @since  | iOS - 1.7.9+  | Android - 2.1.6+  |  Windows - 4.3.0.0
+         * @version  iOS - 1.7.9+  | Android - 2.1.6+  |  Windows - 4.3.0.0
          */
         getCurrentUserName: _callNativeFunction.bind(null, "getCurrentUserName", null),
 
@@ -142,7 +142,7 @@ var Modus = (function () {
          * Get the current user's email
          * @returns {Promise<string>} promise with the email
          * @memberof User
-         * @since  | iOS - 2.6  | Android - 2.1.6  |  Windows - 5.0.0.0+ 
+         * @version  iOS - 2.6  | Android - 2.1.6  |  Windows - 5.0.0.0+ 
          */
         getCurrentUserEmail: _callNativeFunction.bind(null, "getCurrentUserEmail", null),
 

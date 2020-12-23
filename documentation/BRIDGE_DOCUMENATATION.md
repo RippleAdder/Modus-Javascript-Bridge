@@ -28,7 +28,7 @@ Returns **[Promise][8]&lt;[string][9]>** promise with the username
 
 **Meta**
 
--   **since**: | iOS - 1.7.9+  | Android - 2.1.6+  |  Windows - 4.3.0.0
+-   **version**: iOS - 1.7.9+  | Android - 2.1.6+  |  Windows - 4.3.0.0
 
 ### getCurrentUserEmail
 
@@ -38,7 +38,7 @@ Returns **[Promise][8]&lt;[string][9]>** promise with the email
 
 **Meta**
 
--   **since**: | iOS - 2.6  | Android - 2.1.6  |  Windows - 5.0.0.0+
+-   **version**: iOS - 2.6  | Android - 2.1.6  |  Windows - 5.0.0.0+
 
 ## getCurrentUserRegions
 
