@@ -140,18 +140,26 @@ var Modus = (function () {
 
         /**
          * Get the current user's email
-         * @returns {Promise<string>} promise with the email
+         * @returns {Promise<string>} current user email
          * @memberof User
-         * @version  iOS - 2.6  | Android - 2.1.6  |  Windows - 5.0.0.0+ 
+         * @version  iOS - 2.6  | Android - 2.1.6  |  Windows - 5.0.0.0 
          */
         getCurrentUserEmail: _callNativeFunction.bind(null, "getCurrentUserEmail", null),
 
         /**
-         * This function adds one to its input.
-         * @param {number} input any number
-         * @returns {number} that number, plus one.
+         * Returns the currently logged in user's regions
+         * @memberof User
+         * @version  iOS - 2.6.3  | Android - 2.1.6  |  Windows - N/A
+         * @returns {Promise<string[]>} List of current user's regions
          */
         getCurrentUserRegions: _callNativeFunction.bind(null, "getCurrentUserRegions", null),
+
+        /**
+         * Returns the currently logged in user's access token
+         * @memberof User
+         * @version  iOS - 5.0.8  | Android - N/A  |  Windows - N/A
+         * @returns {Promise<string>} An access token
+         */
         getAccessToken: _callNativeFunction.bind(null, "getAccessToken", null),
 
         //----- Storage -----//

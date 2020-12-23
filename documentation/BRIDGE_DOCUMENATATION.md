@@ -6,8 +6,8 @@
     -   [getCurrentUserName][2]
         -   [Examples][3]
     -   [getCurrentUserEmail][4]
--   [getCurrentUserRegions][5]
-    -   [Parameters][6]
+    -   [getCurrentUserRegions][5]
+    -   [getAccessToken][6]
 -   [Storage][7]
 
 ## User
@@ -34,21 +34,31 @@ Returns **[Promise][8]&lt;[string][9]>** promise with the username
 
 Get the current user's email
 
-Returns **[Promise][8]&lt;[string][9]>** promise with the email
+Returns **[Promise][8]&lt;[string][9]>** current user email
 
 **Meta**
 
--   **version**: iOS - 2.6  | Android - 2.1.6  |  Windows - 5.0.0.0+
+-   **version**: iOS - 2.6  | Android - 2.1.6  |  Windows - 5.0.0.0
 
-## getCurrentUserRegions
+### getCurrentUserRegions
 
-This function adds one to its input.
+Returns the currently logged in user's regions
 
-### Parameters
+Returns **[Promise][8]&lt;[Array][10]&lt;[string][9]>>** List of current user's regions
 
--   `input` **[number][10]** any number
+**Meta**
 
-Returns **[number][10]** that number, plus one.
+-   **version**: iOS - 2.6.3  | Android - 2.1.6  |  Windows - N/A
+
+### getAccessToken
+
+Returns the currently logged in user's access token
+
+Returns **[Promise][8]&lt;[string][9]>** An access token
+
+**Meta**
+
+-   **version**: iOS - 5.0.8  | Android - N/A  |  Windows - N/A
 
 ## Storage
 
@@ -62,7 +72,7 @@ Returns **[number][10]** that number, plus one.
 
 [5]: #getcurrentuserregions
 
-[6]: #parameters
+[6]: #getaccesstoken
 
 [7]: #storage
 
@@ -70,4 +80,4 @@ Returns **[number][10]** that number, plus one.
 
 [9]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
 
-[10]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
+[10]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
