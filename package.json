@@ -4,7 +4,7 @@
   "description": "Javascript bridge that provides native functionality to web bundles running within Modus Communicate",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "documentation": "documentation build src/*.js -f md -o documentation/BRIDGE_DOCUMENATATION.md",
+    "documentation": "documentation build src/*.js -f md -o docs/BRIDGE_DOCUMENTATION.md",
     "start": "webpack serve --open Chrome.exe",
     "build": "npm run documentation & webpack"
   },

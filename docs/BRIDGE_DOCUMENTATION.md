@@ -28,7 +28,7 @@ Returns **[Promise][8]&lt;[string][9]>** promise with the username
 
 **Meta**
 
--   **version**: iOS - 1.7.9+  | Android - 2.1.6+  |  Windows - 4.3.0.0
+-   **version**: iOS - 1.7.9  | Android - 2.1.6  |  Windows - 4.3.0.0
 
 ### getCurrentUserEmail
 

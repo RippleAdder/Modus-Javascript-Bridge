@@ -134,7 +134,7 @@ var Modus = (function () {
          *      console.log("Hello, " + username);
          *  });
          * @memberof User
-         * @version  iOS - 1.7.9+  | Android - 2.1.6+  |  Windows - 4.3.0.0
+         * @version  iOS - 1.7.9  | Android - 2.1.6  |  Windows - 4.3.0.0
          */
         getCurrentUserName: _callNativeFunction.bind(null, "getCurrentUserName", null),
 
