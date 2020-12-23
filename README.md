@@ -31,7 +31,7 @@ import Modus from "./js/modus-js-bridge";
 Modus.getCurrentUserName();
 ```
 
-### General Usage Example
+### General Usage 
 
 ```javascript
 Modus.getCurrentUserName().then((username) => {

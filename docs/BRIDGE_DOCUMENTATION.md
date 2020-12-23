@@ -9,6 +9,14 @@
     -   [getCurrentUserRegions][5]
     -   [getAccessToken][6]
 -   [Storage][7]
+    -   [getItem][8]
+        -   [Parameters][9]
+    -   [setItem][10]
+        -   [Parameters][11]
+    -   [getGlobalItem][12]
+        -   [Parameters][13]
+    -   [setGlobalItem][14]
+        -   [Parameters][15]
 
 ## User
 
@@ -24,7 +32,7 @@ Modus.getCurrentUserName().then((username) => {
  });
 ```
 
-Returns **[Promise][8]&lt;[string][9]>** promise with the username
+Returns **[Promise][16]&lt;[string][17]>** promise with the username
 
 **Meta**
 
@@ -34,7 +42,7 @@ Returns **[Promise][8]&lt;[string][9]>** promise with the username
 
 Get the current user's email
 
-Returns **[Promise][8]&lt;[string][9]>** current user email
+Returns **[Promise][16]&lt;[string][17]>** current user email
 
 **Meta**
 
@@ -44,7 +52,7 @@ Returns **[Promise][8]&lt;[string][9]>** current user email
 
 Returns the currently logged in user's regions
 
-Returns **[Promise][8]&lt;[Array][10]&lt;[string][9]>>** List of current user's regions
+Returns **[Promise][16]&lt;[Array][18]&lt;[string][17]>>** List of current user's regions
 
 **Meta**
 
@@ -54,13 +62,67 @@ Returns **[Promise][8]&lt;[Array][10]&lt;[string][9]>>** List of current user's 
 
 Returns the currently logged in user's access token
 
-Returns **[Promise][8]&lt;[string][9]>** An access token
+Returns **[Promise][16]&lt;[string][17]>** An access token
 
 **Meta**
 
 -   **version**: iOS - 5.0.8  | Android - N/A  |  Windows - N/A
 
 ## Storage
+
+### getItem
+
+Gets a value for a specified key from the native local database
+
+#### Parameters
+
+-   `key` **[string][17]** name of the "key" you want to retrieve the value of
+
+Returns **[Promise][16]&lt;[string][17]>** The value of the key. If key does not exist `null` is returned
+
+**Meta**
+
+-   **version**: iOS - 1.7.0  | Android - N/A  |  Windows - N/A
+
+### setItem
+
+Sets a value for a specified key to the native local database
+
+#### Parameters
+
+-   `key` **[string][17]** name of the "key" you want to set the value of
+-   `value` **[string][17]** The value you want to assign to the key
+
+**Meta**
+
+-   **version**: iOS - 1.7.0  | Android - N/A  |  Windows - 5.1.0.0
+
+### getGlobalItem
+
+Gets a value for a specified key from the native local database. This value is accessible between different web bundles
+
+#### Parameters
+
+-   `key` **[string][17]** name of the "key" you want to retrieve the value of
+
+Returns **[Promise][16]&lt;[string][17]>** The value of the key. If key does not exist `null` is returned
+
+**Meta**
+
+-   **version**: iOS - 1.7.0  | Android - N/A  |  Windows - N/A
+
+### setGlobalItem
+
+Sets a value for a specified key to the native local database. This value is accessible between different web bundles
+
+#### Parameters
+
+-   `key` **[string][17]** name of the "key" you want to set the value of
+-   `value` **[string][17]** The value you want to assign to the key
+
+**Meta**
+
+-   **version**: iOS - 1.7.0  | Android - N/A  |  Windows - 5.1.0.0
 
 [1]: #user
 
@@ -76,8 +138,24 @@ Returns **[Promise][8]&lt;[string][9]>** An access token
 
 [7]: #storage
 
-[8]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise
+[8]: #getitem
 
-[9]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+[9]: #parameters
 
-[10]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+[10]: #setitem
+
+[11]: #parameters-1
+
+[12]: #getglobalitem
+
+[13]: #parameters-2
+
+[14]: #setglobalitem
+
+[15]: #parameters-3
+
+[16]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise
+
+[17]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+
+[18]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array

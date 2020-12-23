@@ -165,9 +165,40 @@ var Modus = (function () {
         //----- Storage -----//
         /** @namespace Storage */
 
+        /**
+        * Gets a value for a specified key from the native local database
+        * @param {string} key - name of the "key" you want to retrieve the value of
+        * @returns {Promise<string>} The value of the key. If key does not exist `null` is returned
+        * @memberof Storage
+        * @version  iOS - 1.7.0  | Android - N/A  |  Windows - N/A
+        */
         getItem: function (key) { return _callNativeFunction("getItem", { key: key }) },
+
+        /**
+        * Sets a value for a specified key to the native local database
+        * @param {string} key - name of the "key" you want to set the value of
+        * @param {string} value - The value you want to assign to the key
+        * @memberof Storage
+        * @version  iOS - 1.7.0  | Android - N/A  |  Windows - 5.1.0.0
+        */
         setItem: function (key, value) { return _callNativeFunction("setItem", { key: key, value: value }) },
+
+        /**
+        * Gets a value for a specified key from the native local database. This value is accessible between different web bundles
+        * @param {string} key - name of the "key" you want to retrieve the value of
+        * @returns {Promise<string>} The value of the key. If key does not exist `null` is returned
+        * @memberof Storage
+        * @version  iOS - 1.7.0  | Android - N/A  |  Windows - N/A
+        */
         getGlobalItem: function (key) { return _callNativeFunction("getGlobalItem", { key: key }) },
+
+        /**
+        * Sets a value for a specified key to the native local database. This value is accessible between different web bundles
+        * @param {string} key - name of the "key" you want to set the value of
+        * @param {string} value - The value you want to assign to the key
+        * @memberof Storage
+        * @version  iOS - 1.7.0  | Android - N/A  |  Windows - 5.1.0.0
+        */
         setGlobalItem: function (key, value) { return _callNativeFunction("setGlobalItem", { key: key, value: value }) },
 
         //Emails
