@@ -123,13 +123,40 @@ var Modus = (function () {
 
     //Public
     return {
-        //User
+        //------ USER ------//
+        /** @namespace User */
+
+        /**
+         * Get the current user's username
+         * @returns {Promise<string>} promise with the username
+         * @example
+         *  Modus.getCurrentUserName().then((username) => {
+         *      console.log("Hello, " + username);
+         *  });
+         * @memberof User
+         * @since  | iOS - 1.7.9+  | Android - 2.1.6+  |  Windows - 4.3.0.0
+         */
         getCurrentUserName: _callNativeFunction.bind(null, "getCurrentUserName", null),
+
+        /**
+         * Get the current user's email
+         * @returns {Promise<string>} promise with the email
+         * @memberof User
+         * @since  | iOS - 2.6  | Android - 2.1.6  |  Windows - 5.0.0.0+ 
+         */
         getCurrentUserEmail: _callNativeFunction.bind(null, "getCurrentUserEmail", null),
+
+        /**
+         * This function adds one to its input.
+         * @param {number} input any number
+         * @returns {number} that number, plus one.
+         */
         getCurrentUserRegions: _callNativeFunction.bind(null, "getCurrentUserRegions", null),
         getAccessToken: _callNativeFunction.bind(null, "getAccessToken", null),
 
-        //Storage
+        //----- Storage -----//
+        /** @namespace Storage */
+
         getItem: function (key) { return _callNativeFunction("getItem", { key: key }) },
         setItem: function (key, value) { return _callNativeFunction("setItem", { key: key, value: value }) },
         getGlobalItem: function (key) { return _callNativeFunction("getGlobalItem", { key: key }) },
@@ -159,7 +186,7 @@ var Modus = (function () {
         //Other
         asyncHttpRequest: function (url, verb, headers, body) { return _callNativeFunction("asyncHttpRequest", { url: url, verb: verb, headers: headers, body: body }) },
         promptShareMenuWithData: function (fileName, base64) { return _callNativeFunction("promptShareMenuWithData", { nane: fileName, fileAsBase64: base64 }) },
-        
+
         //Digial Sales Room - could this be generalized
         getDeviceFilePicker: function (uploadParams) { return _callNativeFunction("getDeviceFilePicker", { uploadParams: uploadParams }) },
     }

@@ -1,0 +1,31 @@
+{
+  "name": "Modus-Javascript-Bridge",
+  "version": "1.0.0",
+  "description": "Javascript bridge that provides native functionality to web bundles running within Modus Communicate",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "documentation": "documentation build src/*.js -f md -o documentation/BRIDGE_DOCUMENATATION.md",
+    "start": "webpack serve --open Chrome.exe",
+    "build": "npm run documentation & webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RippleAdder/Modus-Javascript-Bridge.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RippleAdder/Modus-Javascript-Bridge/issues"
+  },
+  "homepage": "https://github.com/RippleAdder/Modus-Javascript-Bridge#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "copy-webpack-plugin": "^7.0.0",
+    "documentation": "^13.1.0",
+    "http-server": "^0.12.3",
+    "webpack": "^5.11.0",
+    "webpack-cli": "^4.2.0",
+    "webpack-dev-server": "^3.11.0"
+  }
+}

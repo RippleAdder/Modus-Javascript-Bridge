@@ -2,6 +2,7 @@
 
 Javascript bridge that provides native functionality to web bundles running within Modus Communicate
 
+## Get Started
 ### Plain Old Javascript
 
 Include the **modus-js-bridge.js** file in your application

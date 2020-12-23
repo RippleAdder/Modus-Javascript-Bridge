@@ -2,15 +2,15 @@
 <html lang="en">
 
 <head>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="styles.css">
     <title>Modus Bridge Tester</title>
 
     <script
         src="https://polyfill.io/v3/polyfill.min.js?features=Array.from,Promise,Symbol,Object.setPrototypeOf,Object.getOwnPropertySymbols"></script>
 
-    <script src="js/vendor/superagent.js"></script>
 
-    <script type='module' src="js/modus-js-bridge.js"></script>
+    <script type='module' src="modus-js-bridge.js"></script>
+    <script src="deprecated/adrJSBridge.js"></script>
 
     <script>
         function clearLog() {
@@ -76,9 +76,8 @@
             getExampleHtml().then(function (html) {
                 return Modus.sendEmailHtml("test@gmail.com", "example@cc.com", "Html Test Subject Line", html);
             }).then(function () {
-                var msg = "<i>Email client initiated successfully (with html), it may take a few seconds to load." +
-                    "This may not show as raw html when debugging but will be formatted as html when used inside of the app</i>";
-                    printResult("sendEmailHtml", msg);
+                var msg = "<i>Email client initiated successfully (with html), it may take a few seconds to load.";
+                printResult("sendEmailHtml", msg);
             });
         }
 
@@ -108,7 +107,7 @@
 
         function getAgendas() {
             Modus.getAgendas().then(function (val) {
-                console.log(typeof(val));
+                console.log(typeof (val));
                 var result = val || "[]";
                 printResult("getAgendas", result);
             });
@@ -123,7 +122,7 @@
         function sendAgenda() {
             var agendaId = document.getElementById("txtAgendaId").value;
             var emailAddress = document.getElementById("txtEmailAddress").value;
-            Modus.sendAgenda(agendaId, emailAddress).then(printResult.bind(null,"sendAgenda"));
+            Modus.sendAgenda(agendaId, emailAddress).then(printResult.bind(null, "sendAgenda"));
         }
 
         // -- Deprecated
@@ -147,21 +146,13 @@
         }
 
         function getExampleHtml() {
-            return new Promise(function (resolve, reject) {
-                var fallback = "<body><H1>Hello, Html Email World!</H1></body>";
-
-                if (superagent) {
-                    superagent.get('/assets/email.html')
-                        .then(function (result) {
-                            var html = result.text;
-                            resolve(html);
-                        }).catch(function (e) {
-                            resolve(fallback);
-                        })
-                } else {
-                    resolve(fallback);
-                }
-            });
+            var fallback = "<body><H1>Hello, Html Email World!</H1></body>";
+            return fetch('/assets/email.html')
+                .then(function (response) {
+                    return response.text();
+                }).catch(function (e) {
+                    return fallback;
+                });
         }
 
         function onSuccess(ret) {
@@ -309,8 +300,6 @@
             <div id="log"></div>
         </div>
     </div>
-
-    <script src="js/deprecated/adrJSBridge.js"></script>
 </body>
 
 </html>

@@ -1,5 +1,5 @@
 var adr = function () {
-    console.log("this file has been deprecated, please use modus-js-bridge.js")
+    console.warn("adrJSBridge.js has been deprecated, please use modus-js-bridge.js instead");
 
     var _massageArgsJsToNative = function (args) {
         if (!args) {
