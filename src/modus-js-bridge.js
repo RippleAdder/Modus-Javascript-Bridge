@@ -169,6 +169,10 @@ var Modus = (function () {
         * Gets a value for a specified key from the native local database
         * @param {string} key - name of the "key" you want to retrieve the value of
         * @returns {Promise<string>} The value of the key. If key does not exist `null` is returned
+        * @example
+        *   Modus.getItem("test").then((val) => { 
+        *       //do something
+        *   });
         * @memberof Storage
         * @version  iOS - 1.7.0  | Android - N/A  |  Windows - N/A
         */
@@ -178,6 +182,11 @@ var Modus = (function () {
         * Sets a value for a specified key to the native local database
         * @param {string} key - name of the "key" you want to set the value of
         * @param {string} value - The value you want to assign to the key
+        * @example
+        *   Modus.setItem("test", "Hello World!").then(() =>{ 
+        *       // success!
+        *       // no value returned
+        *   });
         * @memberof Storage
         * @version  iOS - 1.7.0  | Android - N/A  |  Windows - 5.1.0.0
         */

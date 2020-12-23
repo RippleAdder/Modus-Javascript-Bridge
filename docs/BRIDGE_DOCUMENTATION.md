@@ -11,12 +11,14 @@
 -   [Storage][7]
     -   [getItem][8]
         -   [Parameters][9]
-    -   [setItem][10]
-        -   [Parameters][11]
-    -   [getGlobalItem][12]
-        -   [Parameters][13]
-    -   [setGlobalItem][14]
+        -   [Examples][10]
+    -   [setItem][11]
+        -   [Parameters][12]
+        -   [Examples][13]
+    -   [getGlobalItem][14]
         -   [Parameters][15]
+    -   [setGlobalItem][16]
+        -   [Parameters][17]
 
 ## User
 
@@ -32,7 +34,7 @@ Modus.getCurrentUserName().then((username) => {
  });
 ```
 
-Returns **[Promise][16]&lt;[string][17]>** promise with the username
+Returns **[Promise][18]&lt;[string][19]>** promise with the username
 
 **Meta**
 
@@ -42,7 +44,7 @@ Returns **[Promise][16]&lt;[string][17]>** promise with the username
 
 Get the current user's email
 
-Returns **[Promise][16]&lt;[string][17]>** current user email
+Returns **[Promise][18]&lt;[string][19]>** current user email
 
 **Meta**
 
@@ -52,7 +54,7 @@ Returns **[Promise][16]&lt;[string][17]>** current user email
 
 Returns the currently logged in user's regions
 
-Returns **[Promise][16]&lt;[Array][18]&lt;[string][17]>>** List of current user's regions
+Returns **[Promise][18]&lt;[Array][20]&lt;[string][19]>>** List of current user's regions
 
 **Meta**
 
@@ -62,7 +64,7 @@ Returns **[Promise][16]&lt;[Array][18]&lt;[string][17]>>** List of current user'
 
 Returns the currently logged in user's access token
 
-Returns **[Promise][16]&lt;[string][17]>** An access token
+Returns **[Promise][18]&lt;[string][19]>** An access token
 
 **Meta**
 
@@ -76,9 +78,17 @@ Gets a value for a specified key from the native local database
 
 #### Parameters
 
--   `key` **[string][17]** name of the "key" you want to retrieve the value of
+-   `key` **[string][19]** name of the "key" you want to retrieve the value of
 
-Returns **[Promise][16]&lt;[string][17]>** The value of the key. If key does not exist `null` is returned
+#### Examples
+
+```javascript
+Modus.getItem("test").then((val) => { 
+      //do something
+  });
+```
+
+Returns **[Promise][18]&lt;[string][19]>** The value of the key. If key does not exist `null` is returned
 
 **Meta**
 
@@ -90,8 +100,17 @@ Sets a value for a specified key to the native local database
 
 #### Parameters
 
--   `key` **[string][17]** name of the "key" you want to set the value of
--   `value` **[string][17]** The value you want to assign to the key
+-   `key` **[string][19]** name of the "key" you want to set the value of
+-   `value` **[string][19]** The value you want to assign to the key
+
+#### Examples
+
+```javascript
+Modus.setItem("test", "Hello World!").then(() =>{ 
+      // success!
+      // no value returned
+  });
+```
 
 **Meta**
 
@@ -103,9 +122,9 @@ Gets a value for a specified key from the native local database. This value is a
 
 #### Parameters
 
--   `key` **[string][17]** name of the "key" you want to retrieve the value of
+-   `key` **[string][19]** name of the "key" you want to retrieve the value of
 
-Returns **[Promise][16]&lt;[string][17]>** The value of the key. If key does not exist `null` is returned
+Returns **[Promise][18]&lt;[string][19]>** The value of the key. If key does not exist `null` is returned
 
 **Meta**
 
@@ -117,8 +136,8 @@ Sets a value for a specified key to the native local database. This value is acc
 
 #### Parameters
 
--   `key` **[string][17]** name of the "key" you want to set the value of
--   `value` **[string][17]** The value you want to assign to the key
+-   `key` **[string][19]** name of the "key" you want to set the value of
+-   `value` **[string][19]** The value you want to assign to the key
 
 **Meta**
 
@@ -142,20 +161,24 @@ Sets a value for a specified key to the native local database. This value is acc
 
 [9]: #parameters
 
-[10]: #setitem
+[10]: #examples-1
 
-[11]: #parameters-1
+[11]: #setitem
 
-[12]: #getglobalitem
+[12]: #parameters-1
 
-[13]: #parameters-2
+[13]: #examples-2
 
-[14]: #setglobalitem
+[14]: #getglobalitem
 
-[15]: #parameters-3
+[15]: #parameters-2
 
-[16]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise
+[16]: #setglobalitem
 
-[17]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+[17]: #parameters-3
 
-[18]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+[18]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise
+
+[19]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+
+[20]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
