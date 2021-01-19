@@ -210,7 +210,9 @@ var Modus = (function () {
         */
         setGlobalItem: function (key, value) { return _callNativeFunction("setGlobalItem", { key: key, value: value }) },
 
-        //Emails
+        //----- Emails -----//
+        /** @namespace Emails */
+
         sendEmail: function (to, cc, subject, body) { return _callNativeFunction("sendEmail", { to: to, cc: cc, subject: subject, body: body }) },
         sendEmailHtml: function (to, cc, subject, html) { return _callNativeFunction("sendEmailHtml", { to: to, cc: cc, subject: subject, html: html }) },
         sendEmailWithFileAttachmentFromBase64: function (data) { return _callNativeFunction("sendEmailWithFileAttachmentFromBase64", { data: data }) },
