@@ -1,7 +1,7 @@
 /* eslint-disable */
 var Modus = (function () {
     //Variables
-    let _os = _getParameterByName("os");
+    let _fallback;
 
     //Helpers
     function _getParameterByName(name, url) {
@@ -98,6 +98,7 @@ var Modus = (function () {
             };
 
             let os = _getParameterByName("os");
+            console.log(os);
 
             //For Windows builds that don't pass in the os param
             let userAgent = navigator.userAgent;
@@ -116,7 +117,25 @@ var Modus = (function () {
                 return window.appInterface.postMessage(JSON.stringify(request));
             }
 
+            //User registered in a class of fallback methods
+            if (_fallback && _fallback[methodName] && typeof (_fallback[methodName]) === "function") {
+                var promise = _fallback[methodName](methodData);
+
+                if (promise && promise.then) {
+                    promise.then(function (result) {
+                        window[successId](result);
+                    }).catch(function (result) {
+                        window[errorId](result);
+                    });
+                } else if (promise) {
+                    console.error('Fallback methods needs to return a promise or nothing');
+                }
+
+                return;
+            }
+
             //Defaults and Stubs
+            //TODO: build some way to enable/disable examples
             return _createExampleResult(request);
         });
     }
@@ -235,13 +254,16 @@ var Modus = (function () {
 
         //Other
         asyncHttpRequest: function (url, verb, headers, body) { return _callNativeFunction("asyncHttpRequest", { url: url, verb: verb, headers: headers, body: body }) },
-        promptShareMenuWithData: function (fileName, base64) { return _callNativeFunction("promptShareMenuWithData", { nane: fileName, fileAsBase64: base64 }) },
+        promptShareMenuWithData: function (fileName, base64) { return _callNativeFunction("promptShareMenuWithData", { name: fileName, fileAsBase64: base64 }) },
 
-        //Digial Sales Room - could this be generalized
+        //Digial Sales Room - TODO: could this be generalizedbq
         getDeviceFilePicker: function (uploadParams) { return _callNativeFunction("getDeviceFilePicker", { uploadParams: uploadParams }) },
+
+        //Modus Only
+        registerFallback: function (fallback) { _fallback = fallback; console.log("registered"); }
     }
 })();
 
 window.Modus = Modus;
 
-export default Modus;
+//export default Modus;
