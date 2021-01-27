@@ -2,6 +2,7 @@
 var Modus = (function () {
     //Variables
     let _fallback;
+    let _areExamplesEnabled = _getParameterByName("example") !== null;
 
     //Helpers
     function _getParameterByName(name, url) {
@@ -25,7 +26,7 @@ var Modus = (function () {
                 result = "Obi Won Kenobi"
                 break;
             case "getCurrentUserEmail":
-                result = "maul_killer@jedicouncil.crst"
+                result = "okenobi@jedicouncil.crst"
                 break;
             case "getAccessToken":
                 result = "12x45e783s1234="
@@ -63,6 +64,43 @@ var Modus = (function () {
         window[request.successMethodId](result);
     }
 
+    //Web OS
+    let _tryCallWebFunction = function (request) {
+        console.log("do something");
+        let isManaged = false;
+        //TODO: do a switch 
+
+        return isManaged;
+    }
+
+    //Registered Fallback
+    let _tryExecuteFallbackFunction = function (request) {
+        let isManaged = false;
+        let methodName = request.methodName;
+
+        if (_fallback && _fallback[methodName] && typeof (_fallback[methodName]) === "function") {
+            var promise = _fallback[methodName](request.data);
+            isManaged = true;
+
+            if (promise && promise.then) {
+                promise.then(function (result) {
+                    window[request.successMethodId](result);
+                }).catch(function (result) {
+                    window[request.errorMethodId](result);
+                });
+            } else if (promise) {
+                console.error('Fallback methods needs to return a promise or nothing');
+            } else {
+                console.warn(methodName + ' was executed but does not return a promise');
+                //resolve?
+            }
+
+        } else {
+            console.warn("No fallback method for \"" + methodName + "\" exists");
+        }
+
+        return isManaged;
+    }
 
     //Marshall
     let _callNativeFunction = function (methodName, methodData) {
@@ -98,7 +136,6 @@ var Modus = (function () {
             };
 
             let os = _getParameterByName("os");
-            console.log(os);
 
             //For Windows builds that don't pass in the os param
             let userAgent = navigator.userAgent;
@@ -117,26 +154,19 @@ var Modus = (function () {
                 return window.appInterface.postMessage(JSON.stringify(request));
             }
 
-            //User registered in a class of fallback methods
-            if (_fallback && _fallback[methodName] && typeof (_fallback[methodName]) === "function") {
-                var promise = _fallback[methodName](methodData);
+            if (os === "web" && _tryCallWebFunction(request)) {
+                //will need to attach to web event listener
+            }
 
-                if (promise && promise.then) {
-                    promise.then(function (result) {
-                        window[successId](result);
-                    }).catch(function (result) {
-                        window[errorId](result);
-                    });
-                } else if (promise) {
-                    console.error('Fallback methods needs to return a promise or nothing');
-                }
-
+            // A class of fallback functions was registered
+            if (_fallback && _tryExecuteFallbackFunction(request)) {
                 return;
             }
 
-            //Defaults and Stubs
-            //TODO: build some way to enable/disable examples
-            return _createExampleResult(request);
+            //Example Stub
+            if (_areExamplesEnabled) {
+                return _createExampleResult(request);
+            }
         });
     }
 
@@ -260,10 +290,14 @@ var Modus = (function () {
         getDeviceFilePicker: function (uploadParams) { return _callNativeFunction("getDeviceFilePicker", { uploadParams: uploadParams }) },
 
         //Modus Only
-        registerFallback: function (fallback) { _fallback = fallback; console.log("registered"); }
+        registerFallback: function (fallback) { _fallback = fallback; },
+        enableExamples: function (isEnabled) {
+            if (typeof (isEnabled) === "undefined") isEnabled = true;
+            _areExamplesEnabled = isEnabled
+        }
     }
 })();
 
 window.Modus = Modus;
 
-//export default Modus;
+export default Modus;

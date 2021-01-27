@@ -192,15 +192,18 @@
 
         //TODO: inject a web bridge here
         function onModusBridgeLoaded() {
+            Modus.enableExamples();
+            /*
             Modus.registerFallback({
-                getCurrentUserName: function () { return Promise.resolve("hi");},
-                getCurrentUserEmail: function(){console.log("email");},
-                getCurrentUserRegions: function(){return {}}
-            })
+                getCurrentUserName: function () { return Promise.resolve("Hello from the fallback function"); },
+                getCurrentUserEmail: function () { console.log("email"); },
+                getCurrentUserRegions: function () { return {} },
+            });
+            */
         }
     </script>
 
-    <script src="modus-js-bridge.js" onload="onModusBridgeLoaded()"></script>
+    <script type='module' src="modus-js-bridge.js" onload="onModusBridgeLoaded()"></script>
     <script src="deprecated/adrJSBridge.js"></script>
 </head>
 
