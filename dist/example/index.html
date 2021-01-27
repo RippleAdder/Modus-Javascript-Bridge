@@ -193,11 +193,13 @@
         //TODO: inject a web bridge here
         function onModusBridgeLoaded() {
             Modus.enableExamples();
+            /*
             Modus.registerFallback({
                 getCurrentUserName: function () { return Promise.resolve("Hello from the fallback function"); },
                 getCurrentUserEmail: function () { console.log("email"); },
                 getCurrentUserRegions: function () { return {} },
             });
+            */
         }
     </script>
 
