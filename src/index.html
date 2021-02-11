@@ -185,21 +185,16 @@
             }
         }
 
-
-        //SOME INIT CODE
-
-        //TODO: enable Modus library examples here
-
-        //TODO: inject a web bridge here
         function onModusBridgeLoaded() {
+            console.log('bridge loaded!');
             Modus.enableExamples();
-            /*
-            Modus.registerFallback({
+
+            Modus.registerFallbackFunctions({
                 getCurrentUserName: function () { return Promise.resolve("Hello from the fallback function"); },
                 getCurrentUserEmail: function () { console.log("email"); },
                 getCurrentUserRegions: function () { return {} },
             });
-            */
+
         }
     </script>
 

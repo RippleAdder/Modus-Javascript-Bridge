@@ -1,6 +1,11 @@
 /* eslint-disable */
+var generateRandomId = function () {
+    return Math.floor(Math.random() * 10000000);
+}
+
 var Modus = (function () {
     //Variables
+    let _webMessenger;
     let _fallback;
     let _areExamplesEnabled = _getParameterByName("example") !== null;
 
@@ -66,9 +71,15 @@ var Modus = (function () {
 
     //Web OS
     let _tryCallWebFunction = function (request) {
-        console.log("do something");
         let isManaged = false;
-        //TODO: do a switch 
+        let webManagedMethods = [""];
+
+        if (webManagedMethods.indexOf(request.methodName) > -1) {
+            console.log("Running web bridge method: ", request.methodName);
+            if (!_webMessenger) _webMessenger = new WebMessenger();
+            _webMessenger.send(request);
+            isManaged = true;
+        }
 
         return isManaged;
     }
@@ -104,7 +115,7 @@ var Modus = (function () {
 
     //Marshall
     let _callNativeFunction = function (methodName, methodData) {
-        var id = Math.floor(Math.random() * 10000000);
+        var id = generateRandomId();
         var successId = methodName + "_success_" + id;
         var errorId = methodName + "_error_" + id;
 
@@ -155,7 +166,7 @@ var Modus = (function () {
             }
 
             if (os === "web" && _tryCallWebFunction(request)) {
-                //will need to attach to web event listener
+                return;
             }
 
             // A class of fallback functions was registered
@@ -289,15 +300,41 @@ var Modus = (function () {
         //Digial Sales Room - TODO: could this be generalizedbq
         getDeviceFilePicker: function (uploadParams) { return _callNativeFunction("getDeviceFilePicker", { uploadParams: uploadParams }) },
 
-        //Modus Only
-        registerFallback: function (fallback) { _fallback = fallback; },
-        enableExamples: function (isEnabled) {
-            if (typeof (isEnabled) === "undefined") isEnabled = true;
-            _areExamplesEnabled = isEnabled
-        }
+        //Modus things - accessible but used internally or for examples and not well documented
+        registerFallbackFunctions: function (fallback) { _fallback = fallback; },
+        enableExamples: function (isEnabled) { _areExamplesEnabled = (isEnabled !== false) }
     }
 })();
 
-window.Modus = Modus;
+var WebMessenger = function () {
+    const VALID_ORIGINS = ['http://localhost:8081', 'web.gomodus.com', 'web-stage.gomodus.com'];
+    const _requests = {};
 
+    //private
+    const recieve = function (event) {
+        if (VALID_ORIGINS.indexOf(event.origin) <= -1) return;
+
+        let data = JSON.parse(event.data);
+
+        //Prcess the response
+        if (data.response) {
+            if (data.response.error) {
+                window[data.errorMethodId](data.response.error);
+            } else {
+                window[data.successMethodId](data.response);
+            }
+        }
+    }
+
+    //public
+    this.send = function (request) {
+        parent.postMessage(JSON.stringify(request), "*");
+    }
+
+
+    //listen
+    window.addEventListener('message', recieve, false);
+}
+
+window.Modus = Modus;
 export default Modus;

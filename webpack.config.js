@@ -14,7 +14,9 @@ module.exports = {
                 { from: "./src", to: "./example" }],
         }),
     ],
+    watch: false,
     devServer: {
-        contentBase: './dist/example',
+        //contentBase: './dist/example',
+        contentBase: './src'
     },
 };
