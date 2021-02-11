@@ -64,6 +64,9 @@ var Modus = (function () {
             case "getAgendas":
                 result = JSON.stringify([{ agendaId: "1", agendaTitle: "Bespin Meeting" }, { agendaId: "2", agendaTitle: "Endor Visit" }, { agendaId: "3", agendaTitle: "Hoth Beach Vacation" }])
                 break;
+            default:
+                window[request.errorMethodId]("no example data exists for method");
+                return;
         }
 
         window[request.successMethodId](result);
@@ -72,7 +75,7 @@ var Modus = (function () {
     //Web OS
     let _tryCallWebFunction = function (request) {
         let isManaged = false;
-        let webManagedMethods = [""];
+        let webManagedMethods = ["getMediaWithPicker"];
 
         if (webManagedMethods.indexOf(request.methodName) > -1) {
             console.log("Running web bridge method: ", request.methodName);
@@ -281,28 +284,34 @@ var Modus = (function () {
         getAgendas: _callNativeFunction.bind(null, "getAgendas", null),
         sendAgenda: function (agendaId, emailAddress) { return _callNativeFunction("sendAgenda", { agendaId: agendaId, emailAddress: emailAddress }) },
 
+
+        //Other
+        asyncHttpRequest: function (url, verb, headers, body) { return _callNativeFunction("asyncHttpRequest", { url: url, verb: verb, headers: headers, body: body }) },
+        promptShareMenuWithData: function (fileName, base64) { return _callNativeFunction("promptShareMenuWithData", { name: fileName, fileAsBase64: base64 }) },
+
         //Lead Capture
         scanBarcode: _callNativeFunction.bind(null, "scanPDF417Barcode", null),
         //captureLead?
 
-        //File Pickers 
+        //----- Media -----//
         getMediaWithPicker: function (excludeMedias) { return _callNativeFunction("getMediaWithPicker", { excludeMedias: excludeMedias }) },
+
+        //------- NOT REPRESENTED IN THE EXAMPLE FILE ------//
+        //File Pickers 
 
         //Follow Up Methods
         sendFollowup: function (step, bundleName, link) { return _callNativeFunction("sendFollowup", { step: step, bundle: bundleName, link: link }) },
         previewNextFollowupLink: _callNativeFunction.bind(null, "previewNextFollowupLink", null),
         getFollowupGuid: function (followupLink) { return _callNativeFunction("getFollowupGuid", { link: followupLink }) },
 
-        //Other
-        asyncHttpRequest: function (url, verb, headers, body) { return _callNativeFunction("asyncHttpRequest", { url: url, verb: verb, headers: headers, body: body }) },
-        promptShareMenuWithData: function (fileName, base64) { return _callNativeFunction("promptShareMenuWithData", { name: fileName, fileAsBase64: base64 }) },
 
-        //Digial Sales Room - TODO: could this be generalizedbq
+        //Digial Sales Room - TODO: could this be generalized?
         getDeviceFilePicker: function (uploadParams) { return _callNativeFunction("getDeviceFilePicker", { uploadParams: uploadParams }) },
 
         //Modus things - accessible but used internally or for examples and not well documented
         registerFallbackFunctions: function (fallback) { _fallback = fallback; },
         enableExamples: function (isEnabled) { _areExamplesEnabled = (isEnabled !== false) }
+
     }
 })();
 

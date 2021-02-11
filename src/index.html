@@ -141,6 +141,13 @@
             adr.sendEmailEncoded("test@gmail.com", "", "test subject", "<body style='padding: 0;margin: 0;font-family: Arial, sans-serif;font-size: 14px;'> <div id='wrapper' style='padding: 0;margin: 10px;'> <h1 style='padding: 0;margin: 0;color: #444;font-size: 2.2em;line-height: 1.6em;'>St. Jude Medical</h1> <span class='tagline' style='padding: 0;margin: 0;color: #888;font-size: 1.3em;line-height: 0;font-weight: bold;'>Room Configurator</span> <hr style='padding: 0;margin: 14px 0;height: 1px;color: #efefef;background: #efefef;border: 1px;'> <h2 style='padding: 0;margin: 0;color: #111;font-size: 1.3em;line-height: 1.3em;'>Full Installation Summary</h2> <table class='summary_table' style='padding: 0;margin: 0;border-collapse: separate;border-spacing: 0;'><table><h3 style='padding: 0;margin: 18px 0 8px 0;color: #017262;text-transform: uppercase;font-size: 1.8em;line-height: 1em;font-weight: normal;'>Test Room</h3><tr id='sums_system' style='padding: 0;margin: 0;'><td class='row_title' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 170px;background: #ccc;font-weight: bold;'>System</td><td class='row_value' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 490px;background: #f2f2f2;'>QUANTIEN Platform <strong>C12787</strong></td></tr><tr id='sums_system' style='padding: 0;margin: 0;'><td class='row_title' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 170px;background: #ccc;font-weight: bold;'>Recording System</td><td class='row_value' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 490px;background: #f2f2f2;'>Camtronics PhysioLog PDM Monitor (Schiller V1)<br>Adapter Cable <strong>C12651</strong><br>Monitor Cable <strong>C12951</strong></td></tr><tr id='sums_system' style='padding: 0;margin: 0;'><td class='row_title' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 170px;background: #ccc;font-weight: bold;'>AO Source</td><td class='row_value' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 490px;background: #f2f2f2;'>Wi-Box&#153; Solution <strong>C12783</strong></td></td></tr><tr id='sums_system' style='padding: 0;margin: 0;'><td class='row_title' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 170px;background: #ccc;font-weight: bold;'>PW Out</td><td class='row_value' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 490px;background: #f2f2f2;'>Monitor Cable <strong>C12951</strong></td></tr><tr id='sums_system' style='padding: 0;margin: 0;'><td class='row_title' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 170px;background: #ccc;font-weight: bold;'>ECG</td><td class='row_value' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 490px;background: #f2f2f2;'>AUX IN Cable <strong>C12503</strong></td></tr><tr id='sums_system' style='padding: 0;margin: 0;'><td class='row_title' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 170px;background: #ccc;font-weight: bold;'>Mounting</td><td class='row_value' style='padding: 10px 15px;margin: 0;vertical-align: top;border: none;width: 490px;background: #f2f2f2;'>Bedside<br>Pole Bracket <strong>C12798</strong> and Multipurpose Bracket <strong>12777</strong></td></tr></table></div></body>", onSuccess, onError);
         }
 
+        //Other
+        function execute(name) {
+            if (Modus[name]) {
+                Modus[name]().then(printResult.bind(null, name));
+            }
+        }
+
         //Helpers
         function printResult(caller, result) {
             if (!result) result = "<i>function does not return any data but was successful</i>";
@@ -244,11 +251,12 @@
         </div>
 
 
-        <h4>not implemented yet in new bridge</h4>
+        <h4>--- not implemented yet in new bridge ---</h4>
         <div class="row">
             <button class="btn btn-primary" type="button" onclick="setComplexStorageItem()">Set Complex
                 Storage</button><br />
         </div>
+        <h4>- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</h4>
 
         <h2>Email</h2>
         <div class="row">
@@ -257,7 +265,7 @@
         <div class="row">
             <button class="btn btn-primary" type="button" onclick="sendHTMLMail()">Send html email</button><br />
         </div>
-        <h4>not implemented yet in new bridge</h4>
+        <h4>--- not implemented yet in new bridge ---</h4>
 
         <div class="row">
             <button class="btn btn-primary" type="button" onclick="sendEmailWithPDFAttachmentFromHTML()">Send Email with
@@ -283,6 +291,7 @@
                 email encoded .</button>
             <i>deprecated</i>
         </div>
+        <h4>- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</h4>
 
         <h2>Agendas</h2>
 
@@ -295,22 +304,29 @@
             <button class="btn btn-primary" type="button" onclick="sendAgenda()">Send Agenda</button><br />
         </div>
 
+        <h2> Media </h2>
+        <div class="row">
+            <button class="btn btn-primary" type="button" onclick="execute('getMediaWithPicker')">Get App Media</button>
+        </div>
+
         <h2>Other</h2>
-        <h4>not implemented yet in new bridge</h4>
+        <h4>--- not implemented yet in new bridge ---</h4>
 
         <div class="row">
-            <button class="btn btn-primary" type="button" onclick="logAnalytics()">Log Event</button><br />
+            <button class="btn btn-primary" type="button" onclick="logAnalytics()">Log Event</button>
         </div>
         <div class="row">
-            <button class="btn btn-primary" type="button" onclick="scanPDF417Barcode()">Scan barcode</button><br />
+            <button class="btn btn-primary" type="button" onclick="scanPDF417Barcode()">Scan barcode</button>
         </div>
         <div class="row">
-            <button class="btn btn-primary" type="button" onclick="asyncHttpRequest()">Create Asynchronous
-                Request</button><br />
+            <button class="btn btn-primary" type="button" onclick="asyncHttpRequest()">
+                Create Asynchronous Request
+            </button>
         </div>
         <div class="row">
             <a href="x-appdataroom:///media?mediaId=101814">Deep Link Test</a>
         </div>
+        <h4>- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</h4>
     </div>
     <div class="output-container">
         <h2>Output</h2>
