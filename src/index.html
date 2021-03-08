@@ -25,23 +25,6 @@
             document.getElementById('log').innerHTML = "";
         }
 
-        //User
-        function getCurrentUserName() {
-            Modus.getCurrentUserName().then(printResult.bind(null, "getCurrentUserName"));
-        }
-
-        function getCurrentUserEmail() {
-            Modus.getCurrentUserEmail().then(printResult.bind(null, "getCurrentUserEmail"));
-        }
-
-        function getAccessToken() {
-            Modus.getAccessToken().then(printResult.bind(null, "getAccessToken"));
-        }
-
-        function getCurrentUserRegions() {
-            Modus.getCurrentUserRegions().then(printResult.bind(null, "getCurrentUserRegions"));
-        }
-
         //Storage
         function getStorageItem() {
             Modus.getItem("test").then(function (val) {
@@ -142,7 +125,8 @@
         }
 
         //Other
-        function execute(name) {
+        function run(name) {
+            console.log("run: ", name);
             if (Modus[name]) {
                 Modus[name]().then(printResult.bind(null, name));
             }
@@ -197,9 +181,9 @@
             Modus.enableExamples();
 
             Modus.registerFallbackFunctions({
-                getCurrentUserName: function () { return Promise.resolve("Hello from the fallback function"); },
-                getCurrentUserEmail: function () { console.log("email"); },
-                getCurrentUserRegions: function () { return {} },
+                //getCurrentUserName: function () { return Promise.resolve("Hello from the fallback function"); },
+                //getCurrentUserEmail: function () { console.log("email"); },
+                //getCurrentUserRegions: function () { return {} },
             });
 
         }
@@ -214,19 +198,19 @@
 
         <h2>Current User Data</h2>
         <div class="row">
-            <button class="btn btn-primary" type="button" onclick="getCurrentUserName()">Get Current User
+            <button class="btn btn-primary" type="button" onclick="run('getCurrentUserName')">Get Current User
                 Name</button><br />
         </div>
         <div class="row">
-            <button class="btn btn-primary" type="button" onclick="getCurrentUserEmail()">Get Current User
+            <button class="btn btn-primary" type="button" onclick="run('getCurrentUserEmail')">Get Current User
                 Email</button><br />
         </div>
         <div class="row">
-            <button class="btn btn-primary" type="button" onclick="getCurrentUserRegions()">Get Current User
+            <button class="btn btn-primary" type="button" onclick="run('getCurrentUserRegions') ">Get Current User
                 Regions</button><br />
         </div>
         <div class="row">
-            <button class="btn btn-primary" type="button" onclick="getAccessToken()">Get Access Token</button><br />
+            <button class="btn btn-primary" type="button" onclick="run('getAccessToken')">Get Access Token</button><br />
         </div>
 
         <h2>Storage</h2>
@@ -306,7 +290,7 @@
 
         <h2> Media </h2>
         <div class="row">
-            <button class="btn btn-primary" type="button" onclick="execute('getMediaWithPicker')">Get App Media</button>
+            <button class="btn btn-primary" type="button" onclick="run('getMediaWithPicker')">Get App Media</button>
         </div>
 
         <h2>Other</h2>
