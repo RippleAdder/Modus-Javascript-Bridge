@@ -1,43 +1,75 @@
 /* eslint-disable */
-var generateRandomId = function () {
+
+//Helpers
+const _generateRandomId = function () {
     return Math.floor(Math.random() * 10000000);
 }
+const _getParameterByName = function (name, url) {
+    const url2 = url ? url : window.location.href;
+    const name2 = name.replace(/[\[\]]/g, '\\$&');
+    var regex = new RegExp('[?&]' + name2 + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url2);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
 
+//Web Communicator: TODO: break this in to a different file?
+const WebMessenger = function () {
+    const VALID_ORIGINS = ['http://localhost:8081', 'web.gomodus.com', 'web-stage.gomodus.com'];
+    const _requests = {};
+
+    //private
+    const recieve = function (event) {
+        if (VALID_ORIGINS.indexOf(event.origin) <= -1) return;
+
+        let data = JSON.parse(event.data);
+
+        //Prcess the response
+        if (data.response) {
+            if (data.response.error) {
+                window[data.errorMethodId](data.response.error);
+            } else {
+                window[data.successMethodId](data.response);
+            }
+        }
+    }
+
+    window.addEventListener('message', recieve, false);
+
+    //public
+    return {
+        send: function (request) {
+            window.parent.postMessage(JSON.stringify(request), "*");
+        }
+    }
+}
+
+//Primary Class
 var Modus = (function () {
     //Variables
     let _webMessenger;
     let _fallback;
     let _areExamplesEnabled = _getParameterByName("example") !== null;
 
-    //Helpers
-    function _getParameterByName(name, url) {
-        if (!url) url = window.location.href;
-        name = name.replace(/[\[\]]/g, '\\$&');
-        var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-            results = regex.exec(url);
-        if (!results) return null;
-        if (!results[2]) return '';
-        return decodeURIComponent(results[2].replace(/\+/g, ' '));
-    }
-
     //Break this in to a different file
-    let _createExampleResult = function (request) {
+    const _createExampleResult = function (request) {
         //TODO: should this be somewhere else?
         var name = request.methodName;
         var result = null;
 
         switch (name) {
             case "getCurrentUserName":
-                result = "Obi Won Kenobi"
+                result = "Obi Won Kenobi";
                 break;
             case "getCurrentUserEmail":
-                result = "okenobi@jedicouncil.crst"
+                result = "okenobi@jedicouncil.crst";
                 break;
             case "getAccessToken":
-                result = "12x45e783s1234="
+                result = "12x45e783s1234=";
                 break;
             case "getCurrentUserRegions":
-                result = ["Tatooine", "Stewjon", "Coruscant"]
+                result = ["Tatooine", "Stewjon", "Coruscant"];
                 break;
 
             //Storage
@@ -73,7 +105,7 @@ var Modus = (function () {
     }
 
     //Web OS
-    let _tryCallWebFunction = function (request) {
+    const _tryCallWebFunction = function (request) {
         let isManaged = false;
         let webManagedMethods = ["getMediaWithPicker"];
 
@@ -88,7 +120,7 @@ var Modus = (function () {
     }
 
     //Registered Fallback
-    let _tryExecuteFallbackFunction = function (request) {
+    const _tryExecuteFallbackFunction = function (request) {
         let isManaged = false;
         let methodName = request.methodName;
 
@@ -117,20 +149,23 @@ var Modus = (function () {
     }
 
     //Marshall
-    let _callNativeFunction = function (methodName, methodData) {
-        var id = generateRandomId();
+    const _callNativeFunction = function (methodName, methodData) {
+        var id = _generateRandomId();
         var successId = methodName + "_success_" + id;
         var errorId = methodName + "_error_" + id;
 
+        const tryResolve = function (resolve, data) {
+            window[successId] = null;
+            window[errorId] = null;
+            delete window[successId];
+            delete window[errorId];
+            resolve(data);
+
+        }
+
         return new Promise(function (resolve, reject) {
             //build success function
-            window[successId] = function (data) {
-                resolve(data);
-                window[successId] = null;
-                window[errorId] = null;
-                delete window[successId];
-                delete window[errorId];
-            };
+            window[successId] = tryResolve.bind(null, resolve);
 
             //build error function
             window[errorId] = function (data) {
@@ -239,7 +274,7 @@ var Modus = (function () {
         * @memberof Storage
         * @version  iOS - 1.7.0  | Android - N/A  |  Windows - N/A
         */
-        getItem: function (key) { return _callNativeFunction("getItem", { key: key }) },
+        getItem: function (key) { return _callNativeFunction("getItem", { key: key }); },
 
         /**
         * Sets a value for a specified key to the native local database
@@ -253,7 +288,7 @@ var Modus = (function () {
         * @memberof Storage
         * @version  iOS - 1.7.0  | Android - N/A  |  Windows - 5.1.0.0
         */
-        setItem: function (key, value) { return _callNativeFunction("setItem", { key: key, value: value }) },
+        setItem: function (key, value) { return _callNativeFunction("setItem", { key: key, value: value }); },
 
         /**
         * Gets a value for a specified key from the native local database. This value is accessible between different web bundles
@@ -262,7 +297,7 @@ var Modus = (function () {
         * @memberof Storage
         * @version  iOS - 1.7.0  | Android - N/A  |  Windows - N/A
         */
-        getGlobalItem: function (key) { return _callNativeFunction("getGlobalItem", { key: key }) },
+        getGlobalItem: function (key) { return _callNativeFunction("getGlobalItem", { key: key }); },
 
         /**
         * Sets a value for a specified key to the native local database. This value is accessible between different web bundles
@@ -271,79 +306,49 @@ var Modus = (function () {
         * @memberof Storage
         * @version  iOS - 1.7.0  | Android - N/A  |  Windows - 5.1.0.0
         */
-        setGlobalItem: function (key, value) { return _callNativeFunction("setGlobalItem", { key: key, value: value }) },
+        setGlobalItem: function (key, value) { return _callNativeFunction("setGlobalItem", { key: key, value: value }); },
 
         //----- Emails -----//
         /** @namespace Emails */
 
-        sendEmail: function (to, cc, subject, body) { return _callNativeFunction("sendEmail", { to: to, cc: cc, subject: subject, body: body }) },
-        sendEmailHtml: function (to, cc, subject, html) { return _callNativeFunction("sendEmailHtml", { to: to, cc: cc, subject: subject, html: html }) },
-        sendEmailWithFileAttachmentFromBase64: function (data) { return _callNativeFunction("sendEmailWithFileAttachmentFromBase64", { data: data }) },
+        sendEmail: function (to, cc, subject, body) { return _callNativeFunction("sendEmail", { to: to, cc: cc, subject: subject, body: body }); },
+        sendEmailHtml: function (to, cc, subject, html) { return _callNativeFunction("sendEmailHtml", { to: to, cc: cc, subject: subject, html: html }); },
+        sendEmailWithFileAttachmentFromBase64: function (data) { return _callNativeFunction("sendEmailWithFileAttachmentFromBase64", { data: data }); },
 
         //Agendas
         getAgendas: _callNativeFunction.bind(null, "getAgendas", null),
-        sendAgenda: function (agendaId, emailAddress) { return _callNativeFunction("sendAgenda", { agendaId: agendaId, emailAddress: emailAddress }) },
+        sendAgenda: function (agendaId, emailAddress) { return _callNativeFunction("sendAgenda", { agendaId: agendaId, emailAddress: emailAddress }); },
 
 
         //Other
-        asyncHttpRequest: function (url, verb, headers, body) { return _callNativeFunction("asyncHttpRequest", { url: url, verb: verb, headers: headers, body: body }) },
-        promptShareMenuWithData: function (fileName, base64) { return _callNativeFunction("promptShareMenuWithData", { name: fileName, fileAsBase64: base64 }) },
+        asyncHttpRequest: function (url, verb, headers, body) { return _callNativeFunction("asyncHttpRequest", { url: url, verb: verb, headers: headers, body: body }); },
+        promptShareMenuWithData: function (fileName, base64) { return _callNativeFunction("promptShareMenuWithData", { name: fileName, fileAsBase64: base64 }); },
 
         //Lead Capture
         scanBarcode: _callNativeFunction.bind(null, "scanPDF417Barcode", null),
         //captureLead?
 
         //----- Media -----//
-        getMediaWithPicker: function (excludeMedias) { return _callNativeFunction("getMediaWithPicker", { excludeMedias: excludeMedias }) },
+        getMediaWithPicker: function (excludeMedias) { return _callNativeFunction("getMediaWithPicker", { excludeMedias: excludeMedias }); },
 
         //------- NOT REPRESENTED IN THE EXAMPLE FILE ------//
         //File Pickers 
 
         //Follow Up Methods
-        sendFollowup: function (step, bundleName, link) { return _callNativeFunction("sendFollowup", { step: step, bundle: bundleName, link: link }) },
+        sendFollowup: function (step, bundleName, link) { return _callNativeFunction("sendFollowup", { step: step, bundle: bundleName, link: link }); },
         previewNextFollowupLink: _callNativeFunction.bind(null, "previewNextFollowupLink", null),
-        getFollowupGuid: function (followupLink) { return _callNativeFunction("getFollowupGuid", { link: followupLink }) },
+        getFollowupGuid: function (followupLink) { return _callNativeFunction("getFollowupGuid", { link: followupLink }); },
 
 
         //Digial Sales Room - TODO: could this be generalized?
-        getDeviceFilePicker: function (uploadParams) { return _callNativeFunction("getDeviceFilePicker", { uploadParams: uploadParams }) },
+        getDeviceFilePicker: function (uploadParams) { return _callNativeFunction("getDeviceFilePicker", { uploadParams: uploadParams }); },
 
         //Modus things - accessible but used internally or for examples and not well documented
         registerFallbackFunctions: function (fallback) { _fallback = fallback; },
-        enableExamples: function (isEnabled) { _areExamplesEnabled = (isEnabled !== false) }
-
+        enableExamples: function (isEnabled) { _areExamplesEnabled = isEnabled !== false; }
     }
 })();
 
-var WebMessenger = function () {
-    const VALID_ORIGINS = ['http://localhost:8081', 'web.gomodus.com', 'web-stage.gomodus.com'];
-    const _requests = {};
-
-    //private
-    const recieve = function (event) {
-        if (VALID_ORIGINS.indexOf(event.origin) <= -1) return;
-
-        let data = JSON.parse(event.data);
-
-        //Prcess the response
-        if (data.response) {
-            if (data.response.error) {
-                window[data.errorMethodId](data.response.error);
-            } else {
-                window[data.successMethodId](data.response);
-            }
-        }
-    }
-
-    //public
-    this.send = function (request) {
-        parent.postMessage(JSON.stringify(request), "*");
-    }
-
-
-    //listen
-    window.addEventListener('message', recieve, false);
-}
 
 window.Modus = Modus;
 export default Modus;
