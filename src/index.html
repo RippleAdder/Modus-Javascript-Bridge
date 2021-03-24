@@ -9,17 +9,6 @@
         src="https://polyfill.io/v3/polyfill.min.js?features=Array.from,Promise,Symbol,Object.setPrototypeOf,Object.getOwnPropertySymbols"></script>
 
     <script>
-        //Helpers
-        function _getParameterByName(name, url) {
-            if (!url) url = window.location.href;
-            name = name.replace(/[\[\]]/g, '\\$&');
-            var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-                results = regex.exec(url);
-            if (!results) return null;
-            if (!results[2]) return '';
-            return decodeURIComponent(results[2].replace(/\+/g, ' '));
-        }
-
         //UI Helpers
         function clearLog() {
             document.getElementById('log').innerHTML = "";
@@ -177,7 +166,7 @@
         }
 
         function onModusBridgeLoaded() {
-            console.log('bridge loaded!');
+            console.log('bridge loaded: ', window.Modus);
             Modus.enableExamples();
 
             Modus.registerFallbackFunctions({
@@ -189,7 +178,12 @@
         }
     </script>
 
-    <script type='module' src="modus-js-bridge.js" onload="onModusBridgeLoaded()"></script>
+    <!--
+        <script type="module" src="modus-js-bridge.js" onload="onModusBridgeLoaded()"></script>
+        <script src="modus-js-bridge.js" onload="onModusBridgeLoaded()"></script>
+    -->
+    
+    <script src="modus-js-bridge.js" onload="onModusBridgeLoaded()"></script>
     <script src="deprecated/adrJSBridge.js"></script>
 </head>
 
@@ -210,7 +204,8 @@
                 Regions</button><br />
         </div>
         <div class="row">
-            <button class="btn btn-primary" type="button" onclick="run('getAccessToken')">Get Access Token</button><br />
+            <button class="btn btn-primary" type="button" onclick="run('getAccessToken')">Get Access
+                Token</button><br />
         </div>
 
         <h2>Storage</h2>

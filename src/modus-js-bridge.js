@@ -228,9 +228,7 @@ var Modus = (function () {
          * Get the current user's username
          * @returns {Promise<string>} promise with the username
          * @example
-         *  Modus.getCurrentUserName().then((username) => {
-         *      console.log("Hello, " + username);
-         *  });
+         *  Modus.getCurrentUserName().then((username) => { });
          * @memberof User
          * @version  iOS - 1.7.9  | Android - 2.1.6  |  Windows - 4.3.0.0
          */
@@ -311,14 +309,29 @@ var Modus = (function () {
         //----- Emails -----//
         /** @namespace Emails */
 
+        /**
+        * TODO: sendEmail
+        * @param {string} to - reciept email address
+        * @param {string} cc - email address to "CC"
+        * @param {string} subject - subject of the email
+        * @param {string} body - body of the email (must be plaintext)
+        * @example
+        *   Modus.sendEmail("test@gmail.com", "", "Test Subject Line", "Test body").then(() =>{
+                //email sent successfully
+            });
+        * @returns {Promise}. No data returned. 
+        * @memberof Emails
+        * @version  iOS - 1.7.0  | Android - 2.1.6+  |  Windows - N/A
+        */
         sendEmail: function (to, cc, subject, body) { return _callNativeFunction("sendEmail", { to: to, cc: cc, subject: subject, body: body }); },
+
+
         sendEmailHtml: function (to, cc, subject, html) { return _callNativeFunction("sendEmailHtml", { to: to, cc: cc, subject: subject, html: html }); },
         sendEmailWithFileAttachmentFromBase64: function (data) { return _callNativeFunction("sendEmailWithFileAttachmentFromBase64", { data: data }); },
 
         //Agendas
         getAgendas: _callNativeFunction.bind(null, "getAgendas", null),
         sendAgenda: function (agendaId, emailAddress) { return _callNativeFunction("sendAgenda", { agendaId: agendaId, emailAddress: emailAddress }); },
-
 
         //Other
         asyncHttpRequest: function (url, verb, headers, body) { return _callNativeFunction("asyncHttpRequest", { url: url, verb: verb, headers: headers, body: body }); },
