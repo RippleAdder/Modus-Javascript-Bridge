@@ -22,6 +22,7 @@
 -   [Emails][18]
     -   [sendEmail][19]
         -   [Parameters][20]
+        -   [Examples][21]
 
 ## User
 
@@ -35,7 +36,7 @@ Get the current user's username
 Modus.getCurrentUserName().then((username) => { });
 ```
 
-Returns **[Promise][21]&lt;[string][22]>** promise with the username
+Returns **[Promise][22]&lt;[string][23]>** promise with the username
 
 **Meta**
 
@@ -45,7 +46,7 @@ Returns **[Promise][21]&lt;[string][22]>** promise with the username
 
 Get the current user's email
 
-Returns **[Promise][21]&lt;[string][22]>** current user email
+Returns **[Promise][22]&lt;[string][23]>** current user email
 
 **Meta**
 
@@ -55,7 +56,7 @@ Returns **[Promise][21]&lt;[string][22]>** current user email
 
 Returns the currently logged in user's regions
 
-Returns **[Promise][21]&lt;[Array][23]&lt;[string][22]>>** List of current user's regions
+Returns **[Promise][22]&lt;[Array][24]&lt;[string][23]>>** List of current user's regions
 
 **Meta**
 
@@ -65,7 +66,7 @@ Returns **[Promise][21]&lt;[Array][23]&lt;[string][22]>>** List of current user'
 
 Returns the currently logged in user's access token
 
-Returns **[Promise][21]&lt;[string][22]>** An access token
+Returns **[Promise][22]&lt;[string][23]>** An access token
 
 **Meta**
 
@@ -79,7 +80,7 @@ Gets a value for a specified key from the native local database
 
 #### Parameters
 
--   `key` **[string][22]** name of the "key" you want to retrieve the value of
+-   `key` **[string][23]** name of the "key" you want to retrieve the value of
 
 #### Examples
 
@@ -89,7 +90,7 @@ Modus.getItem("test").then((val) => {
   });
 ```
 
-Returns **[Promise][21]&lt;[string][22]>** The value of the key. If key does not exist `null` is returned
+Returns **[Promise][22]&lt;[string][23]>** The value of the key. If key does not exist `null` is returned
 
 **Meta**
 
@@ -101,8 +102,8 @@ Sets a value for a specified key to the native local database
 
 #### Parameters
 
--   `key` **[string][22]** name of the "key" you want to set the value of
--   `value` **[string][22]** The value you want to assign to the key
+-   `key` **[string][23]** name of the "key" you want to set the value of
+-   `value` **[string][23]** The value you want to assign to the key
 
 #### Examples
 
@@ -123,9 +124,9 @@ Gets a value for a specified key from the native local database. This value is a
 
 #### Parameters
 
--   `key` **[string][22]** name of the "key" you want to retrieve the value of
+-   `key` **[string][23]** name of the "key" you want to retrieve the value of
 
-Returns **[Promise][21]&lt;[string][22]>** The value of the key. If key does not exist `null` is returned
+Returns **[Promise][22]&lt;[string][23]>** The value of the key. If key does not exist `null` is returned
 
 **Meta**
 
@@ -137,8 +138,8 @@ Sets a value for a specified key to the native local database. This value is acc
 
 #### Parameters
 
--   `key` **[string][22]** name of the "key" you want to set the value of
--   `value` **[string][22]** The value you want to assign to the key
+-   `key` **[string][23]** name of the "key" you want to set the value of
+-   `value` **[string][23]** The value you want to assign to the key
 
 **Meta**
 
@@ -152,12 +153,20 @@ TODO: sendEmail
 
 #### Parameters
 
--   `to` **[string][22]** reciept email address
--   `cc` **[string][22]** email address to "CC"
--   `subject` **[string][22]** subject of the email
--   `body` **[string][22]** body of the email (must be plaintext)
+-   `to` **[string][23]** reciept email address
+-   `cc` **[string][23]** email address to "CC"
+-   `subject` **[string][23]** subject of the email
+-   `body` **[string][23]** body of the email (must be plaintext)
 
-Returns **[Promise][21]** . No data returned.
+#### Examples
+
+```javascript
+Modus.sendEmail("test@gmail.com", "", "Test Subject Line", "Test body").then(() =>{
+//email sent successfully
+});
+```
+
+Returns **[Promise][22]** . No data returned.
 
 **Meta**
 
@@ -203,8 +212,10 @@ Returns **[Promise][21]** . No data returned.
 
 [20]: #parameters-4
 
-[21]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise
+[21]: #examples-3
 
-[22]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+[22]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise
 
-[23]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+[23]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+
+[24]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
