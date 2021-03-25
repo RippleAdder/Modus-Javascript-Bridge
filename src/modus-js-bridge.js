@@ -35,10 +35,17 @@ const WebMessenger = function () {
         }
     }
 
-    window.addEventListener('message', recieve, false);
 
     //public
     return {
+        isManaged: function (methodName) {
+            let webManagedMethods = ["getMediaWithPicker", "getDeviceFilePicker"];
+            return webManagedMethods.indexOf(methodName) > -1;
+        },
+        start: function () {
+            console.log("hi");
+            window.addEventListener('message', recieve, false);
+        },
         send: function (request) {
             window.parent.postMessage(JSON.stringify(request), "*");
         }
@@ -110,17 +117,18 @@ var Modus = (function () {
 
     //Web OS
     const _tryCallWebFunction = function (request) {
-        let isManaged = false;
-        let webManagedMethods = ["getMediaWithPicker", "getDeviceFilePicker"];
-
-        if (webManagedMethods.indexOf(request.methodName) > -1) {
-            console.log("Running web bridge method: ", request.methodName);
-            if (!_webMessenger) _webMessenger = new WebMessenger();
-            _webMessenger.send(request);
-            isManaged = true;
+        if (!_webMessenger) {
+            _webMessenger = new WebMessenger();
+            _webMessenger.start();
         }
 
-        return isManaged;
+        if (_webMessenger.isManaged(request.methodName)) {
+            console.log("Running web bridge method: ", request.methodName);
+            _webMessenger.send(request);
+            return true;
+        }
+
+        return false;
     }
 
     //Registered Fallback
@@ -398,4 +406,4 @@ var Modus = (function () {
 
 
 window.Modus = Modus;
-export default Modus;
+//export default Modus;
