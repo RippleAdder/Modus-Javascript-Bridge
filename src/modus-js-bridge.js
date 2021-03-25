@@ -24,14 +24,14 @@ const WebMessenger = function () {
         if (VALID_ORIGINS.indexOf(event.origin) <= -1) return;
 
         let data = JSON.parse(event.data);
+        let response = data.response || null;
+        let error = data.error || null;
 
-        //Prcess the response
-        if (data.response) {
-            if (data.response.error) {
-                window[data.errorMethodId](data.response.error);
-            } else {
-                window[data.successMethodId](data.response);
-            }
+        //Process the response
+        if (error) {
+            window[data.errorMethodId](error.error);
+        } else {
+            window[data.successMethodId](response);
         }
     }
 
@@ -43,7 +43,6 @@ const WebMessenger = function () {
             return webManagedMethods.indexOf(methodName) > -1;
         },
         start: function () {
-            console.log("hi");
             window.addEventListener('message', recieve, false);
         },
         send: function (request) {
@@ -406,4 +405,4 @@ var Modus = (function () {
 
 
 window.Modus = Modus;
-//export default Modus;
+export default Modus;
