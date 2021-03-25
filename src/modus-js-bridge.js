@@ -96,6 +96,10 @@ var Modus = (function () {
             case "getAgendas":
                 result = JSON.stringify([{ agendaId: "1", agendaTitle: "Bespin Meeting" }, { agendaId: "2", agendaTitle: "Endor Visit" }, { agendaId: "3", agendaTitle: "Hoth Beach Vacation" }])
                 break;
+            //Media
+            case "getMediaWithPicker":
+                result = [14342, 24232, 34124, 4135, 54231];
+                break;
             default:
                 window[request.errorMethodId]("no example data exists for method");
                 return;
@@ -107,7 +111,7 @@ var Modus = (function () {
     //Web OS
     const _tryCallWebFunction = function (request) {
         let isManaged = false;
-        let webManagedMethods = ["getMediaWithPicker"];
+        let webManagedMethods = ["getMediaWithPicker", "getDeviceFilePicker"];
 
         if (webManagedMethods.indexOf(request.methodName) > -1) {
             console.log("Running web bridge method: ", request.methodName);
@@ -310,11 +314,10 @@ var Modus = (function () {
         /** @namespace Emails */
 
         /**
-        * TODO: sendEmail
         * @param {string} to - reciept email address
-        * @param {string} cc - email address to "CC"
+        * @param {string} cc - carbon copy email address
         * @param {string} subject - subject of the email
-        * @param {string} body - body of the email (must be plaintext)
+        * @param {string} body - body of the email (plaintext only)
         * @example
         *   Modus.sendEmail("test@gmail.com", "", "Test Subject Line", "Test body").then(() =>{
                 //email sent successfully
@@ -325,8 +328,40 @@ var Modus = (function () {
         */
         sendEmail: function (to, cc, subject, body) { return _callNativeFunction("sendEmail", { to: to, cc: cc, subject: subject, body: body }); },
 
-
+        /**
+        * @param {string} to - reciept email address
+        * @param {string} cc - carbon copy email address
+        * @param {string} subject - subject of the email
+        * @param {string} html - body of the email (HTML)
+        * @example
+        *   Modus.sendEmail("test@gmail.com", "", "Test Subject Line", "<h1>Hello World!</h1>").then(() =>
+        *       //email sent successfully
+        *   }).catch((ex) =>{
+        *       //email failed to send
+        *   });
+        * @returns {Promise}. No data returned. 
+        * @memberof Emails
+        * @version  iOS - 1.7.0  | Android - 2.1.6+  |  Windows - N/A
+        */
         sendEmailHtml: function (to, cc, subject, html) { return _callNativeFunction("sendEmailHtml", { to: to, cc: cc, subject: subject, html: html }); },
+
+        /**
+        * @param {string} to - destination email address
+        * @param {string} cc - carbon copy email address
+        * @param {string} subject - subject of the email
+        * @param {string} html - body of the email (plaintext)
+        * @param {string} attachmentName - file name of the attachment (you must include the extension)
+        * @param {string} attachmentBase64 - Base 64 representation of the file you would like to attach
+        * @example
+        *   Modus.sendEmail("test@gmail.com", "", "Subject Line for HTML", "Check out my attachments").then(() =>
+        *       //email sent successfully
+        *   }).catch((ex) =>{
+        *       //email failed to send
+        *   });
+        * @returns {Promise}. No data returned. 
+        * @memberof Emails
+        * @version  iOS - 5.0.8+  | Android - 4.3.0+  |  Windows - 5.0.0.0+
+        */
         sendEmailWithFileAttachmentFromBase64: function (data) { return _callNativeFunction("sendEmailWithFileAttachmentFromBase64", { data: data }); },
 
         //Agendas
@@ -344,9 +379,8 @@ var Modus = (function () {
         //----- Media -----//
         getMediaWithPicker: function (excludeMedias) { return _callNativeFunction("getMediaWithPicker", { excludeMedias: excludeMedias }); },
 
-        //------- NOT REPRESENTED IN THE EXAMPLE FILE ------//
-        //File Pickers 
 
+        //------- NOT REPRESENTED IN THE EXAMPLE FILE ------//
         //Follow Up Methods
         sendFollowup: function (step, bundleName, link) { return _callNativeFunction("sendFollowup", { step: step, bundle: bundleName, link: link }); },
         previewNextFollowupLink: _callNativeFunction.bind(null, "previewNextFollowupLink", null),

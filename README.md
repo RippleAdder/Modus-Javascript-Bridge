@@ -60,73 +60,7 @@ The following bullet items are documented in the BRIDGE_DOCUMENATION.md file und
 The following documentation will eventually be migrated to the BRIDGE_DOCUMENTION file 
 
 
-## Email Methods:
-
-### --- sendEmail ---
-
-Sends an email via the platform's native mail application
-
-##### Implementation
-
-| Platforms | Available |
-| --------- | :-------: |
-| iOS       |  1.7.0+   |
-| Android   |  2.1.6+   |
-| Windows   |    N/A    |
-
-##### Parameters
-
-- to
-  - (string) destination email address
-- cc
-  - (string) carbon copy email address
-- subject
-  - (string) subject of email
-- body
-  - (string) body of email
-
-##### Usage
-
-```javascript
-Modus.sendEmail("test@gmail.com", "", "Test Subject Line", "Test body").then(() =>
-  console.log("email sent successfully!");
-}).catch((ex) =>{
-  console.log("email failed to send");F
-});
-```
-
-### --- sendEmailHtml ---
-
-Sends an html formatted email via the platform's native mail application
-
-##### Implementation
-
-| Platforms | Available |
-| --------- | :-------: |
-| iOS       |  1.7.0+   |
-| Android   |  2.1.6+   |
-| Windows   |    N/A    |
-
-##### Parameters
-
-- to
-  - (string) destination email address
-- cc
-  - (string) carbon copy email address
-- subject
-  - (string) subject of email
-- html
-  - (string) html body of email
-
-##### Usage
-
-```javascript
-Modus.sendEmailHtml("test@gmail.com", "", "Test Subject Line", "<h1>Hi</h1>").then(() =>
-  console.log("email sent successfully!");
-}).catch((ex) =>{
-  console.log("email failed to send");F
-});
-```
+## Email Methods (not implemented in modus-js-bridge.js yet. Must use depreciated/adrJsBridge.js):
 
 ### --- sendEmailWithPDFAttachmentFromHTML ---
 
@@ -177,31 +111,6 @@ Sends an email via the platform's native mail application with a PDF attachment 
   - (string) body of email
 - attachmentHTMLPages
   - (array) Array of HTML pages to save as PDF and attach to email NOTE: this supports SVG
-
-### --- sendEmailWithFileAttachmentFromBase64 ---
-
-Sends an email via the platform's native mail application with a file attachment that is generated from the supplied base64 string representation of the file, also using base 64 encoding for the parameters. The attached file will be named with the supplied string attachmentName, and this should include the extension (example: quote.pdf)
-
-| Platforms | Available |
-| --------- | :-------: |
-| iOS       |  5.0.8+   |
-| Android   |  4.3.0+   |
-| Windows   |   5.0+    |
-
-##### Parameters
-
-- to
-  - (string) destination email address
-- cc
-  - (string) carbon copy email address
-- subject
-  - (string) subject of email
-- body
-  - (string) body of email
-- attachmentName
-  - (string) file name of the attachment (you must include the extension)
-- attachmentBase64
-  - (string) Base 64 representation of the file you would like to attach
 
 ## Agenda Methods:
 

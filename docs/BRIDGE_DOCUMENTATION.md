@@ -23,6 +23,12 @@
     -   [sendEmail][19]
         -   [Parameters][20]
         -   [Examples][21]
+    -   [sendEmailHtml][22]
+        -   [Parameters][23]
+        -   [Examples][24]
+    -   [sendEmailWithFileAttachmentFromBase64][25]
+        -   [Parameters][26]
+        -   [Examples][27]
 
 ## User
 
@@ -36,7 +42,7 @@ Get the current user's username
 Modus.getCurrentUserName().then((username) => { });
 ```
 
-Returns **[Promise][22]&lt;[string][23]>** promise with the username
+Returns **[Promise][28]&lt;[string][29]>** promise with the username
 
 **Meta**
 
@@ -46,7 +52,7 @@ Returns **[Promise][22]&lt;[string][23]>** promise with the username
 
 Get the current user's email
 
-Returns **[Promise][22]&lt;[string][23]>** current user email
+Returns **[Promise][28]&lt;[string][29]>** current user email
 
 **Meta**
 
@@ -56,7 +62,7 @@ Returns **[Promise][22]&lt;[string][23]>** current user email
 
 Returns the currently logged in user's regions
 
-Returns **[Promise][22]&lt;[Array][24]&lt;[string][23]>>** List of current user's regions
+Returns **[Promise][28]&lt;[Array][30]&lt;[string][29]>>** List of current user's regions
 
 **Meta**
 
@@ -66,7 +72,7 @@ Returns **[Promise][22]&lt;[Array][24]&lt;[string][23]>>** List of current user'
 
 Returns the currently logged in user's access token
 
-Returns **[Promise][22]&lt;[string][23]>** An access token
+Returns **[Promise][28]&lt;[string][29]>** An access token
 
 **Meta**
 
@@ -80,7 +86,7 @@ Gets a value for a specified key from the native local database
 
 #### Parameters
 
--   `key` **[string][23]** name of the "key" you want to retrieve the value of
+-   `key` **[string][29]** name of the "key" you want to retrieve the value of
 
 #### Examples
 
@@ -90,7 +96,7 @@ Modus.getItem("test").then((val) => {
   });
 ```
 
-Returns **[Promise][22]&lt;[string][23]>** The value of the key. If key does not exist `null` is returned
+Returns **[Promise][28]&lt;[string][29]>** The value of the key. If key does not exist `null` is returned
 
 **Meta**
 
@@ -102,8 +108,8 @@ Sets a value for a specified key to the native local database
 
 #### Parameters
 
--   `key` **[string][23]** name of the "key" you want to set the value of
--   `value` **[string][23]** The value you want to assign to the key
+-   `key` **[string][29]** name of the "key" you want to set the value of
+-   `value` **[string][29]** The value you want to assign to the key
 
 #### Examples
 
@@ -124,9 +130,9 @@ Gets a value for a specified key from the native local database. This value is a
 
 #### Parameters
 
--   `key` **[string][23]** name of the "key" you want to retrieve the value of
+-   `key` **[string][29]** name of the "key" you want to retrieve the value of
 
-Returns **[Promise][22]&lt;[string][23]>** The value of the key. If key does not exist `null` is returned
+Returns **[Promise][28]&lt;[string][29]>** The value of the key. If key does not exist `null` is returned
 
 **Meta**
 
@@ -138,8 +144,8 @@ Sets a value for a specified key to the native local database. This value is acc
 
 #### Parameters
 
--   `key` **[string][23]** name of the "key" you want to set the value of
--   `value` **[string][23]** The value you want to assign to the key
+-   `key` **[string][29]** name of the "key" you want to set the value of
+-   `value` **[string][29]** The value you want to assign to the key
 
 **Meta**
 
@@ -149,14 +155,12 @@ Sets a value for a specified key to the native local database. This value is acc
 
 ### sendEmail
 
-TODO: sendEmail
-
 #### Parameters
 
--   `to` **[string][23]** reciept email address
--   `cc` **[string][23]** email address to "CC"
--   `subject` **[string][23]** subject of the email
--   `body` **[string][23]** body of the email (must be plaintext)
+-   `to` **[string][29]** reciept email address
+-   `cc` **[string][29]** carbon copy email address
+-   `subject` **[string][29]** subject of the email
+-   `body` **[string][29]** body of the email (plaintext only)
 
 #### Examples
 
@@ -166,11 +170,64 @@ Modus.sendEmail("test@gmail.com", "", "Test Subject Line", "Test body").then(() 
 });
 ```
 
-Returns **[Promise][22]** . No data returned.
+Returns **[Promise][28]** . No data returned.
 
 **Meta**
 
 -   **version**: iOS - 1.7.0  | Android - 2.1.6+  |  Windows - N/A
+
+### sendEmailHtml
+
+#### Parameters
+
+-   `to` **[string][29]** reciept email address
+-   `cc` **[string][29]** carbon copy email address
+-   `subject` **[string][29]** subject of the email
+-   `html` **[string][29]** body of the email (HTML)
+
+#### Examples
+
+```javascript
+Modus.sendEmail("test@gmail.com", "", "Test Subject Line", "<h1>Hello World!</h1>").then(() =>
+      //email sent successfully
+  }).catch((ex) =>{
+      //email failed to send
+  });
+```
+
+Returns **[Promise][28]** . No data returned.
+
+**Meta**
+
+-   **version**: iOS - 1.7.0  | Android - 2.1.6+  |  Windows - N/A
+
+### sendEmailWithFileAttachmentFromBase64
+
+#### Parameters
+
+-   `data`  
+-   `to` **[string][29]** destination email address
+-   `cc` **[string][29]** carbon copy email address
+-   `subject` **[string][29]** subject of the email
+-   `html` **[string][29]** body of the email (plaintext)
+-   `attachmentName` **[string][29]** file name of the attachment (you must include the extension)
+-   `attachmentBase64` **[string][29]** Base 64 representation of the file you would like to attach
+
+#### Examples
+
+```javascript
+Modus.sendEmail("test@gmail.com", "", "Subject Line for HTML", "Check out my attachments").then(() =>
+      //email sent successfully
+  }).catch((ex) =>{
+      //email failed to send
+  });
+```
+
+Returns **[Promise][28]** . No data returned.
+
+**Meta**
+
+-   **version**: iOS - 5.0.8+  | Android - 4.3.0+  |  Windows - 5.0.0.0+
 
 [1]: #user
 
@@ -214,8 +271,20 @@ Returns **[Promise][22]** . No data returned.
 
 [21]: #examples-3
 
-[22]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise
+[22]: #sendemailhtml
 
-[23]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+[23]: #parameters-5
 
-[24]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+[24]: #examples-4
+
+[25]: #sendemailwithfileattachmentfrombase64
+
+[26]: #parameters-6
+
+[27]: #examples-5
+
+[28]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise
+
+[29]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+
+[30]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array

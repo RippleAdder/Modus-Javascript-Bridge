@@ -117,18 +117,44 @@
         function run(name) {
             console.log("run: ", name);
             if (Modus[name]) {
-                Modus[name]().then(printResult.bind(null, name));
+                Modus[name]().then(result => {
+                    printResult(name, result);
+                }).catch(ex => {
+                    printError(name, ex);
+                });
             }
+        }
+
+        function test() {
+            Modus.getDeviceFilePicker({}).then(() => {
+                console.log("files picked");
+            }).catch((ex) => {
+                printError("getDeviceFilePicker", ex)
+            });
         }
 
         //Helpers
         function printResult(caller, result) {
             if (!result) result = "<i>function does not return any data but was successful</i>";
 
+            let type = typeof (result);
+            if (type === "object" && Array.isArray(result)) {
+                result = "[" + result.join(",") + "]";
+                type = "array";
+            }
+
             let html = "<strong>" + caller + "</strong>" + "<br />" +
                 "----------------------------------<br />" +
                 "result data: " + result + "<br />" +
-                "result type: " + typeof (result) + "<br /><br />";
+                "result type: " + type + "<br /><br />";
+
+            document.getElementById('log').innerHTML += html;
+        }
+       
+        function printError(caller, exception) {
+            let html = "<strong>" + caller + "</strong>&nbsp;<i style='color:red'>(error)</i><br />" +
+                "----------------------------------<br />" +
+                "<strong style='color:red;'>exception occured</strong>: " + exception + "<br />";
 
             document.getElementById('log').innerHTML += html;
         }
@@ -147,14 +173,13 @@
             if (ret) {
                 var obj = JSON.parse(ret);
                 document.write(obj.result);
-                //alert(obj.result);
             }
         }
+
         function onSuccessBase64(ret) {
             if (ret) {
                 var obj = JSON.parse(Base64.decode(ret));
                 document.write(JSON.stringify(obj.result));
-                //alert(JSON.stringify(obj.result);
             }
         }
 
@@ -182,7 +207,7 @@
         <script type="module" src="modus-js-bridge.js" onload="onModusBridgeLoaded()"></script>
         <script src="modus-js-bridge.js" onload="onModusBridgeLoaded()"></script>
     -->
-    
+
     <script src="modus-js-bridge.js" onload="onModusBridgeLoaded()"></script>
     <script src="deprecated/adrJSBridge.js"></script>
 </head>
@@ -244,6 +269,11 @@
         <div class="row">
             <button class="btn btn-primary" type="button" onclick="sendHTMLMail()">Send html email</button><br />
         </div>
+        <div class="row">
+            <button class="btn btn-primary" type="button" onclick="sendEmailWithFileAttachmentFromBase64()">Send Email
+                with Attachment from Base64.</button><br />
+        </div>
+
         <h4>--- not implemented yet in new bridge ---</h4>
 
         <div class="row">
@@ -254,10 +284,7 @@
             <button class="btn btn-primary" type="button" onclick="sendEmailWithPDFAttachmentFromHTMLMultiPage()">Send
                 Email with PDF Attachment from HTML (Multi Page).</button><br />
         </div>
-        <div class="row">
-            <button class="btn btn-primary" type="button" onclick="sendEmailWithFileAttachmentFromBase64()">Send Email
-                with Attachment from Base64.</button><br />
-        </div>
+
 
         <!-- Deprecated -->
         <div class="row">
@@ -300,6 +327,11 @@
         <div class="row">
             <button class="btn btn-primary" type="button" onclick="asyncHttpRequest()">
                 Create Asynchronous Request
+            </button>
+        </div>
+        <div class="row">
+            <button class="btn btn-primary" type="button" onclick="test()">
+                Test
             </button>
         </div>
         <div class="row">
