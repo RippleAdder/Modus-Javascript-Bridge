@@ -16,7 +16,7 @@ const _getParameterByName = function (name, url) {
 
 //Web Communicator: TODO: break this in to a different file?
 const WebMessenger = function () {
-    const VALID_ORIGINS = ['http://localhost:8081', 'https://web.gomodus.com', 'https://web-stage.gomodus.com'];
+    const VALID_ORIGINS = ['http://localhost:8081', 'https://web.gomodus.com', 'https://web-stage.gomodus.com', "web.gomodus.com", "web-stage.gomodus.com"];
     const _requests = {};
 
     //private
