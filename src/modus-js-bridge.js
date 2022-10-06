@@ -39,7 +39,7 @@ const WebMessenger = function () {
     //public
     return {
         isManaged: function (methodName) {
-            let webManagedMethods = ["getMediaWithPicker", "getDeviceFilePicker"];
+            let webManagedMethods = ["getMediaWithPicker", "getDeviceFilePicker", "shareMailTo"];
             return webManagedMethods.indexOf(methodName) > -1;
         },
         start: function () {
@@ -101,6 +101,9 @@ var Modus = (function () {
             //Agendas
             case "getAgendas":
                 result = JSON.stringify([{ agendaId: "1", agendaTitle: "Bespin Meeting" }, { agendaId: "2", agendaTitle: "Endor Visit" }, { agendaId: "3", agendaTitle: "Hoth Beach Vacation" }])
+                break;
+            //mailTo
+            case 'shareMailTo':
                 break;
             //Media
             case "getMediaWithPicker":
@@ -249,7 +252,7 @@ var Modus = (function () {
          * Get the current user's email
          * @returns {Promise<string>} current user email
          * @memberof User
-         * @version  iOS - 2.6  | Android - 2.1.6  |  Windows - 5.0.0.0 
+         * @version  iOS - 2.6  | Android - 2.1.6  |  Windows - 5.0.0.0
          */
         getCurrentUserEmail: _callNativeFunction.bind(null, "getCurrentUserEmail", null),
 
@@ -277,7 +280,7 @@ var Modus = (function () {
         * @param {string} key - name of the "key" you want to retrieve the value of
         * @returns {Promise<string>} The value of the key. If key does not exist `null` is returned
         * @example
-        *   Modus.getItem("test").then((val) => { 
+        *   Modus.getItem("test").then((val) => {
         *       //do something
         *   });
         * @memberof Storage
@@ -290,7 +293,7 @@ var Modus = (function () {
         * @param {string} key - name of the "key" you want to set the value of
         * @param {string} value - The value you want to assign to the key
         * @example
-        *   Modus.setItem("test", "Hello World!").then(() =>{ 
+        *   Modus.setItem("test", "Hello World!").then(() =>{
         *       // success!
         *       // no value returned
         *   });
@@ -329,7 +332,7 @@ var Modus = (function () {
         *   Modus.sendEmail("test@gmail.com", "", "Test Subject Line", "Test body").then(() =>{
                 //email sent successfully
             });
-        * @returns {Promise}. No data returned. 
+        * @returns {Promise}. No data returned.
         * @memberof Emails
         * @version  iOS - 1.7.0  | Android - 2.1.6+  |  Windows - N/A
         */
@@ -346,7 +349,7 @@ var Modus = (function () {
         *   }).catch((ex) =>{
         *       //email failed to send
         *   });
-        * @returns {Promise}. No data returned. 
+        * @returns {Promise}. No data returned.
         * @memberof Emails
         * @version  iOS - 1.7.0  | Android - 2.1.6+  |  Windows - N/A
         */
@@ -365,7 +368,7 @@ var Modus = (function () {
         *   }).catch((ex) =>{
         *       //email failed to send
         *   });
-        * @returns {Promise}. No data returned. 
+        * @returns {Promise}. No data returned.
         * @memberof Emails
         * @version  iOS - 5.0.8+  | Android - 4.3.0+  |  Windows - 5.0.0.0+
         */
@@ -386,6 +389,8 @@ var Modus = (function () {
         //----- Media -----//
         getMediaWithPicker: function (excludeMedias) { return _callNativeFunction("getMediaWithPicker", { excludeMedias: excludeMedias }); },
 
+        //----- Share mailto -----//
+        shareMailTo: function (mailTo) { return o('shareMailTo', { mailTo: mailTo }); },
 
         //------- NOT REPRESENTED IN THE EXAMPLE FILE ------//
         //Follow Up Methods

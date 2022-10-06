@@ -57,7 +57,7 @@ The following bullet items are documented in the BRIDGE_DOCUMENATION.md file und
 
 ## Old Documentation
 
-The following documentation will eventually be migrated to the BRIDGE_DOCUMENTION file 
+The following documentation will eventually be migrated to the BRIDGE_DOCUMENTION file
 
 
 ## Email Methods (not implemented in modus-js-bridge.js yet. Must use depreciated/adrJsBridge.js):
@@ -164,6 +164,14 @@ Scans a barcode and returns the text encoded in the barcode
 ##### Parameters
 
 This method has no parameters.
+
+### --- shareMailTo ---
+
+This method is used to pass a mailTo string from a DSR to one of the apps to populate the devices default mailer.
+
+##### Parameters
+
+This method takes a string.
 
 ### --- captureLead ---
 
