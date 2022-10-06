@@ -57,7 +57,7 @@ The following bullet items are documented in the BRIDGE_DOCUMENATION.md file und
 
 ## Old Documentation
 
-The following documentation will eventually be migrated to the BRIDGE_DOCUMENTION file 
+The following documentation will eventually be migrated to the BRIDGE_DOCUMENTION file
 
 
 ## Email Methods (not implemented in modus-js-bridge.js yet. Must use depreciated/adrJsBridge.js):
