@@ -390,7 +390,7 @@ var Modus = (function () {
         getMediaWithPicker: function (excludeMedias) { return _callNativeFunction("getMediaWithPicker", { excludeMedias: excludeMedias }); },
 
         //----- Share mailto -----//
-        shareMailTo: function (mailTo) { return o('shareMailTo', { mailTo: mailTo }); },
+        shareMailTo: function (mailTo) { return _callNativeFunction('shareMailTo', { mailTo: mailTo }); },
 
         //------- NOT REPRESENTED IN THE EXAMPLE FILE ------//
         //Follow Up Methods
