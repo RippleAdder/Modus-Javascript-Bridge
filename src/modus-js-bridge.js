@@ -390,6 +390,19 @@ var Modus = (function () {
         getMediaWithPicker: function (excludeMedias) { return _callNativeFunction("getMediaWithPicker", { excludeMedias: excludeMedias }); },
 
         //----- Share mailto -----//
+
+        /**
+        * @param {string} mailTo - mailTo link to send/open from the web app or mobile app
+        * @example
+        *   Modus.shareMailTo("mailto:?to=test@helloworld.com&body=Thanks for meeting with me today").then(() =>
+        *       //email received successfully
+        *   }).catch((ex) =>{
+        *       //fail
+        *   });
+        * @returns {Promise}. No data returned.
+        * @memberof Other
+        * @version  iOS - N/A  | Android - N/A  |  Windows - N/A
+        */
         shareMailTo: function (mailTo) { return _callNativeFunction('shareMailTo', { mailTo: mailTo }); },
 
         //------- NOT REPRESENTED IN THE EXAMPLE FILE ------//
