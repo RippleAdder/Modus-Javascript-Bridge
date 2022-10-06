@@ -165,6 +165,14 @@ Scans a barcode and returns the text encoded in the barcode
 
 This method has no parameters.
 
+### --- shareMailTo ---
+
+Used to pass a mailTo string from a DSR to one of the webs to be mailed out by the default mailer.
+
+##### Parameters
+
+This method takes a string.
+
 ### --- captureLead ---
 
 Captures a lead and returns the scan string (encoded in base64)
