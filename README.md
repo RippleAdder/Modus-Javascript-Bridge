@@ -167,7 +167,7 @@ This method has no parameters.
 
 ### --- shareMailTo ---
 
-Used to pass a mailTo string from a DSR to one of the webs to be mailed out by the default mailer.
+This method is used to pass a mailTo string from a DSR to one of the apps to populate the devices default mailer.
 
 ##### Parameters
 
