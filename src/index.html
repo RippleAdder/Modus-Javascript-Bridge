@@ -52,6 +52,13 @@
             });
         }
 
+        //Send mailTo
+        function shareMailTo() {
+            Modus.shareMailTo('mailto:?bcc=analytics@mailtrack.appdataroom.com&body=Thanks for meeting with me today.  Please reference the attached content that we discussed in our meeting.  %0D%0A%0D%0A%0D%0A%0D%0A%0D%0A%0D%0AStuart %0D%0A%0D%0A%0D%0A%0D%0A%0D%0A%0D%0ABig%20Eric%20-%20https://followups.gomodus.com/3d0135e1-3dbe-11ed-b843-0a0f5ad771f9%20%0D%0ASales%20Order%20Form%20(1)%20-%20https://followups.gomodus.com/3d0135e1-3dbe-11ed-b843-0a0f5ad771f9%20 %0D%0A&subject=Thanks%20for%20your%20time%20today%20').then(function () {
+                printResult("shareMailTo");
+            });
+        }
+
         function sendHTMLMail() {
             getExampleHtml().then(function (html) {
                 return Modus.sendEmailHtml("test@gmail.com", "example@cc.com", "Html Test Subject Line", html);
@@ -284,6 +291,9 @@
         <div class="row">
             <button class="btn btn-primary" type="button" onclick="sendEmailWithPDFAttachmentFromHTMLMultiPage()">Send
                 Email with PDF Attachment from HTML (Multi Page).</button><br />
+        </div>
+        <div class="row">
+              <button class="btn btn-primary" type="button" onclick="shareMailTo()">Share mailTo</button>
         </div>
 
 
