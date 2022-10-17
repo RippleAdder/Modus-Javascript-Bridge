@@ -52,6 +52,13 @@
             });
         }
 
+        //Send mailTo
+        function shareMailTo() {
+            Modus.shareMailTo('mailto:?bcc=analytics@mailtrack.appdataroom.com&body=Thanks for meeting with me today.  Please reference the attached content that we discussed in our meeting.  %0D%0A%0D%0A%0D%0A%0D%0A%0D%0A%0D%0AStuart %0D%0A%0D%0A%0D%0A%0D%0A%0D%0A%0D%0ABig%20Eric%20-%20https://followups.gomodus.com/3d0135e1-3dbe-11ed-b843-0a0f5ad771f9%20%0D%0ASales%20Order%20Form%20(1)%20-%20https://followups.gomodus.com/3d0135e1-3dbe-11ed-b843-0a0f5ad771f9%20 %0D%0A&subject=Thanks%20for%20your%20time%20today%20').then(function () {
+                printResult("shareMailTo");
+            });
+        }
+
         function sendHTMLMail() {
             getExampleHtml().then(function (html) {
                 return Modus.sendEmailHtml("test@gmail.com", "example@cc.com", "Html Test Subject Line", html);
@@ -125,12 +132,15 @@
             }
         }
 
-        function test() {
-            Modus.getDeviceFilePicker({}).then(() => {
-                console.log("files picked");
-            }).catch((ex) => {
-                printError("getDeviceFilePicker", ex)
-            });
+        function runWithParams(name, param1) {
+            console.log("run: ", name);
+            if (Modus[name]) {
+                Modus[name](param1).then(result => {
+                    printResult(name, result);
+                }).catch(ex => {
+                    printError(name, ex);
+                });
+            }
         }
 
         //Helpers
@@ -150,7 +160,7 @@
 
             document.getElementById('log').innerHTML += html;
         }
-       
+
         function printError(caller, exception) {
             let html = "<strong>" + caller + "</strong>&nbsp;<i style='color:red'>(error)</i><br />" +
                 "----------------------------------<br />" +
@@ -193,15 +203,8 @@
         function onModusBridgeLoaded() {
             console.log('bridge loaded: ', window.Modus);
             Modus.enableExamples();
-
-            Modus.registerFallbackFunctions({
-                //getCurrentUserName: function () { return Promise.resolve("Hello from the fallback function"); },
-                //getCurrentUserEmail: function () { console.log("email"); },
-                //getCurrentUserRegions: function () { return {} },
-            });
-
         }
-    
+
     </script>
 
     <!--
@@ -215,6 +218,8 @@
 
 <body>
     <div class="container">
+
+        <!-- User Data Related Functions Under This Line  -->
 
         <h2>Current User Data</h2>
         <div class="row">
@@ -233,6 +238,8 @@
             <button class="btn btn-primary" type="button" onclick="run('getAccessToken')">Get Access
                 Token</button><br />
         </div>
+
+        <!-- Storage Related Functions Under This Line -->
 
         <h2>Storage</h2>
         <div class="row">
@@ -255,14 +262,13 @@
             <br />
         </div>
 
-
         <h4>--- not implemented yet in new bridge ---</h4>
         <div class="row">
             <button class="btn btn-primary" type="button" onclick="setComplexStorageItem()">Set Complex
                 Storage</button><br />
         </div>
-        <h4>- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</h4>
 
+        <!-- Email Related Functions Under This Line  -->
         <h2>Email</h2>
         <div class="row">
             <button class="btn btn-primary" type="button" onclick="sendMail()">Send email</button><br />
@@ -286,8 +292,6 @@
                 Email with PDF Attachment from HTML (Multi Page).</button><br />
         </div>
 
-
-        <!-- Deprecated -->
         <div class="row">
             <button class="btn btn-primary" type="button" onclick="sendHTMLMailEncoded()">Send html email encoded
                 .</button>
@@ -298,10 +302,9 @@
                 email encoded .</button>
             <i>deprecated</i>
         </div>
-        <h4>- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</h4>
 
+        <!-- Agenda Related Functions Under This Line  -->
         <h2>Agendas</h2>
-
         <div class="row">
             <button class="btn btn-primary" type="button" onclick="getAgendas()">Get Agendas</button><br />
         </div>
@@ -311,12 +314,23 @@
             <button class="btn btn-primary" type="button" onclick="sendAgenda()">Send Agenda</button><br />
         </div>
 
+        <!-- Media Related Functions Under This Line  -->
         <h2> Media </h2>
         <div class="row">
-            <button class="btn btn-primary" type="button" onclick="run('getMediaWithPicker')">Get App Media</button>
+            <button class="btn btn-primary" type="button" onclick="run('getMediaWithPicker')">Get Media From App Based File Picker</button>
+        </div>
+        <div class="row">
+            <button class="btn btn-primary" type="button" onclick="runWithParams('getDeviceFilePicker', {})">
+                Get Media from Device File Picker
+            </button>
         </div>
 
+        <!-- Misc  Functions Under This Line  -->
         <h2>Other</h2>
+        <div class="row">
+            <button class="btn btn-primary" type="button" onclick="shareMailTo()">Share mailTo</button>
+        </div>
+
         <h4>--- not implemented yet in new bridge ---</h4>
 
         <div class="row">
@@ -331,14 +345,8 @@
             </button>
         </div>
         <div class="row">
-            <button class="btn btn-primary" type="button" onclick="test()">
-                Test
-            </button>
-        </div>
-        <div class="row">
             <a href="x-appdataroom:///media?mediaId=101814">Deep Link Test</a>
         </div>
-        <h4>- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</h4>
     </div>
     <div class="output-container">
         <h2>Output</h2>

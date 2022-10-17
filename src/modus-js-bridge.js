@@ -14,7 +14,8 @@ const _getParameterByName = function (name, url) {
     return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
 
-//Web Communicator: TODO: break this in to a different file?
+//Web Communicator
+//TODO: break this in to a different file?
 const WebMessenger = function () {
     const VALID_ORIGINS = ['http://localhost:8081', 'https://web.gomodus.com', 'https://web-stage.gomodus.com', "web.gomodus.com", "web-stage.gomodus.com", 'https://web-dev.gomodus.com', "web-dev.gomodus.com",];
     const _requests = {};
@@ -58,7 +59,7 @@ var Modus = (function () {
     let _fallback;
     let _areExamplesEnabled = _getParameterByName("example") !== null;
 
-    //Break this in to a different file
+    //TODO: Break this in to a different file
     const _createExampleResult = function (request) {
         //TODO: should this be somewhere else?
         var name = request.methodName;
@@ -109,8 +110,11 @@ var Modus = (function () {
             case "getMediaWithPicker":
                 result = [14342, 24232, 34124, 4135, 54231];
                 break;
+            case "getDeviceFilePicker":
+                window[request.errorMethodId]("getDeviceFilePicker is not an implemented example");
+                break;
             default:
-                window[request.errorMethodId]("no example data exists for method");
+                window[request.errorMethodId]("no example exists for method");
                 return;
         }
 
@@ -375,12 +379,28 @@ var Modus = (function () {
         sendEmailWithFileAttachmentFromBase64: function (data) { return _callNativeFunction("sendEmailWithFileAttachmentFromBase64", { data: data }); },
 
         //Agendas
+        /**
+        * @example
+        *   Modus.getAgendas().then((agendas) => {
+        *       //do something
+        *   });
+        * @returns {Promise<Array<Agenda>>}. returns an array of agendas
+        * @memberof Agendas
+        * @version  iOS - N/A  | Android - N/A  |  Windows - N/A
+        */
         getAgendas: _callNativeFunction.bind(null, "getAgendas", null),
+        /**
+        * @param {Object<agenda>} agendaId - The id of the agenda to email
+        * @param {Object<agenda>} emailAddress - destination email address
+        * @example
+        *   Modus.sendAgenda(12354, "example@gomodus.com").then((agendas) => {
+        *       //native email client opened successfully
+        *   });
+        * @returns {Promise}  no data returned
+        * @memberof Agendas
+        * @version  iOS - N/A  | Android - N/A  |  Windows - N/A
+        */
         sendAgenda: function (agendaId, emailAddress) { return _callNativeFunction("sendAgenda", { agendaId: agendaId, emailAddress: emailAddress }); },
-
-        //Other
-        asyncHttpRequest: function (url, verb, headers, body) { return _callNativeFunction("asyncHttpRequest", { url: url, verb: verb, headers: headers, body: body }); },
-        promptShareMenuWithData: function (fileName, base64) { return _callNativeFunction("promptShareMenuWithData", { name: fileName, fileAsBase64: base64 }); },
 
         //Lead Capture
         scanBarcode: _callNativeFunction.bind(null, "scanPDF417Barcode", null),
@@ -388,22 +408,20 @@ var Modus = (function () {
 
         //----- Media -----//
         getMediaWithPicker: function (excludeMedias) { return _callNativeFunction("getMediaWithPicker", { excludeMedias: excludeMedias }); },
+        getDeviceFilePicker: function (uploadParams) { return _callNativeFunction("getDeviceFilePicker", { uploadParams: uploadParams }); },
 
-        //----- Share mailto -----//
-
+        //----- Other -----//
         /**
-        * @param {string} mailTo - mailTo link to send/open from the web app or mobile app
+        * @param {string} mailTo - a mailTo link to open in native/attached application
         * @example
-        *   Modus.shareMailTo("mailto:?to=test@helloworld.com&body=Thanks for meeting with me today").then(() =>
-        *       //email received successfully
-        *   }).catch((ex) =>{
-        *       //fail
-        *   });
+        *   Modus.shareMailTo("mailto:?to=test@helloworld.com&body=Thanks for meeting with me today")
         * @returns {Promise}. No data returned.
         * @memberof Other
         * @version  iOS - N/A  | Android - N/A  |  Windows - N/A
         */
         shareMailTo: function (mailTo) { return _callNativeFunction('shareMailTo', { mailTo: mailTo }); },
+        asyncHttpRequest: function (url, verb, headers, body) { return _callNativeFunction("asyncHttpRequest", { url: url, verb: verb, headers: headers, body: body }); },
+        promptShareMenuWithData: function (fileName, base64) { return _callNativeFunction("promptShareMenuWithData", { name: fileName, fileAsBase64: base64 }); },
 
         //------- NOT REPRESENTED IN THE EXAMPLE FILE ------//
         //Follow Up Methods
@@ -411,11 +429,7 @@ var Modus = (function () {
         previewNextFollowupLink: _callNativeFunction.bind(null, "previewNextFollowupLink", null),
         getFollowupGuid: function (followupLink) { return _callNativeFunction("getFollowupGuid", { link: followupLink }); },
 
-
-        //Digial Sales Room - TODO: could this be generalized?
-        getDeviceFilePicker: function (uploadParams) { return _callNativeFunction("getDeviceFilePicker", { uploadParams: uploadParams }); },
-
-        //Modus things - accessible but used internally or for examples and not well documented
+        //Modus things - accessible but used internally or for examples and no intention of being well documented
         registerFallbackFunctions: function (fallback) { _fallback = fallback; },
         enableExamples: function (isEnabled) { _areExamplesEnabled = isEnabled !== false; }
     }
