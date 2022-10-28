@@ -79,7 +79,8 @@ var Modus = (function () {
                 result = ["Tatooine", "Stewjon", "Coruscant"];
                 break;
             case "getUser":
-                result = { id: 12345, email: "okenobi@jedicouncil.crst", first_name: "Obi Won", last_name: "Kenobi", }
+                result = JSON.stringify({ id: 12345, email: "okenobi@jedicouncil.crst", first_name: "Obi Won", last_name: "Kenobi", });
+                break;
             //Storage
             case "getItem":
             case "getGlobalItem":

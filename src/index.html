@@ -151,6 +151,9 @@
             if (type === "object" && Array.isArray(result)) {
                 result = "[" + result.join(",") + "]";
                 type = "array";
+            } else if (type === "object") {
+                result = JSON.stringify(result);
+                type = 'object';
             }
 
             let html = "<strong>" + caller + "</strong>" + "<br />" +
@@ -238,6 +241,9 @@
             <button class="btn btn-primary" type="button" onclick="run('getAccessToken')">Get Access
                 Token</button><br />
         </div>
+        <div class="row">
+            <button class="btn btn-primary" type="button" onclick="run('getUser')">Get User</button><br />
+        </div>
 
         <!-- Storage Related Functions Under This Line -->
 
@@ -317,7 +323,8 @@
         <!-- Media Related Functions Under This Line  -->
         <h2> Media </h2>
         <div class="row">
-            <button class="btn btn-primary" type="button" onclick="run('getMediaWithPicker')">Get Media From App Based File Picker</button>
+            <button class="btn btn-primary" type="button" onclick="run('getMediaWithPicker')">Get Media From App Based
+                File Picker</button>
         </div>
         <div class="row">
             <button class="btn btn-primary" type="button" onclick="runWithParams('getDeviceFilePicker', {})">
