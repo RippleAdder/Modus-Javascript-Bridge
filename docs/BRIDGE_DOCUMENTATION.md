@@ -38,6 +38,8 @@
 -   [shareMailTo][34]
     -   [Parameters][35]
     -   [Examples][36]
+-   [closeContainer][37]
+    -   [Examples][38]
 
 ## User
 
@@ -51,7 +53,7 @@ Get the current user's username
 Modus.getCurrentUserName().then((username) => { });
 ```
 
-Returns **[Promise][37]&lt;[string][38]>** promise with the username
+Returns **[Promise][39]&lt;[string][40]>** promise with the username
 
 **Meta**
 
@@ -61,7 +63,7 @@ Returns **[Promise][37]&lt;[string][38]>** promise with the username
 
 Get the current user's email
 
-Returns **[Promise][37]&lt;[string][38]>** current user email
+Returns **[Promise][39]&lt;[string][40]>** current user email
 
 **Meta**
 
@@ -71,7 +73,7 @@ Returns **[Promise][37]&lt;[string][38]>** current user email
 
 Returns the currently logged in user's regions
 
-Returns **[Promise][37]&lt;[Array][39]&lt;[string][38]>>** List of current user's regions
+Returns **[Promise][39]&lt;[Array][41]&lt;[string][40]>>** List of current user's regions
 
 **Meta**
 
@@ -81,7 +83,7 @@ Returns **[Promise][37]&lt;[Array][39]&lt;[string][38]>>** List of current user'
 
 Returns the currently logged in user's access token
 
-Returns **[Promise][37]&lt;[string][38]>** An access token
+Returns **[Promise][39]&lt;[string][40]>** An access token
 
 **Meta**
 
@@ -91,7 +93,7 @@ Returns **[Promise][37]&lt;[string][38]>** An access token
 
 Returns the currently logged in user's access token
 
-Returns **[Promise][37]&lt;[Object][40]>** A serialized user object
+Returns **[Promise][39]&lt;[Object][42]>** A serialized user object
 
 **Meta**
 
@@ -105,7 +107,7 @@ Gets a value for a specified key from the native local database
 
 #### Parameters
 
--   `key` **[string][38]** name of the "key" you want to retrieve the value of
+-   `key` **[string][40]** name of the "key" you want to retrieve the value of
 
 #### Examples
 
@@ -115,7 +117,7 @@ Modus.getItem("test").then((val) => {
   });
 ```
 
-Returns **[Promise][37]&lt;[string][38]>** The value of the key. If key does not exist `null` is returned
+Returns **[Promise][39]&lt;[string][40]>** The value of the key. If key does not exist `null` is returned
 
 **Meta**
 
@@ -127,8 +129,8 @@ Sets a value for a specified key to the native local database
 
 #### Parameters
 
--   `key` **[string][38]** name of the "key" you want to set the value of
--   `value` **[string][38]** The value you want to assign to the key
+-   `key` **[string][40]** name of the "key" you want to set the value of
+-   `value` **[string][40]** The value you want to assign to the key
 
 #### Examples
 
@@ -149,9 +151,9 @@ Gets a value for a specified key from the native local database. This value is a
 
 #### Parameters
 
--   `key` **[string][38]** name of the "key" you want to retrieve the value of
+-   `key` **[string][40]** name of the "key" you want to retrieve the value of
 
-Returns **[Promise][37]&lt;[string][38]>** The value of the key. If key does not exist `null` is returned
+Returns **[Promise][39]&lt;[string][40]>** The value of the key. If key does not exist `null` is returned
 
 **Meta**
 
@@ -163,8 +165,8 @@ Sets a value for a specified key to the native local database. This value is acc
 
 #### Parameters
 
--   `key` **[string][38]** name of the "key" you want to set the value of
--   `value` **[string][38]** The value you want to assign to the key
+-   `key` **[string][40]** name of the "key" you want to set the value of
+-   `value` **[string][40]** The value you want to assign to the key
 
 **Meta**
 
@@ -176,10 +178,10 @@ Sets a value for a specified key to the native local database. This value is acc
 
 #### Parameters
 
--   `to` **[string][38]** reciept email address
--   `cc` **[string][38]** carbon copy email address
--   `subject` **[string][38]** subject of the email
--   `body` **[string][38]** body of the email (plaintext only)
+-   `to` **[string][40]** reciept email address
+-   `cc` **[string][40]** carbon copy email address
+-   `subject` **[string][40]** subject of the email
+-   `body` **[string][40]** body of the email (plaintext only)
 
 #### Examples
 
@@ -189,7 +191,7 @@ Modus.sendEmail("test@gmail.com", "", "Test Subject Line", "Test body").then(() 
 });
 ```
 
-Returns **[Promise][37]** . No data returned.
+Returns **[Promise][39]** . No data returned.
 
 **Meta**
 
@@ -199,10 +201,10 @@ Returns **[Promise][37]** . No data returned.
 
 #### Parameters
 
--   `to` **[string][38]** reciept email address
--   `cc` **[string][38]** carbon copy email address
--   `subject` **[string][38]** subject of the email
--   `html` **[string][38]** body of the email (HTML)
+-   `to` **[string][40]** reciept email address
+-   `cc` **[string][40]** carbon copy email address
+-   `subject` **[string][40]** subject of the email
+-   `html` **[string][40]** body of the email (HTML)
 
 #### Examples
 
@@ -214,7 +216,7 @@ Modus.sendEmail("test@gmail.com", "", "Test Subject Line", "<h1>Hello World!</h1
   });
 ```
 
-Returns **[Promise][37]** . No data returned.
+Returns **[Promise][39]** . No data returned.
 
 **Meta**
 
@@ -225,12 +227,12 @@ Returns **[Promise][37]** . No data returned.
 #### Parameters
 
 -   `data`  
--   `to` **[string][38]** destination email address
--   `cc` **[string][38]** carbon copy email address
--   `subject` **[string][38]** subject of the email
--   `html` **[string][38]** body of the email (plaintext)
--   `attachmentName` **[string][38]** file name of the attachment (you must include the extension)
--   `attachmentBase64` **[string][38]** Base 64 representation of the file you would like to attach
+-   `to` **[string][40]** destination email address
+-   `cc` **[string][40]** carbon copy email address
+-   `subject` **[string][40]** subject of the email
+-   `html` **[string][40]** body of the email (plaintext)
+-   `attachmentName` **[string][40]** file name of the attachment (you must include the extension)
+-   `attachmentBase64` **[string][40]** Base 64 representation of the file you would like to attach
 
 #### Examples
 
@@ -242,7 +244,7 @@ Modus.sendEmail("test@gmail.com", "", "Subject Line for HTML", "Check out my att
   });
 ```
 
-Returns **[Promise][37]** . No data returned.
+Returns **[Promise][39]** . No data returned.
 
 **Meta**
 
@@ -258,7 +260,7 @@ Modus.getAgendas().then((agendas) => {
   });
 ```
 
-Returns **[Promise][37]&lt;[Array][39]&lt;Agenda>>** . returns an array of agendas
+Returns **[Promise][39]&lt;[Array][41]&lt;Agenda>>** . returns an array of agendas
 
 **Meta**
 
@@ -268,8 +270,8 @@ Returns **[Promise][37]&lt;[Array][39]&lt;Agenda>>** . returns an array of agend
 
 ### Parameters
 
--   `agendaId` **[Object][40]&lt;agenda>** The id of the agenda to email
--   `emailAddress` **[Object][40]&lt;agenda>** destination email address
+-   `agendaId` **[Object][42]&lt;agenda>** The id of the agenda to email
+-   `emailAddress` **[Object][42]&lt;agenda>** destination email address
 
 ### Examples
 
@@ -279,7 +281,7 @@ Modus.sendAgenda(12354, "example@gomodus.com").then((agendas) => {
   });
 ```
 
-Returns **[Promise][37]** no data returned
+Returns **[Promise][39]** no data returned
 
 **Meta**
 
@@ -289,7 +291,7 @@ Returns **[Promise][37]** no data returned
 
 ### Parameters
 
--   `mailTo` **[string][38]** a mailTo link to open in native/attached application
+-   `mailTo` **[string][40]** a mailTo link to open in native/attached application
 
 ### Examples
 
@@ -297,11 +299,23 @@ Returns **[Promise][37]** no data returned
 Modus.shareMailTo("mailto:?to=test@helloworld.com&body=Thanks for meeting with me today")
 ```
 
-Returns **[Promise][37]** . No data returned.
+Returns **[Promise][39]** . No data returned.
 
 **Meta**
 
 -   **version**: iOS - N/A  | Android - N/A  |  Windows - N/A
+
+## closeContainer
+
+Function to close the containing modal/dialog in an application
+
+### Examples
+
+```javascript
+Modus.closeModal();
+```
+
+Returns **any** no data
 
 [1]: #user
 
@@ -375,10 +389,14 @@ Returns **[Promise][37]** . No data returned.
 
 [36]: #examples-8
 
-[37]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise
+[37]: #closecontainer
 
-[38]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+[38]: #examples-9
 
-[39]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+[39]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise
 
-[40]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+[40]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+
+[41]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+
+[42]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
