@@ -430,18 +430,27 @@ var Modus = (function () {
         * @version  iOS - N/A  | Android - N/A  |  Windows - N/A
         */
         shareMailTo: function (mailTo) { return _callNativeFunction('shareMailTo', { mailTo: mailTo }); },
+        /**
+         * Function to close the containing modal/dialog in an application
+         * @example
+         * Modus.closeModal();
+         * @returns no data
+         */
+        closeContainer: () => { return _callNativeFunction('closeModal', {}); },
         asyncHttpRequest: function (url, verb, headers, body) { return _callNativeFunction("asyncHttpRequest", { url: url, verb: verb, headers: headers, body: body }); },
         promptShareMenuWithData: function (fileName, base64) { return _callNativeFunction("promptShareMenuWithData", { name: fileName, fileAsBase64: base64 }); },
 
-        //------- NOT REPRESENTED IN THE EXAMPLE FILE ------//
+        //------- NOT REPRESENTED IN THE EXAMPLE FILE YET ------//
         //Follow Up Methods
         sendFollowup: function (step, bundleName, link) { return _callNativeFunction("sendFollowup", { step: step, bundle: bundleName, link: link }); },
         previewNextFollowupLink: _callNativeFunction.bind(null, "previewNextFollowupLink", null),
         getFollowupGuid: function (followupLink) { return _callNativeFunction("getFollowupGuid", { link: followupLink }); },
 
-        //Modus things - accessible but used internally or for examples and no intention of being well documented
+        //---- Modus Things -----// 
+        //generally accessible but used internally and no intention of being well documented
         registerFallbackFunctions: function (fallback) { _fallback = fallback; },
         enableExamples: function (isEnabled) { _areExamplesEnabled = isEnabled !== false; }
+
     }
 })();
 
