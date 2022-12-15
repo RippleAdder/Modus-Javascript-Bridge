@@ -40,7 +40,7 @@ const WebMessenger = function () {
     //public
     return {
         isManaged: function (methodName) {
-            let webManagedMethods = ["getMediaWithPicker", "getDeviceFilePicker", "shareMailTo"];
+            let webManagedMethods = ["getMediaWithPicker", "getDeviceFilePicker", "shareMailTo", "closeContainer"];
             return webManagedMethods.indexOf(methodName) > -1;
         },
         start: function () {
@@ -434,9 +434,8 @@ var Modus = (function () {
          * Function to close the containing modal/dialog in an application
          * @example
          * Modus.closeModal();
-         * @returns no data
          */
-        closeContainer: () => { return _callNativeFunction('closeModal', {}); },
+        closeContainer: () => { return _callNativeFunction('closeContainer', {}); },
         asyncHttpRequest: function (url, verb, headers, body) { return _callNativeFunction("asyncHttpRequest", { url: url, verb: verb, headers: headers, body: body }); },
         promptShareMenuWithData: function (fileName, base64) { return _callNativeFunction("promptShareMenuWithData", { name: fileName, fileAsBase64: base64 }); },
 

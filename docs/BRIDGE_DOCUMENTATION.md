@@ -315,8 +315,6 @@ Function to close the containing modal/dialog in an application
 Modus.closeModal();
 ```
 
-Returns **any** no data
-
 [1]: #user
 
 [2]: #getcurrentusername
