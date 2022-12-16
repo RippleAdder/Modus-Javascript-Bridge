@@ -22,7 +22,7 @@
   "dependencies": {},
   "devDependencies": {
     "copy-webpack-plugin": "^7.0.0",
-    "documentation": "^14.0.0",
+    "documentation": "^14.0.1",
     "http-server": "^14.1.1",
     "terser-webpack-plugin": "^5.1.1",
     "webpack": "^5.11.0",
