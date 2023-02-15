@@ -18,7 +18,6 @@ const _getParameterByName = function (name, url) {
 //TODO: break this in to a different file?
 const WebMessenger = function () {
     const VALID_ORIGINS = ['http://localhost:8081', 'https://web.gomodus.com', 'https://web-stage.gomodus.com', "web.gomodus.com", "web-stage.gomodus.com", 'https://web-dev.gomodus.com', "web-dev.gomodus.com",];
-    const _requests = {};
 
     //private
     const recieve = function (event) {
@@ -39,10 +38,6 @@ const WebMessenger = function () {
 
     //public
     return {
-        isManaged: function (methodName) {
-            let webManagedMethods = ["getMediaWithPicker", "getDeviceFilePicker", "shareMailTo", "closeContainer"];
-            return webManagedMethods.indexOf(methodName) > -1;
-        },
         start: function () {
             window.addEventListener('message', recieve, false);
         },
@@ -170,18 +165,16 @@ var Modus = (function () {
         var successId = methodName + "_success_" + id;
         var errorId = methodName + "_error_" + id;
 
-        const tryResolve = function (resolve, data) {
-            window[successId] = null;
-            window[errorId] = null;
-            delete window[successId];
-            delete window[errorId];
-            resolve(data);
-
-        }
-
         return new Promise(function (resolve, reject) {
+
             //build success function
-            window[successId] = tryResolve.bind(null, resolve);
+            window[successId] = function (data) {
+                window[successId] = null;
+                window[errorId] = null;
+                delete window[successId];
+                delete window[errorId];
+                resolve(data);
+            }
 
             //build error function
             window[errorId] = function (data) {
