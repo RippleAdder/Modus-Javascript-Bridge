@@ -130,13 +130,9 @@ var Modus = (function () {
             _webMessenger.start();
         }
 
-        if (_webMessenger.isManaged(request.methodName)) {
-            console.log("Running web bridge method: ", request.methodName);
-            _webMessenger.send(request);
-            return true;
-        }
+        _webMessenger.send(request);
+        return true;
 
-        return false;
     }
 
     //Registered Fallback
@@ -205,6 +201,10 @@ var Modus = (function () {
             };
 
             let os = _getParameterByName("os");
+
+            //some debugging info
+            console.log("Trying to execute: ", methodName)
+            console.log("OS:", os);
 
             //For Windows builds that don't pass in the os param
             let userAgent = navigator.userAgent;
