@@ -17,11 +17,14 @@ const _getParameterByName = function (name, url) {
 //Web Communicator
 //TODO: break this in to a different file?
 const WebMessenger = function () {
-    const VALID_ORIGINS = ['http://localhost:8081', 'https://web.gomodus.com', 'https://web-stage.gomodus.com', "web.gomodus.com", "web-stage.gomodus.com", 'https://web-dev.gomodus.com', "web-dev.gomodus.com",];
+    const VALID_DOMAINS = ["gomodus.com", "mytopconnow.topconpositioning.com", "showroom.cat.com", "lunatigarage.vsgdover.com", "salesmaster.volvotrucks.us"]
+    const VALID_ORIGINS = ['http://localhost:8081'];
 
     //private
     const recieve = function (event) {
-        if (VALID_ORIGINS.indexOf(event.origin) <= -1) return;
+        const hasValidDomain = VALID_DOMAINS.filter(domain => { return event.origin.indexOf(domain) > -1 }).length > 0;
+        const hasValidOrigin = VALID_ORIGINS.indexOf(event.origin) > -1;
+        if (!hasValidDomain && !hasValidOrigin) return;
 
         let data = JSON.parse(event.data);
         let response = data.response || null;
