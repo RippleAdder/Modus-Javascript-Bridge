@@ -121,6 +121,13 @@ var Modus = (function () {
         window[request.successMethodId](result);
     }
 
+    //Helpers
+    const _checkSupport = (supportedOSList) => {
+        console.warn("that function not supported in the bridge for that OS yet")
+        const os = _getParameterByName("os");
+        return supportedOSList.indexOf(os) > -1;
+    }
+
     //Web OS
     const _tryCallWebFunction = function (request) {
         if (!_webMessenger) {
@@ -435,7 +442,7 @@ var Modus = (function () {
         * @returns {Promise<Array<Int>>}. returns an array of media ids
         * @memberof Media
         * @deprecated use getAssetsWithPicker instead
-        * @version  iOS - N/A  | Android - N/A  |  Windows - N/A  | Web
+        * @version  iOS - N/A  | Android - N/A  |  Windows - N/A  | Web - no support
         */
         getMediaWithPicker: function (excludeMediaIds) { return _callNativeFunction("getMediaWithPicker", { excludeMedias: excludeMediaIds }); },
         getDeviceFilePicker: function (uploadParams) { return _callNativeFunction("getDeviceFilePicker", { uploadParams: uploadParams }); },
@@ -454,7 +461,13 @@ var Modus = (function () {
         * @memberof Assets
         * @version  iOS - N/A  | Android - N/A  |  Windows - N/A  | Web
         */
-        getAssetsWithPicker: function (excludeMediaIds) { return _callNativeFunction("getAssetsWithPicker", { excludeMediaIds }); },
+        getAssetsWithPicker: function (excludeMediaIds) {
+            if (!_checkSupport(['web'])) {
+                return this.getMediaWithPicker(excludeMediaIds);
+            }
+
+            return _callNativeFunction("getAssetsWithPicker", { excludeMediaIds });
+        },
 
         //----- Other -----//
         /** @namespace Other */

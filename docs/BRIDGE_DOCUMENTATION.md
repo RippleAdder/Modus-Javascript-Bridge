@@ -335,7 +335,7 @@ Returns **[Promise][51]&lt;[Array][53]&lt;Int>>** . returns an array of media id
 
 **Meta**
 
--   **version**: iOS - N/A  | Android - N/A  |  Windows - N/A  | Web
+-   **version**: iOS - N/A  | Android - N/A  |  Windows - N/A  | Web - no support
 -   **deprecated**: use getAssetsWithPicker instead
 
 
