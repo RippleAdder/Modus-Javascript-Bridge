@@ -384,7 +384,9 @@ var Modus = (function () {
         */
         sendEmailWithFileAttachmentFromBase64: function (data) { return _callNativeFunction("sendEmailWithFileAttachmentFromBase64", { data: data }); },
 
-        //Agendas
+        //----- Agendas -----//
+        /** @namespace Agendas */
+
         /**
         * @example
         *   Modus.getAgendas().then((agendas) => {
@@ -395,6 +397,7 @@ var Modus = (function () {
         * @version  iOS - N/A  | Android - N/A  |  Windows - N/A
         */
         getAgendas: _callNativeFunction.bind(null, "getAgendas", null),
+
         /**
         * @param {Object<agenda>} agendaId - The id of the agenda to email
         * @param {Object<agenda>} emailAddress - destination email address
@@ -408,15 +411,54 @@ var Modus = (function () {
         */
         sendAgenda: function (agendaId, emailAddress) { return _callNativeFunction("sendAgenda", { agendaId: agendaId, emailAddress: emailAddress }); },
 
-        //Lead Capture
+        //----- Agendas -----//
+        /** @namespace Lead_Capture */
+
+        /**
+        * Scans a barcode and returns the text encoded in the barcode
+        * @returns {Promise<String>}. returns text encoded in barcode
+        * @memberof Lead_Capture
+        * @version  iOS - N/A  | Android - N/A  |  Windows - N/A
+        */
         scanBarcode: _callNativeFunction.bind(null, "scanPDF417Barcode", null),
-        //captureLead?
 
         //----- Media -----//
-        getMediaWithPicker: function (excludeMedias) { return _callNativeFunction("getMediaWithPicker", { excludeMedias: excludeMedias }); },
+        /** @namespace Media */
+
+        /**
+        * Opens a media picker in the app that allows a user to choose Modus media items
+        * @param {Object<agenda>} excludeMediaIds - Ids of media items you don't want to show in the media picker
+        * @example
+        *   Modus.getMediaWithPicker(null).then((mediaIds) => {
+        *       //do something
+        *   });
+        * @returns {Promise<Array<Int>>}. returns an array of media ids
+        * @memberof Media
+        * @deprecated use getAssetsWithPicker instead
+        * @version  iOS - N/A  | Android - N/A  |  Windows - N/A  | Web
+        */
+        getMediaWithPicker: function (excludeMediaIds) { return _callNativeFunction("getMediaWithPicker", { excludeMedias: excludeMediaIds }); },
         getDeviceFilePicker: function (uploadParams) { return _callNativeFunction("getDeviceFilePicker", { uploadParams: uploadParams }); },
 
+        //----- Assets -----//
+        /** @namespace Assets */
+
+        /**
+        * Opens a media picker in the app that allows a user to choose Modus assets
+        * @param {Object<agenda>} excludeMediaIds - ids of media items you don't want to show in the media picker
+        * @example
+        *   Modus.getAssetsWithPicker(null).then(({mediaIds,vptIds}) => {
+        *       //do something
+        *   });
+        * @returns {Promise<Object>}. returns an object like this {mediaIds: [], vptIds: []}
+        * @memberof Assets
+        * @version  iOS - N/A  | Android - N/A  |  Windows - N/A  | Web
+        */
+        getAssetsWithPicker: function (excludeMediaIds) { return _callNativeFunction("getAssetsWithPicker", { excludeMediaIds }); },
+
         //----- Other -----//
+        /** @namespace Other */
+
         /**
         * @param {string} mailTo - a mailTo link to open in native/attached application
         * @example
@@ -429,20 +471,20 @@ var Modus = (function () {
         /**
          * Function to close the containing modal/dialog in an application
          * @example
-         * Modus.closeModal();
+         *  Modus.closeModal();
+         * @memberof Other
          */
         closeContainer: () => { return _callNativeFunction('closeContainer', {}); },
+
+        //TODO: document 
         asyncHttpRequest: function (url, verb, headers, body) { return _callNativeFunction("asyncHttpRequest", { url: url, verb: verb, headers: headers, body: body }); },
         promptShareMenuWithData: function (fileName, base64) { return _callNativeFunction("promptShareMenuWithData", { name: fileName, fileAsBase64: base64 }); },
-
-        //------- NOT REPRESENTED IN THE EXAMPLE FILE YET ------//
-        //Follow Up Methods
         sendFollowup: function (step, bundleName, link) { return _callNativeFunction("sendFollowup", { step: step, bundle: bundleName, link: link }); },
         previewNextFollowupLink: _callNativeFunction.bind(null, "previewNextFollowupLink", null),
         getFollowupGuid: function (followupLink) { return _callNativeFunction("getFollowupGuid", { link: followupLink }); },
 
         //---- Modus Things -----// 
-        //generally accessible but used internally and no intention of being well documented
+        //accessible but used internally - not needed to be documented
         registerFallbackFunctions: function (fallback) { _fallback = fallback; },
         enableExamples: function (isEnabled) { _areExamplesEnabled = isEnabled !== false; }
 

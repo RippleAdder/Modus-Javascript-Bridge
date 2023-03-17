@@ -30,16 +30,28 @@
     -   [sendEmailWithFileAttachmentFromBase64][26]
         -   [Parameters][27]
         -   [Examples][28]
--   [getAgendas][29]
-    -   [Examples][30]
--   [sendAgenda][31]
-    -   [Parameters][32]
-    -   [Examples][33]
--   [shareMailTo][34]
-    -   [Parameters][35]
-    -   [Examples][36]
--   [closeContainer][37]
-    -   [Examples][38]
+-   [Agendas][29]
+    -   [getAgendas][30]
+        -   [Examples][31]
+    -   [sendAgenda][32]
+        -   [Parameters][33]
+        -   [Examples][34]
+-   [Lead_Capture][35]
+    -   [scanBarcode][36]
+-   [Media][37]
+    -   [getMediaWithPicker][38]
+        -   [Parameters][39]
+        -   [Examples][40]
+-   [Assets][41]
+    -   [getAssetsWithPicker][42]
+        -   [Parameters][43]
+        -   [Examples][44]
+-   [Other][45]
+    -   [shareMailTo][46]
+        -   [Parameters][47]
+        -   [Examples][48]
+    -   [closeContainer][49]
+        -   [Examples][50]
 
 ## User
 
@@ -53,7 +65,7 @@ Get the current user's username
 Modus.getCurrentUserName().then((username) => { });
 ```
 
-Returns **[Promise][39]&lt;[string][40]>** promise with the username
+Returns **[Promise][51]&lt;[string][52]>** promise with the username
 
 **Meta**
 
@@ -63,7 +75,7 @@ Returns **[Promise][39]&lt;[string][40]>** promise with the username
 
 Get the current user's email
 
-Returns **[Promise][39]&lt;[string][40]>** current user email
+Returns **[Promise][51]&lt;[string][52]>** current user email
 
 **Meta**
 
@@ -73,7 +85,7 @@ Returns **[Promise][39]&lt;[string][40]>** current user email
 
 Returns the currently logged in user's regions
 
-Returns **[Promise][39]&lt;[Array][41]&lt;[string][40]>>** List of current user's regions
+Returns **[Promise][51]&lt;[Array][53]&lt;[string][52]>>** List of current user's regions
 
 **Meta**
 
@@ -83,7 +95,7 @@ Returns **[Promise][39]&lt;[Array][41]&lt;[string][40]>>** List of current user'
 
 Returns the currently logged in user's access token
 
-Returns **[Promise][39]&lt;[string][40]>** An access token
+Returns **[Promise][51]&lt;[string][52]>** An access token
 
 **Meta**
 
@@ -93,7 +105,7 @@ Returns **[Promise][39]&lt;[string][40]>** An access token
 
 Returns the currently logged in user's access token
 
-Returns **[Promise][39]&lt;[Object][42]>** A serialized user object
+Returns **[Promise][51]&lt;[Object][54]>** A serialized user object
 
 **Meta**
 
@@ -107,7 +119,7 @@ Gets a value for a specified key from the native local database
 
 #### Parameters
 
--   `key` **[string][40]** name of the "key" you want to retrieve the value of
+-   `key` **[string][52]** name of the "key" you want to retrieve the value of
 
 #### Examples
 
@@ -117,7 +129,7 @@ Modus.getItem("test").then((val) => {
   });
 ```
 
-Returns **[Promise][39]&lt;[string][40]>** The value of the key. If key does not exist `null` is returned
+Returns **[Promise][51]&lt;[string][52]>** The value of the key. If key does not exist `null` is returned
 
 **Meta**
 
@@ -129,8 +141,8 @@ Sets a value for a specified key to the native local database
 
 #### Parameters
 
--   `key` **[string][40]** name of the "key" you want to set the value of
--   `value` **[string][40]** The value you want to assign to the key
+-   `key` **[string][52]** name of the "key" you want to set the value of
+-   `value` **[string][52]** The value you want to assign to the key
 
 #### Examples
 
@@ -151,9 +163,9 @@ Gets a value for a specified key from the native local database. This value is a
 
 #### Parameters
 
--   `key` **[string][40]** name of the "key" you want to retrieve the value of
+-   `key` **[string][52]** name of the "key" you want to retrieve the value of
 
-Returns **[Promise][39]&lt;[string][40]>** The value of the key. If key does not exist `null` is returned
+Returns **[Promise][51]&lt;[string][52]>** The value of the key. If key does not exist `null` is returned
 
 **Meta**
 
@@ -165,8 +177,8 @@ Sets a value for a specified key to the native local database. This value is acc
 
 #### Parameters
 
--   `key` **[string][40]** name of the "key" you want to set the value of
--   `value` **[string][40]** The value you want to assign to the key
+-   `key` **[string][52]** name of the "key" you want to set the value of
+-   `value` **[string][52]** The value you want to assign to the key
 
 **Meta**
 
@@ -178,10 +190,10 @@ Sets a value for a specified key to the native local database. This value is acc
 
 #### Parameters
 
--   `to` **[string][40]** reciept email address
--   `cc` **[string][40]** carbon copy email address
--   `subject` **[string][40]** subject of the email
--   `body` **[string][40]** body of the email (plaintext only)
+-   `to` **[string][52]** reciept email address
+-   `cc` **[string][52]** carbon copy email address
+-   `subject` **[string][52]** subject of the email
+-   `body` **[string][52]** body of the email (plaintext only)
 
 #### Examples
 
@@ -191,7 +203,7 @@ Modus.sendEmail("test@gmail.com", "", "Test Subject Line", "Test body").then(() 
 });
 ```
 
-Returns **[Promise][39]** . No data returned.
+Returns **[Promise][51]** . No data returned.
 
 **Meta**
 
@@ -201,10 +213,10 @@ Returns **[Promise][39]** . No data returned.
 
 #### Parameters
 
--   `to` **[string][40]** reciept email address
--   `cc` **[string][40]** carbon copy email address
--   `subject` **[string][40]** subject of the email
--   `html` **[string][40]** body of the email (HTML)
+-   `to` **[string][52]** reciept email address
+-   `cc` **[string][52]** carbon copy email address
+-   `subject` **[string][52]** subject of the email
+-   `html` **[string][52]** body of the email (HTML)
 
 #### Examples
 
@@ -216,7 +228,7 @@ Modus.sendEmail("test@gmail.com", "", "Test Subject Line", "<h1>Hello World!</h1
   });
 ```
 
-Returns **[Promise][39]** . No data returned.
+Returns **[Promise][51]** . No data returned.
 
 **Meta**
 
@@ -227,12 +239,12 @@ Returns **[Promise][39]** . No data returned.
 #### Parameters
 
 -   `data`  
--   `to` **[string][40]** destination email address
--   `cc` **[string][40]** carbon copy email address
--   `subject` **[string][40]** subject of the email
--   `html` **[string][40]** body of the email (plaintext)
--   `attachmentName` **[string][40]** file name of the attachment (you must include the extension)
--   `attachmentBase64` **[string][40]** Base 64 representation of the file you would like to attach
+-   `to` **[string][52]** destination email address
+-   `cc` **[string][52]** carbon copy email address
+-   `subject` **[string][52]** subject of the email
+-   `html` **[string][52]** body of the email (plaintext)
+-   `attachmentName` **[string][52]** file name of the attachment (you must include the extension)
+-   `attachmentBase64` **[string][52]** Base 64 representation of the file you would like to attach
 
 #### Examples
 
@@ -244,15 +256,17 @@ Modus.sendEmail("test@gmail.com", "", "Subject Line for HTML", "Check out my att
   });
 ```
 
-Returns **[Promise][39]** . No data returned.
+Returns **[Promise][51]** . No data returned.
 
 **Meta**
 
 -   **version**: iOS - 5.0.8+  | Android - 4.3.0+  |  Windows - 5.0.0.0+
 
-## getAgendas
+## Agendas
 
-### Examples
+### getAgendas
+
+#### Examples
 
 ```javascript
 Modus.getAgendas().then((agendas) => {
@@ -260,20 +274,20 @@ Modus.getAgendas().then((agendas) => {
   });
 ```
 
-Returns **[Promise][39]&lt;[Array][41]&lt;Agenda>>** . returns an array of agendas
+Returns **[Promise][51]&lt;[Array][53]&lt;Agenda>>** . returns an array of agendas
 
 **Meta**
 
 -   **version**: iOS - N/A  | Android - N/A  |  Windows - N/A
 
-## sendAgenda
+### sendAgenda
 
-### Parameters
+#### Parameters
 
--   `agendaId` **[Object][42]&lt;agenda>** The id of the agenda to email
--   `emailAddress` **[Object][42]&lt;agenda>** destination email address
+-   `agendaId` **[Object][54]&lt;agenda>** The id of the agenda to email
+-   `emailAddress` **[Object][54]&lt;agenda>** destination email address
 
-### Examples
+#### Examples
 
 ```javascript
 Modus.sendAgenda(12354, "example@gomodus.com").then((agendas) => {
@@ -281,35 +295,99 @@ Modus.sendAgenda(12354, "example@gomodus.com").then((agendas) => {
   });
 ```
 
-Returns **[Promise][39]** no data returned
+Returns **[Promise][51]** no data returned
 
 **Meta**
 
 -   **version**: iOS - N/A  | Android - N/A  |  Windows - N/A
 
-## shareMailTo
+## Lead_Capture
 
-### Parameters
+### scanBarcode
 
--   `mailTo` **[string][40]** a mailTo link to open in native/attached application
+Scans a barcode and returns the text encoded in the barcode
 
-### Examples
+Returns **[Promise][51]&lt;[String][52]>** . returns text encoded in barcode
+
+**Meta**
+
+-   **version**: iOS - N/A  | Android - N/A  |  Windows - N/A
+
+## Media
+
+### getMediaWithPicker
+
+Opens a media picker in the app that allows a user to choose Modus media items
+
+#### Parameters
+
+-   `excludeMediaIds` **[Object][54]&lt;agenda>** Ids of media items you don't want to show in the media picker
+
+#### Examples
+
+```javascript
+Modus.getMediaWithPicker(null).then((mediaIds) => {
+      //do something
+  });
+```
+
+Returns **[Promise][51]&lt;[Array][53]&lt;Int>>** . returns an array of media ids
+
+**Meta**
+
+-   **version**: iOS - N/A  | Android - N/A  |  Windows - N/A  | Web
+-   **deprecated**: use getAssetsWithPicker instead
+
+
+## Assets
+
+### getAssetsWithPicker
+
+Opens a media picker in the app that allows a user to choose Modus assets
+
+#### Parameters
+
+-   `excludeMediaIds` **[Object][54]&lt;agenda>** ids of media items you don't want to show in the media picker
+
+#### Examples
+
+```javascript
+Modus.getAssetsWithPicker(null).then(({mediaIds,vptIds}) => {
+      //do something
+  });
+```
+
+Returns **[Promise][51]&lt;[Object][54]>** . returns an object like this {mediaIds: \[], vptIds: \[]}
+
+**Meta**
+
+-   **version**: iOS - N/A  | Android - N/A  |  Windows - N/A  | Web
+
+## Other
+
+### shareMailTo
+
+#### Parameters
+
+-   `mailTo` **[string][52]** a mailTo link to open in native/attached application
+
+#### Examples
 
 ```javascript
 Modus.shareMailTo("mailto:?to=test@helloworld.com&body=Thanks for meeting with me today")
 ```
 
-Returns **[Promise][39]** . No data returned.
+Returns **[Promise][51]** . No data returned.
 
 **Meta**
 
 -   **version**: iOS - N/A  | Android - N/A  |  Windows - N/A
 
-## closeContainer
+### closeContainer
 
 Function to close the containing modal/dialog in an application
 
-### Examples
+#### Examples
 
 ```javascript
 Modus.closeModal();
@@ -371,30 +449,54 @@ Modus.closeModal();
 
 [28]: #examples-5
 
-[29]: #getagendas
+[29]: #agendas
 
-[30]: #examples-6
+[30]: #getagendas
 
-[31]: #sendagenda
+[31]: #examples-6
 
-[32]: #parameters-7
+[32]: #sendagenda
 
-[33]: #examples-7
+[33]: #parameters-7
 
-[34]: #sharemailto
+[34]: #examples-7
 
-[35]: #parameters-8
+[35]: #lead_capture
 
-[36]: #examples-8
+[36]: #scanbarcode
 
-[37]: #closecontainer
+[37]: #media
 
-[38]: #examples-9
+[38]: #getmediawithpicker
 
-[39]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise
+[39]: #parameters-8
 
-[40]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+[40]: #examples-8
 
-[41]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+[41]: #assets
 
-[42]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+[42]: #getassetswithpicker
+
+[43]: #parameters-9
+
+[44]: #examples-9
+
+[45]: #other
+
+[46]: #sharemailto
+
+[47]: #parameters-10
+
+[48]: #examples-10
+
+[49]: #closecontainer
+
+[50]: #examples-11
+
+[51]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise
+
+[52]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+
+[53]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+
+[54]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object

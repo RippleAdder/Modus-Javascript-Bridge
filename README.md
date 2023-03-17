@@ -59,8 +59,7 @@ The following bullet items are documented in the BRIDGE_DOCUMENATION.md file und
 
 The following documentation will eventually be migrated to the BRIDGE_DOCUMENTION file
 
-
-## Email Methods (not implemented in modus-js-bridge.js yet. Must use depreciated/adrJsBridge.js):
+## Email Methods (not implemented in modus-js-bridge.js- requires use of depreciated/adrJsBridge.js):
 
 ### --- sendEmailWithPDFAttachmentFromHTML ---
 
@@ -112,66 +111,7 @@ Sends an email via the platform's native mail application with a PDF attachment 
 - attachmentHTMLPages
   - (array) Array of HTML pages to save as PDF and attach to email NOTE: this supports SVG
 
-## Agenda Methods:
-
-### --- getAgendas ---
-
-Returns a stringified json list of agendas (both local and shared) present in the app for this user. Json response will contain an array of agenda objects, each agenda object will have a property titled "agendaId" with an integer id and a property titled "agendaTitle" with a string name.
-
-##### Implementation
-
-| Platforms | Available |
-| --------- | :-------: |
-| iOS       |   5.0+    |
-| Android   |    N/A    |
-| Windows   |    N/A    |
-
-##### Parameters
-
-This method has no parameters.
-
-### --- sendAgenda ---
-
-Send the media contents of an agenda to a specified email address
-
-| Platforms | Available |
-| --------- | :-------: |
-| iOS       |  5.0.0+   |
-| Android   |    N/A    |
-| Windows   |    N/A    |
-
-##### Parameters
-
-- agendaId
-  - (int) id of the agenda to send (typically sourced from the getAgendas call above)
-- destinationEmail
-  - (string) email address to send the content to (optional)
-
-## Lead Capture Methods:
-
-### --- scanBarcode ---
-
-Scans a barcode and returns the text encoded in the barcode
-
-##### Availability
-
-| Platforms | Available |
-| --------- | :-------: |
-| iOS       |  1.7.2+   |
-| Android   |    N/A    |
-| Windows   |    N/A    |
-
-##### Parameters
-
-This method has no parameters.
-
-### --- shareMailTo ---
-
-This method is used to pass a mailTo string from a DSR to one of the apps to populate the devices default mailer.
-
-##### Parameters
-
-This method takes a string.
+## Lead Capture Methods (not implemented in modus-js-bridge.js- requires use of depreciated/adrJsBridge.js):
 
 ### --- captureLead ---
 
@@ -189,7 +129,7 @@ Captures a lead and returns the scan string (encoded in base64)
 
 This method has no parameters.
 
-## Follow Up Methods:
+## Follow Up Methods (available but not documented in modus-js-bridge.js):
 
 ### sendFollowup
 
@@ -241,25 +181,7 @@ This method takes an adr.sh short link and returns the associated unique guid us
 
 - **link**: (string) this must be an adr.sh short link for this to work.
 
-## File Picker Methods:
-
-### --- getMediaWithPicker ---
-
-TODO: write a description
-
-##### Availability
-
-| Platforms | Available |
-| --------- | :-------: |
-| iOS       |   5.2+    |
-| Android   |   5.2+    |
-| Windows   |   5.2+    |
-
-##### Parameters
-
-- **parameter**: [string] description
-
-## Other Methods:
+## Other Methods (available but not documented in modus-js-bridge.js):
 
 ### logEvent
 
