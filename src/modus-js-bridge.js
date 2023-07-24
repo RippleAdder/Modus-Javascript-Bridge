@@ -217,9 +217,9 @@ var Modus = (function () {
                 return window.external.notify(JSON.stringify(request));
             }
 
-            //  Windows 2
-            if (os === "windows2") {
-                return window.chrome.webview.postMessage(JSON.stringify(request));
+            //  React Native Application
+            if (os === "rn") {
+                return window.ReactNativeWebView.postMessage(JSON.stringify(request));
             }
 
             //  iOS
