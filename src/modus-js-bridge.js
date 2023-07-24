@@ -219,6 +219,7 @@ var Modus = (function () {
 
             //  React Native Application
             if (os === "rn") {
+                console.log("firing rn request", request)
                 return window.ReactNativeWebView.postMessage(JSON.stringify(request));
             }
 
