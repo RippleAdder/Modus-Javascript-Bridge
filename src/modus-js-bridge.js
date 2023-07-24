@@ -217,6 +217,11 @@ var Modus = (function () {
                 return window.external.notify(JSON.stringify(request));
             }
 
+            //  Windows 2
+            if (os === "windows2") {
+                return window.chrome.webview.postMessage(JSON.stringify(request));
+            }
+
             //  iOS
             if (os === "ios" || (window.webkit && window.webkit.messageHandlers.modus != undefined)) {
                 return window.webkit.messageHandlers.modus.postMessage(request);
