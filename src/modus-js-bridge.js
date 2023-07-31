@@ -212,15 +212,15 @@ var Modus = (function () {
             //For Windows builds that don't pass in the os param
             let userAgent = navigator.userAgent;
 
-            //  Windows
-            if (os === "windows" || userAgent.includes("Windows.Desktop")) {
-                return window.external.notify(JSON.stringify(request));
-            }
-
             //  React Native Application
             if (os === "rn") {
                 console.log("firing rn request", request)
                 return window.ReactNativeWebView.postMessage(JSON.stringify(request));
+            }
+
+            //  Windows
+            if (os === "windows" || userAgent.includes("Windows.Desktop")) {
+                return window.external.notify(JSON.stringify(request));
             }
 
             //  iOS
