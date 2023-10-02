@@ -215,8 +215,10 @@ var Modus = (function () {
             //  React Native Application
             if (os === "rn") {
                 let doubleWrapper = JSON.stringify(JSON.stringify(request));
-                console.log("firing rn request", doubleWrapper);
-                return window.ReactNativeWebView.postMessage(doubleWrapper);
+                console.log("firing rn request, double wrapped: ", doubleWrapper);
+                window.ReactNativeWebView.postMessage("test");
+                window.ReactNativeWebView.postMessage(doubleWrapper);
+                return;
             }
 
             //  Windows
