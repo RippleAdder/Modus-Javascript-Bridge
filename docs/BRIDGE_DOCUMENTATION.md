@@ -8,51 +8,52 @@
     *   [getCurrentUserEmail][4]
     *   [getCurrentUserRegions][5]
     *   [getAccessToken][6]
-    *   [getUser][7]
-        *   [Examples][8]
-*   [Storage][9]
-    *   [getItem][10]
-        *   [Parameters][11]
-        *   [Examples][12]
-    *   [setItem][13]
-        *   [Parameters][14]
-        *   [Examples][15]
-    *   [getGlobalItem][16]
-        *   [Parameters][17]
-    *   [setGlobalItem][18]
-        *   [Parameters][19]
-*   [Emails][20]
-    *   [sendEmail][21]
-        *   [Parameters][22]
-        *   [Examples][23]
-    *   [sendEmailHtml][24]
-        *   [Parameters][25]
-        *   [Examples][26]
-    *   [sendEmailWithFileAttachmentFromBase64][27]
-        *   [Parameters][28]
-        *   [Examples][29]
-*   [Agendas][30]
-    *   [getAgendas][31]
-        *   [Examples][32]
-    *   [sendAgenda][33]
-        *   [Parameters][34]
-        *   [Examples][35]
-*   [Lead\_Capture][36]
-    *   [scanBarcode][37]
-*   [Media][38]
-    *   [getMediaWithPicker][39]
-        *   [Parameters][40]
-        *   [Examples][41]
-*   [Assets][42]
-    *   [getAssetsWithPicker][43]
-        *   [Parameters][44]
-        *   [Examples][45]
-*   [Other][46]
-    *   [shareMailTo][47]
-        *   [Parameters][48]
-        *   [Examples][49]
-    *   [closeContainer][50]
-        *   [Examples][51]
+        *   [Examples][7]
+    *   [getUser][8]
+        *   [Examples][9]
+*   [Storage][10]
+    *   [getItem][11]
+        *   [Parameters][12]
+        *   [Examples][13]
+    *   [setItem][14]
+        *   [Parameters][15]
+        *   [Examples][16]
+    *   [getGlobalItem][17]
+        *   [Parameters][18]
+    *   [setGlobalItem][19]
+        *   [Parameters][20]
+*   [Emails][21]
+    *   [sendEmail][22]
+        *   [Parameters][23]
+        *   [Examples][24]
+    *   [sendEmailHtml][25]
+        *   [Parameters][26]
+        *   [Examples][27]
+    *   [sendEmailWithFileAttachmentFromBase64][28]
+        *   [Parameters][29]
+        *   [Examples][30]
+*   [Agendas][31]
+    *   [getAgendas][32]
+        *   [Examples][33]
+    *   [sendAgenda][34]
+        *   [Parameters][35]
+        *   [Examples][36]
+*   [Lead\_Capture][37]
+    *   [scanBarcode][38]
+*   [Media][39]
+    *   [getMediaWithPicker][40]
+        *   [Parameters][41]
+        *   [Examples][42]
+*   [Assets][43]
+    *   [getAssetsWithPicker][44]
+        *   [Parameters][45]
+        *   [Examples][46]
+*   [Other][47]
+    *   [shareMailTo][48]
+        *   [Parameters][49]
+        *   [Examples][50]
+    *   [closeContainer][51]
+        *   [Examples][52]
 
 ## User
 
@@ -66,7 +67,7 @@ Get the current user's username
 Modus.getCurrentUserName().then((username) => { });
 ```
 
-Returns **[Promise][52]<[string][53]>** promise with the username
+Returns **[Promise][53]<[string][54]>** promise with the username
 
 **Meta**
 
@@ -76,7 +77,7 @@ Returns **[Promise][52]<[string][53]>** promise with the username
 
 Get the current user's email
 
-Returns **[Promise][52]<[string][53]>** current user email
+Returns **[Promise][53]<[string][54]>** current user email
 
 **Meta**
 
@@ -86,7 +87,7 @@ Returns **[Promise][52]<[string][53]>** current user email
 
 Returns the currently logged in user's regions
 
-Returns **[Promise][52]<[Array][54]<[string][53]>>** List of current user's regions
+Returns **[Promise][53]<[Array][55]<[string][54]>>** List of current user's regions
 
 **Meta**
 
@@ -96,7 +97,13 @@ Returns **[Promise][52]<[Array][54]<[string][53]>>** List of current user's regi
 
 Returns the currently logged in user's access token
 
-Returns **[Promise][52]<[string][53]>** An access token
+#### Examples
+
+```javascript
+Modus.getAccessToken().then((token) => { });
+```
+
+Returns **[Promise][53]<[string][54]>** An access token
 
 **Meta**
 
@@ -109,11 +116,15 @@ Returns the currently logged in user (serialized)
 #### Examples
 
 ```javascript
+Modus.getUser().then((userJSON) => { });
+```
+
+```javascript
 // returns 
 {"id":12345,"email":"okenobi@jedicouncil.crst","first_name":"Obi Won","last_name":"Kenobi"}
 ```
 
-Returns **[Promise][52]<[string][53]>** A serialized user object
+Returns **[Promise][53]<[string][54]>** A serialized user object
 
 **Meta**
 
@@ -127,7 +138,7 @@ Gets a value for a specified key from the native local database
 
 #### Parameters
 
-*   `key` **[string][53]** name of the "key" you want to retrieve the value of
+*   `key` **[string][54]** name of the "key" you want to retrieve the value of
 
 #### Examples
 
@@ -137,7 +148,7 @@ Modus.getItem("test").then((val) => {
   });
 ```
 
-Returns **[Promise][52]<[string][53]>** The value of the key. If key does not exist `null` is returned
+Returns **[Promise][53]<[string][54]>** The value of the key. If key does not exist `null` is returned
 
 **Meta**
 
@@ -149,8 +160,8 @@ Sets a value for a specified key to the native local database
 
 #### Parameters
 
-*   `key` **[string][53]** name of the "key" you want to set the value of
-*   `value` **[string][53]** The value you want to assign to the key
+*   `key` **[string][54]** name of the "key" you want to set the value of
+*   `value` **[string][54]** The value you want to assign to the key
 
 #### Examples
 
@@ -171,9 +182,9 @@ Gets a value for a specified key from the native local database. This value is a
 
 #### Parameters
 
-*   `key` **[string][53]** name of the "key" you want to retrieve the value of
+*   `key` **[string][54]** name of the "key" you want to retrieve the value of
 
-Returns **[Promise][52]<[string][53]>** The value of the key. If key does not exist `null` is returned
+Returns **[Promise][53]<[string][54]>** The value of the key. If key does not exist `null` is returned
 
 **Meta**
 
@@ -185,8 +196,8 @@ Sets a value for a specified key to the native local database. This value is acc
 
 #### Parameters
 
-*   `key` **[string][53]** name of the "key" you want to set the value of
-*   `value` **[string][53]** The value you want to assign to the key
+*   `key` **[string][54]** name of the "key" you want to set the value of
+*   `value` **[string][54]** The value you want to assign to the key
 
 **Meta**
 
@@ -198,10 +209,10 @@ Sets a value for a specified key to the native local database. This value is acc
 
 #### Parameters
 
-*   `to` **[string][53]** reciept email address
-*   `cc` **[string][53]** carbon copy email address
-*   `subject` **[string][53]** subject of the email
-*   `body` **[string][53]** body of the email (plaintext only)
+*   `to` **[string][54]** reciept email address
+*   `cc` **[string][54]** carbon copy email address
+*   `subject` **[string][54]** subject of the email
+*   `body` **[string][54]** body of the email (plaintext only)
 
 #### Examples
 
@@ -211,7 +222,7 @@ Modus.sendEmail("test@gmail.com", "", "Test Subject Line", "Test body").then(() 
 });
 ```
 
-Returns **[Promise][52]** . No data returned.
+Returns **[Promise][53]** . No data returned.
 
 **Meta**
 
@@ -221,10 +232,10 @@ Returns **[Promise][52]** . No data returned.
 
 #### Parameters
 
-*   `to` **[string][53]** reciept email address
-*   `cc` **[string][53]** carbon copy email address
-*   `subject` **[string][53]** subject of the email
-*   `html` **[string][53]** body of the email (HTML)
+*   `to` **[string][54]** reciept email address
+*   `cc` **[string][54]** carbon copy email address
+*   `subject` **[string][54]** subject of the email
+*   `html` **[string][54]** body of the email (HTML)
 
 #### Examples
 
@@ -236,7 +247,7 @@ Modus.sendEmail("test@gmail.com", "", "Test Subject Line", "<h1>Hello World!</h1
   });
 ```
 
-Returns **[Promise][52]** . No data returned.
+Returns **[Promise][53]** . No data returned.
 
 **Meta**
 
@@ -247,12 +258,12 @@ Returns **[Promise][52]** . No data returned.
 #### Parameters
 
 *   `data` &#x20;
-*   `to` **[string][53]** destination email address
-*   `cc` **[string][53]** carbon copy email address
-*   `subject` **[string][53]** subject of the email
-*   `html` **[string][53]** body of the email (plaintext)
-*   `attachmentName` **[string][53]** file name of the attachment (you must include the extension)
-*   `attachmentBase64` **[string][53]** Base 64 representation of the file you would like to attach
+*   `to` **[string][54]** destination email address
+*   `cc` **[string][54]** carbon copy email address
+*   `subject` **[string][54]** subject of the email
+*   `html` **[string][54]** body of the email (plaintext)
+*   `attachmentName` **[string][54]** file name of the attachment (you must include the extension)
+*   `attachmentBase64` **[string][54]** Base 64 representation of the file you would like to attach
 
 #### Examples
 
@@ -264,7 +275,7 @@ Modus.sendEmail("test@gmail.com", "", "Subject Line for HTML", "Check out my att
   });
 ```
 
-Returns **[Promise][52]** . No data returned.
+Returns **[Promise][53]** . No data returned.
 
 **Meta**
 
@@ -282,7 +293,7 @@ Modus.getAgendas().then((agendas) => {
   });
 ```
 
-Returns **[Promise][52]<[Array][54]\<Agenda>>** . returns an array of agendas
+Returns **[Promise][53]<[Array][55]\<Agenda>>** . returns an array of agendas
 
 **Meta**
 
@@ -292,8 +303,8 @@ Returns **[Promise][52]<[Array][54]\<Agenda>>** . returns an array of agendas
 
 #### Parameters
 
-*   `agendaId` **[Object][55]\<agenda>** The id of the agenda to email
-*   `emailAddress` **[Object][55]\<agenda>** destination email address
+*   `agendaId` **[Object][56]\<agenda>** The id of the agenda to email
+*   `emailAddress` **[Object][56]\<agenda>** destination email address
 
 #### Examples
 
@@ -303,7 +314,7 @@ Modus.sendAgenda(12354, "example@gomodus.com").then((agendas) => {
   });
 ```
 
-Returns **[Promise][52]** no data returned
+Returns **[Promise][53]** no data returned
 
 **Meta**
 
@@ -315,7 +326,7 @@ Returns **[Promise][52]** no data returned
 
 Scans a barcode and returns the text encoded in the barcode
 
-Returns **[Promise][52]<[String][53]>** . returns text encoded in barcode
+Returns **[Promise][53]<[String][54]>** . returns text encoded in barcode
 
 **Meta**
 
@@ -329,7 +340,7 @@ Opens a media picker in the app that allows a user to choose Modus media items
 
 #### Parameters
 
-*   `excludeMediaIds` **[Object][55]\<agenda>** Ids of media items you don't want to show in the media picker
+*   `excludeMediaIds` **[Object][56]\<agenda>** Ids of media items you don't want to show in the media picker
 
 #### Examples
 
@@ -339,7 +350,7 @@ Modus.getMediaWithPicker(null).then((mediaIds) => {
   });
 ```
 
-Returns **[Promise][52]<[Array][54]\<Int>>** . returns an array of media ids
+Returns **[Promise][53]<[Array][55]\<Int>>** . returns an array of media ids
 
 **Meta**
 
@@ -354,7 +365,7 @@ Opens a media picker in the app that allows a user to choose Modus assets
 
 #### Parameters
 
-*   `excludeMediaIds` **[Object][55]\<agenda>** ids of media items you don't want to show in the media picker
+*   `excludeMediaIds` **[Object][56]\<agenda>** ids of media items you don't want to show in the media picker
 
 #### Examples
 
@@ -364,7 +375,7 @@ Modus.getAssetsWithPicker(null).then(({mediaIds,vptIds}) => {
   });
 ```
 
-Returns **[Promise][52]<[Object][55]>** . returns an object like this {mediaIds: \[], vptIds: \[]}
+Returns **[Promise][53]<[Object][56]>** . returns an object like this {mediaIds: \[], vptIds: \[]}
 
 **Meta**
 
@@ -376,7 +387,7 @@ Returns **[Promise][52]<[Object][55]>** . returns an object like this {mediaIds:
 
 #### Parameters
 
-*   `mailTo` **[string][53]** a mailTo link to open in native/attached application
+*   `mailTo` **[string][54]** a mailTo link to open in native/attached application
 
 #### Examples
 
@@ -384,7 +395,7 @@ Returns **[Promise][52]<[Object][55]>** . returns an object like this {mediaIds:
 Modus.shareMailTo("mailto:?to=test@helloworld.com&body=Thanks for meeting with me today")
 ```
 
-Returns **[Promise][52]** . No data returned.
+Returns **[Promise][53]** . No data returned.
 
 **Meta**
 
@@ -412,100 +423,102 @@ Modus.closeModal();
 
 [6]: #getaccesstoken
 
-[7]: #getuser
+[7]: #examples-1
 
-[8]: #examples-1
+[8]: #getuser
 
-[9]: #storage
+[9]: #examples-2
 
-[10]: #getitem
+[10]: #storage
 
-[11]: #parameters
+[11]: #getitem
 
-[12]: #examples-2
+[12]: #parameters
 
-[13]: #setitem
+[13]: #examples-3
 
-[14]: #parameters-1
+[14]: #setitem
 
-[15]: #examples-3
+[15]: #parameters-1
 
-[16]: #getglobalitem
+[16]: #examples-4
 
-[17]: #parameters-2
+[17]: #getglobalitem
 
-[18]: #setglobalitem
+[18]: #parameters-2
 
-[19]: #parameters-3
+[19]: #setglobalitem
 
-[20]: #emails
+[20]: #parameters-3
 
-[21]: #sendemail
+[21]: #emails
 
-[22]: #parameters-4
+[22]: #sendemail
 
-[23]: #examples-4
+[23]: #parameters-4
 
-[24]: #sendemailhtml
+[24]: #examples-5
 
-[25]: #parameters-5
+[25]: #sendemailhtml
 
-[26]: #examples-5
+[26]: #parameters-5
 
-[27]: #sendemailwithfileattachmentfrombase64
+[27]: #examples-6
 
-[28]: #parameters-6
+[28]: #sendemailwithfileattachmentfrombase64
 
-[29]: #examples-6
+[29]: #parameters-6
 
-[30]: #agendas
+[30]: #examples-7
 
-[31]: #getagendas
+[31]: #agendas
 
-[32]: #examples-7
+[32]: #getagendas
 
-[33]: #sendagenda
+[33]: #examples-8
 
-[34]: #parameters-7
+[34]: #sendagenda
 
-[35]: #examples-8
+[35]: #parameters-7
 
-[36]: #lead_capture
+[36]: #examples-9
 
-[37]: #scanbarcode
+[37]: #lead_capture
 
-[38]: #media
+[38]: #scanbarcode
 
-[39]: #getmediawithpicker
+[39]: #media
 
-[40]: #parameters-8
+[40]: #getmediawithpicker
 
-[41]: #examples-9
+[41]: #parameters-8
 
-[42]: #assets
+[42]: #examples-10
 
-[43]: #getassetswithpicker
+[43]: #assets
 
-[44]: #parameters-9
+[44]: #getassetswithpicker
 
-[45]: #examples-10
+[45]: #parameters-9
 
-[46]: #other
+[46]: #examples-11
 
-[47]: #sharemailto
+[47]: #other
 
-[48]: #parameters-10
+[48]: #sharemailto
 
-[49]: #examples-11
+[49]: #parameters-10
 
-[50]: #closecontainer
+[50]: #examples-12
 
-[51]: #examples-12
+[51]: #closecontainer
 
-[52]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise
+[52]: #examples-13
 
-[53]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+[53]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise
 
-[54]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+[54]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
 
-[55]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+[55]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+
+[56]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object

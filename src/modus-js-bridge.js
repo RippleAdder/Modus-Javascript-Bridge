@@ -285,6 +285,8 @@ var Modus = (function () {
         /**
          * Returns the currently logged in user's access token
          * @memberof User
+         * @example
+         *  Modus.getAccessToken().then((token) => { });
          * @version  iOS - 5.0.8  | Android - N/A  |  Windows - N/A
          * @returns {Promise<string>} An access token
          */
@@ -294,6 +296,8 @@ var Modus = (function () {
          * Returns the currently logged in user (serialized)
          * @memberof User
          * @version  iOS - 6.5.0 | Android - N/A  |  Windows - N/A
+         * @example
+         *  Modus.getUser().then((userJSON) => { });
          * @example 
          * // returns 
          * {"id":12345,"email":"okenobi@jedicouncil.crst","first_name":"Obi Won","last_name":"Kenobi"}

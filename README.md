@@ -4,9 +4,9 @@ Javascript bridge that provides native functionality to web bundles running with
 
 ## Table of Contents
 
-[Getting Started](#getting-started)
-[Documentation - Modus Bridge API](docs/BRIDGE_DOCUMENTATION.md)
-[Legacy Documentation](docs/LEGACY_DOCUMENATION.md)
+- [Getting Started](#getting-started)
+- [Documentation - Modus Bridge API](docs/BRIDGE_DOCUMENTATION.md)
+- [Legacy Documentation](docs/LEGACY_DOCUMENATION.md)
 
 ## Getting Started
 
