@@ -2,56 +2,57 @@
 
 ### Table of Contents
 
--   [User][1]
-    -   [getCurrentUserName][2]
-        -   [Examples][3]
-    -   [getCurrentUserEmail][4]
-    -   [getCurrentUserRegions][5]
-    -   [getAccessToken][6]
-    -   [getUser][7]
--   [Storage][8]
-    -   [getItem][9]
-        -   [Parameters][10]
-        -   [Examples][11]
-    -   [setItem][12]
-        -   [Parameters][13]
-        -   [Examples][14]
-    -   [getGlobalItem][15]
-        -   [Parameters][16]
-    -   [setGlobalItem][17]
-        -   [Parameters][18]
--   [Emails][19]
-    -   [sendEmail][20]
-        -   [Parameters][21]
-        -   [Examples][22]
-    -   [sendEmailHtml][23]
-        -   [Parameters][24]
-        -   [Examples][25]
-    -   [sendEmailWithFileAttachmentFromBase64][26]
-        -   [Parameters][27]
-        -   [Examples][28]
--   [Agendas][29]
-    -   [getAgendas][30]
-        -   [Examples][31]
-    -   [sendAgenda][32]
-        -   [Parameters][33]
-        -   [Examples][34]
--   [Lead_Capture][35]
-    -   [scanBarcode][36]
--   [Media][37]
-    -   [getMediaWithPicker][38]
-        -   [Parameters][39]
-        -   [Examples][40]
--   [Assets][41]
-    -   [getAssetsWithPicker][42]
-        -   [Parameters][43]
-        -   [Examples][44]
--   [Other][45]
-    -   [shareMailTo][46]
-        -   [Parameters][47]
-        -   [Examples][48]
-    -   [closeContainer][49]
-        -   [Examples][50]
+*   [User][1]
+    *   [getCurrentUserName][2]
+        *   [Examples][3]
+    *   [getCurrentUserEmail][4]
+    *   [getCurrentUserRegions][5]
+    *   [getAccessToken][6]
+    *   [getUser][7]
+        *   [Examples][8]
+*   [Storage][9]
+    *   [getItem][10]
+        *   [Parameters][11]
+        *   [Examples][12]
+    *   [setItem][13]
+        *   [Parameters][14]
+        *   [Examples][15]
+    *   [getGlobalItem][16]
+        *   [Parameters][17]
+    *   [setGlobalItem][18]
+        *   [Parameters][19]
+*   [Emails][20]
+    *   [sendEmail][21]
+        *   [Parameters][22]
+        *   [Examples][23]
+    *   [sendEmailHtml][24]
+        *   [Parameters][25]
+        *   [Examples][26]
+    *   [sendEmailWithFileAttachmentFromBase64][27]
+        *   [Parameters][28]
+        *   [Examples][29]
+*   [Agendas][30]
+    *   [getAgendas][31]
+        *   [Examples][32]
+    *   [sendAgenda][33]
+        *   [Parameters][34]
+        *   [Examples][35]
+*   [Lead\_Capture][36]
+    *   [scanBarcode][37]
+*   [Media][38]
+    *   [getMediaWithPicker][39]
+        *   [Parameters][40]
+        *   [Examples][41]
+*   [Assets][42]
+    *   [getAssetsWithPicker][43]
+        *   [Parameters][44]
+        *   [Examples][45]
+*   [Other][46]
+    *   [shareMailTo][47]
+        *   [Parameters][48]
+        *   [Examples][49]
+    *   [closeContainer][50]
+        *   [Examples][51]
 
 ## User
 
@@ -65,51 +66,58 @@ Get the current user's username
 Modus.getCurrentUserName().then((username) => { });
 ```
 
-Returns **[Promise][51]&lt;[string][52]>** promise with the username
+Returns **[Promise][52]<[string][53]>** promise with the username
 
 **Meta**
 
--   **version**: iOS - 1.7.9  | Android - 2.1.6  |  Windows - 4.3.0.0
+*   **version**: iOS - 1.7.9  | Android - 2.1.6  |  Windows - 4.3.0.0
 
 ### getCurrentUserEmail
 
 Get the current user's email
 
-Returns **[Promise][51]&lt;[string][52]>** current user email
+Returns **[Promise][52]<[string][53]>** current user email
 
 **Meta**
 
--   **version**: iOS - 2.6  | Android - 2.1.6  |  Windows - 5.0.0.0
+*   **version**: iOS - 2.6  | Android - 2.1.6  |  Windows - 5.0.0.0
 
 ### getCurrentUserRegions
 
 Returns the currently logged in user's regions
 
-Returns **[Promise][51]&lt;[Array][53]&lt;[string][52]>>** List of current user's regions
+Returns **[Promise][52]<[Array][54]<[string][53]>>** List of current user's regions
 
 **Meta**
 
--   **version**: iOS - 2.6.3  | Android - 2.1.6  |  Windows - N/A
+*   **version**: iOS - 2.6.3  | Android - 2.1.6  |  Windows - N/A
 
 ### getAccessToken
 
 Returns the currently logged in user's access token
 
-Returns **[Promise][51]&lt;[string][52]>** An access token
+Returns **[Promise][52]<[string][53]>** An access token
 
 **Meta**
 
--   **version**: iOS - 5.0.8  | Android - N/A  |  Windows - N/A
+*   **version**: iOS - 5.0.8  | Android - N/A  |  Windows - N/A
 
 ### getUser
 
-Returns the currently logged in user's access token
+Returns the currently logged in user (serialized)
 
-Returns **[Promise][51]&lt;[Object][54]>** A serialized user object
+#### Examples
+
+```javascript
+// returns 
+{"id":12345,"email":"okenobi@jedicouncil.crst","first_name":"Obi Won","last_name":"Kenobi"}
+```
+
+Returns **[Promise][52]<[string][53]>** A serialized user object
 
 **Meta**
 
--   **version**: iOS - 6.5.0 | Android - N/A  |  Windows - N/A
+*   **version**: iOS - 6.5.0 | Android - N/A  |  Windows - N/A
 
 ## Storage
 
@@ -119,7 +127,7 @@ Gets a value for a specified key from the native local database
 
 #### Parameters
 
--   `key` **[string][52]** name of the "key" you want to retrieve the value of
+*   `key` **[string][53]** name of the "key" you want to retrieve the value of
 
 #### Examples
 
@@ -129,11 +137,11 @@ Modus.getItem("test").then((val) => {
   });
 ```
 
-Returns **[Promise][51]&lt;[string][52]>** The value of the key. If key does not exist `null` is returned
+Returns **[Promise][52]<[string][53]>** The value of the key. If key does not exist `null` is returned
 
 **Meta**
 
--   **version**: iOS - 1.7.0  | Android - N/A  |  Windows - N/A
+*   **version**: iOS - 1.7.0  | Android - N/A  |  Windows - N/A
 
 ### setItem
 
@@ -141,8 +149,8 @@ Sets a value for a specified key to the native local database
 
 #### Parameters
 
--   `key` **[string][52]** name of the "key" you want to set the value of
--   `value` **[string][52]** The value you want to assign to the key
+*   `key` **[string][53]** name of the "key" you want to set the value of
+*   `value` **[string][53]** The value you want to assign to the key
 
 #### Examples
 
@@ -155,7 +163,7 @@ Modus.setItem("test", "Hello World!").then(() =>{
 
 **Meta**
 
--   **version**: iOS - 1.7.0  | Android - N/A  |  Windows - 5.1.0.0
+*   **version**: iOS - 1.7.0  | Android - N/A  |  Windows - 5.1.0.0
 
 ### getGlobalItem
 
@@ -163,13 +171,13 @@ Gets a value for a specified key from the native local database. This value is a
 
 #### Parameters
 
--   `key` **[string][52]** name of the "key" you want to retrieve the value of
+*   `key` **[string][53]** name of the "key" you want to retrieve the value of
 
-Returns **[Promise][51]&lt;[string][52]>** The value of the key. If key does not exist `null` is returned
+Returns **[Promise][52]<[string][53]>** The value of the key. If key does not exist `null` is returned
 
 **Meta**
 
--   **version**: iOS - 1.7.0  | Android - N/A  |  Windows - N/A
+*   **version**: iOS - 1.7.0  | Android - N/A  |  Windows - N/A
 
 ### setGlobalItem
 
@@ -177,12 +185,12 @@ Sets a value for a specified key to the native local database. This value is acc
 
 #### Parameters
 
--   `key` **[string][52]** name of the "key" you want to set the value of
--   `value` **[string][52]** The value you want to assign to the key
+*   `key` **[string][53]** name of the "key" you want to set the value of
+*   `value` **[string][53]** The value you want to assign to the key
 
 **Meta**
 
--   **version**: iOS - 1.7.0  | Android - N/A  |  Windows - 5.1.0.0
+*   **version**: iOS - 1.7.0  | Android - N/A  |  Windows - 5.1.0.0
 
 ## Emails
 
@@ -190,10 +198,10 @@ Sets a value for a specified key to the native local database. This value is acc
 
 #### Parameters
 
--   `to` **[string][52]** reciept email address
--   `cc` **[string][52]** carbon copy email address
--   `subject` **[string][52]** subject of the email
--   `body` **[string][52]** body of the email (plaintext only)
+*   `to` **[string][53]** reciept email address
+*   `cc` **[string][53]** carbon copy email address
+*   `subject` **[string][53]** subject of the email
+*   `body` **[string][53]** body of the email (plaintext only)
 
 #### Examples
 
@@ -203,20 +211,20 @@ Modus.sendEmail("test@gmail.com", "", "Test Subject Line", "Test body").then(() 
 });
 ```
 
-Returns **[Promise][51]** . No data returned.
+Returns **[Promise][52]** . No data returned.
 
 **Meta**
 
--   **version**: iOS - 1.7.0  | Android - 2.1.6+  |  Windows - N/A
+*   **version**: iOS - 1.7.0  | Android - 2.1.6+  |  Windows - N/A
 
 ### sendEmailHtml
 
 #### Parameters
 
--   `to` **[string][52]** reciept email address
--   `cc` **[string][52]** carbon copy email address
--   `subject` **[string][52]** subject of the email
--   `html` **[string][52]** body of the email (HTML)
+*   `to` **[string][53]** reciept email address
+*   `cc` **[string][53]** carbon copy email address
+*   `subject` **[string][53]** subject of the email
+*   `html` **[string][53]** body of the email (HTML)
 
 #### Examples
 
@@ -228,23 +236,23 @@ Modus.sendEmail("test@gmail.com", "", "Test Subject Line", "<h1>Hello World!</h1
   });
 ```
 
-Returns **[Promise][51]** . No data returned.
+Returns **[Promise][52]** . No data returned.
 
 **Meta**
 
--   **version**: iOS - 1.7.0  | Android - 2.1.6+  |  Windows - N/A
+*   **version**: iOS - 1.7.0  | Android - 2.1.6+  |  Windows - N/A
 
 ### sendEmailWithFileAttachmentFromBase64
 
 #### Parameters
 
--   `data`  
--   `to` **[string][52]** destination email address
--   `cc` **[string][52]** carbon copy email address
--   `subject` **[string][52]** subject of the email
--   `html` **[string][52]** body of the email (plaintext)
--   `attachmentName` **[string][52]** file name of the attachment (you must include the extension)
--   `attachmentBase64` **[string][52]** Base 64 representation of the file you would like to attach
+*   `data` &#x20;
+*   `to` **[string][53]** destination email address
+*   `cc` **[string][53]** carbon copy email address
+*   `subject` **[string][53]** subject of the email
+*   `html` **[string][53]** body of the email (plaintext)
+*   `attachmentName` **[string][53]** file name of the attachment (you must include the extension)
+*   `attachmentBase64` **[string][53]** Base 64 representation of the file you would like to attach
 
 #### Examples
 
@@ -256,11 +264,11 @@ Modus.sendEmail("test@gmail.com", "", "Subject Line for HTML", "Check out my att
   });
 ```
 
-Returns **[Promise][51]** . No data returned.
+Returns **[Promise][52]** . No data returned.
 
 **Meta**
 
--   **version**: iOS - 5.0.8+  | Android - 4.3.0+  |  Windows - 5.0.0.0+
+*   **version**: iOS - 5.0.8+  | Android - 4.3.0+  |  Windows - 5.0.0.0+
 
 ## Agendas
 
@@ -274,18 +282,18 @@ Modus.getAgendas().then((agendas) => {
   });
 ```
 
-Returns **[Promise][51]&lt;[Array][53]&lt;Agenda>>** . returns an array of agendas
+Returns **[Promise][52]<[Array][54]\<Agenda>>** . returns an array of agendas
 
 **Meta**
 
--   **version**: iOS - N/A  | Android - N/A  |  Windows - N/A
+*   **version**: iOS - N/A  | Android - N/A  |  Windows - N/A
 
 ### sendAgenda
 
 #### Parameters
 
--   `agendaId` **[Object][54]&lt;agenda>** The id of the agenda to email
--   `emailAddress` **[Object][54]&lt;agenda>** destination email address
+*   `agendaId` **[Object][55]\<agenda>** The id of the agenda to email
+*   `emailAddress` **[Object][55]\<agenda>** destination email address
 
 #### Examples
 
@@ -295,23 +303,23 @@ Modus.sendAgenda(12354, "example@gomodus.com").then((agendas) => {
   });
 ```
 
-Returns **[Promise][51]** no data returned
+Returns **[Promise][52]** no data returned
 
 **Meta**
 
--   **version**: iOS - N/A  | Android - N/A  |  Windows - N/A
+*   **version**: iOS - N/A  | Android - N/A  |  Windows - N/A
 
-## Lead_Capture
+## Lead\_Capture
 
 ### scanBarcode
 
 Scans a barcode and returns the text encoded in the barcode
 
-Returns **[Promise][51]&lt;[String][52]>** . returns text encoded in barcode
+Returns **[Promise][52]<[String][53]>** . returns text encoded in barcode
 
 **Meta**
 
--   **version**: iOS - N/A  | Android - N/A  |  Windows - N/A
+*   **version**: iOS - N/A  | Android - N/A  |  Windows - N/A
 
 ## Media
 
@@ -321,7 +329,7 @@ Opens a media picker in the app that allows a user to choose Modus media items
 
 #### Parameters
 
--   `excludeMediaIds` **[Object][54]&lt;agenda>** Ids of media items you don't want to show in the media picker
+*   `excludeMediaIds` **[Object][55]\<agenda>** Ids of media items you don't want to show in the media picker
 
 #### Examples
 
@@ -331,13 +339,12 @@ Modus.getMediaWithPicker(null).then((mediaIds) => {
   });
 ```
 
-Returns **[Promise][51]&lt;[Array][53]&lt;Int>>** . returns an array of media ids
+Returns **[Promise][52]<[Array][54]\<Int>>** . returns an array of media ids
 
 **Meta**
 
--   **version**: iOS - N/A  | Android - N/A  |  Windows - N/A  | Web - no support
--   **deprecated**: use getAssetsWithPicker instead
-
+*   **version**: iOS - N/A  | Android - N/A  |  Windows - N/A  | Web - no support
+*   **deprecated**: use getAssetsWithPicker instead
 
 ## Assets
 
@@ -347,7 +354,7 @@ Opens a media picker in the app that allows a user to choose Modus assets
 
 #### Parameters
 
--   `excludeMediaIds` **[Object][54]&lt;agenda>** ids of media items you don't want to show in the media picker
+*   `excludeMediaIds` **[Object][55]\<agenda>** ids of media items you don't want to show in the media picker
 
 #### Examples
 
@@ -357,11 +364,11 @@ Modus.getAssetsWithPicker(null).then(({mediaIds,vptIds}) => {
   });
 ```
 
-Returns **[Promise][51]&lt;[Object][54]>** . returns an object like this {mediaIds: \[], vptIds: \[]}
+Returns **[Promise][52]<[Object][55]>** . returns an object like this {mediaIds: \[], vptIds: \[]}
 
 **Meta**
 
--   **version**: iOS - N/A  | Android - N/A  |  Windows - N/A  | Web
+*   **version**: iOS - N/A  | Android - N/A  |  Windows - N/A  | Web
 
 ## Other
 
@@ -369,7 +376,7 @@ Returns **[Promise][51]&lt;[Object][54]>** . returns an object like this {mediaI
 
 #### Parameters
 
--   `mailTo` **[string][52]** a mailTo link to open in native/attached application
+*   `mailTo` **[string][53]** a mailTo link to open in native/attached application
 
 #### Examples
 
@@ -377,11 +384,11 @@ Returns **[Promise][51]&lt;[Object][54]>** . returns an object like this {mediaI
 Modus.shareMailTo("mailto:?to=test@helloworld.com&body=Thanks for meeting with me today")
 ```
 
-Returns **[Promise][51]** . No data returned.
+Returns **[Promise][52]** . No data returned.
 
 **Meta**
 
--   **version**: iOS - N/A  | Android - N/A  |  Windows - N/A
+*   **version**: iOS - N/A  | Android - N/A  |  Windows - N/A
 
 ### closeContainer
 
@@ -407,96 +414,98 @@ Modus.closeModal();
 
 [7]: #getuser
 
-[8]: #storage
+[8]: #examples-1
 
-[9]: #getitem
+[9]: #storage
 
-[10]: #parameters
+[10]: #getitem
 
-[11]: #examples-1
+[11]: #parameters
 
-[12]: #setitem
+[12]: #examples-2
 
-[13]: #parameters-1
+[13]: #setitem
 
-[14]: #examples-2
+[14]: #parameters-1
 
-[15]: #getglobalitem
+[15]: #examples-3
 
-[16]: #parameters-2
+[16]: #getglobalitem
 
-[17]: #setglobalitem
+[17]: #parameters-2
 
-[18]: #parameters-3
+[18]: #setglobalitem
 
-[19]: #emails
+[19]: #parameters-3
 
-[20]: #sendemail
+[20]: #emails
 
-[21]: #parameters-4
+[21]: #sendemail
 
-[22]: #examples-3
+[22]: #parameters-4
 
-[23]: #sendemailhtml
+[23]: #examples-4
 
-[24]: #parameters-5
+[24]: #sendemailhtml
 
-[25]: #examples-4
+[25]: #parameters-5
 
-[26]: #sendemailwithfileattachmentfrombase64
+[26]: #examples-5
 
-[27]: #parameters-6
+[27]: #sendemailwithfileattachmentfrombase64
 
-[28]: #examples-5
+[28]: #parameters-6
 
-[29]: #agendas
+[29]: #examples-6
 
-[30]: #getagendas
+[30]: #agendas
 
-[31]: #examples-6
+[31]: #getagendas
 
-[32]: #sendagenda
+[32]: #examples-7
 
-[33]: #parameters-7
+[33]: #sendagenda
 
-[34]: #examples-7
+[34]: #parameters-7
 
-[35]: #lead_capture
+[35]: #examples-8
 
-[36]: #scanbarcode
+[36]: #lead_capture
 
-[37]: #media
+[37]: #scanbarcode
 
-[38]: #getmediawithpicker
+[38]: #media
 
-[39]: #parameters-8
+[39]: #getmediawithpicker
 
-[40]: #examples-8
+[40]: #parameters-8
 
-[41]: #assets
+[41]: #examples-9
 
-[42]: #getassetswithpicker
+[42]: #assets
 
-[43]: #parameters-9
+[43]: #getassetswithpicker
 
-[44]: #examples-9
+[44]: #parameters-9
 
-[45]: #other
+[45]: #examples-10
 
-[46]: #sharemailto
+[46]: #other
 
-[47]: #parameters-10
+[47]: #sharemailto
 
-[48]: #examples-10
+[48]: #parameters-10
 
-[49]: #closecontainer
+[49]: #examples-11
 
-[50]: #examples-11
+[50]: #closecontainer
 
-[51]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise
+[51]: #examples-12
 
-[52]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+[52]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise
 
-[53]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+[53]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
 
-[54]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+[54]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+
+[55]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object

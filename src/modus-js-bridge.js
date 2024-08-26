@@ -291,10 +291,13 @@ var Modus = (function () {
         getAccessToken: _callNativeFunction.bind(null, "getAccessToken", null),
 
         /**
-         * Returns the currently logged in user's access token
+         * Returns the currently logged in user (serialized)
          * @memberof User
          * @version  iOS - 6.5.0 | Android - N/A  |  Windows - N/A
-         * @returns {Promise<Object>} A serialized user object
+         * @example 
+         * // returns 
+         * {"id":12345,"email":"okenobi@jedicouncil.crst","first_name":"Obi Won","last_name":"Kenobi"}
+         * @returns {Promise<string>} A serialized user object
          */
         getUser: _callNativeFunction.bind(null, "getUser", null),
 
